@@ -7,28 +7,74 @@ datasource db {
   provider = "postgresql"
 }
 
-model FrameNode {
-  id          String       @id @default(cuid())
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  thumbnail   String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  ownerId     String
+  pages       Page[]
+  User        User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@index([ownerId])
+}
+
+model Page {
+  id        String   @id @default(cuid())
+  name      String   @default("Page 1")
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  projectId String
+  nodes     Node[]
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId])
+}
+
+model Node {
+  id          String      @id @default(cuid())
+  parentId    String?
+  pageId      String
   type        NodeType
   x           Float
   y           Float
   width       Float
   height      Float
-  radius      Float
+  radius      Float       @default(0)
   text        String?
-  fill        String
-  stroke      String
-  strokeWidth Float
-  rotation    Float
-  opacity     Float
-  fontSize    Float
-  fontFamily  String
-  zIndex      Int
-  strokeStyle StrokeStyle?
+  fill        String      @default("#ffffff")
+  stroke      String      @default("#000000")
+  strokeWidth Float       @default(1)
+  strokeStyle StrokeStyle @default(solid)
+  rotation    Float       @default(0)
+  opacity     Float       @default(1)
+  fontSize    Float       @default(14)
+  fontFamily  String      @default("Arial")
+  zIndex      Int         @default(0)
   imageUrl    String?
   points      Float[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  page        Page        @relation(fields: [pageId], references: [id], onDelete: Cascade)
+  Node        Node?       @relation("NodeToNode", fields: [parentId], references: [id], onDelete: Cascade)
+  other_Node  Node[]      @relation("NodeToNode")
+
+  @@index([pageId])
+  @@index([parentId])
+}
+
+model User {
+  id        String    @id
+  email     String    @unique
+  name      String?
+  password  String
+  avatar    String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
+  Project   Project[]
 }
 
 enum NodeType {

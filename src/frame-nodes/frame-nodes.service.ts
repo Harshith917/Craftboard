@@ -7,11 +7,11 @@ export class FrameNodesService {
   constructor(private readonly prisma: PrismaService) {}
 
   async getAllFrameNodes() {
-    return this.prisma.frameNode.findMany();
+    return this.prisma.node.findMany();
   }
 
   async createFrameNode(CreateNodeDto: CreateNodeDto) {
-    return this.prisma.frameNode.create({
+    return this.prisma.node.create({
       data: CreateNodeDto,
     });
   }

@@ -9,7 +9,7 @@ import {
   Max,
 } from 'class-validator';
 
-enum NodeType {
+export enum NodeType {
   rect = 'rect',
   circle = 'circle',
   text = 'text',
@@ -19,12 +19,15 @@ enum NodeType {
   image = 'image',
 }
 
-enum StrokeStyle {
+export enum StrokeStyle {
   solid = 'solid',
   dashed = 'dashed',
 }
 
 export class CreateNodeDto {
+  @IsString()
+  pageId!: string; // ← which page this node belongs to
+
   @IsEnum(NodeType)
   type!: NodeType;
 
@@ -41,6 +44,7 @@ export class CreateNodeDto {
   height!: number;
 
   @IsNumber()
+  @Min(0)
   radius!: number;
 
   @IsOptional()
