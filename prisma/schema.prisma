@@ -1,0 +1,47 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model FrameNode {
+  id          String       @id @default(cuid())
+  type        NodeType
+  x           Float
+  y           Float
+  width       Float
+  height      Float
+  radius      Float
+  text        String?
+  fill        String
+  stroke      String
+  strokeWidth Float
+  rotation    Float
+  opacity     Float
+  fontSize    Float
+  fontFamily  String
+  zIndex      Int
+  strokeStyle StrokeStyle?
+  imageUrl    String?
+  points      Float[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+enum NodeType {
+  rect
+  circle
+  text
+  frame
+  star
+  diamond
+  image
+}
+
+enum StrokeStyle {
+  solid
+  dashed
+}
