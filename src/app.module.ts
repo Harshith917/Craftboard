@@ -1,13 +1,14 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { FrameNodesModule } from './frame-nodes/frame-nodes.module';
 import { PrismaModule } from './prisma/prisma.module';
 import { ProjectModule } from './project/project.module';
 import { PageModule } from './page/page.module';
+import { UsersModule } from './users/users.module';
+import { NodesModule } from './nodes/nodes.module';
 
 @Module({
-  imports: [FrameNodesModule, PrismaModule, ProjectModule, PageModule],
+  imports: [PrismaModule, ProjectModule, PageModule, UsersModule, NodesModule],
   controllers: [AppController],
   providers: [AppService],
 })

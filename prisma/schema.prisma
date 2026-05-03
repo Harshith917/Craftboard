@@ -67,14 +67,14 @@ model Node {
 }
 
 model User {
-  id        String    @id
-  email     String    @unique
-  name      String?
-  password  String
-  avatar    String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime
-  Project   Project[]
+  id        String   @id
+  email     String   @unique
+  firstName String?
+  lastName  String?
+  imageUrl  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  projects   Project[]
 }
 
 enum NodeType {
