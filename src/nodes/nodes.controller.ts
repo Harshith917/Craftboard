@@ -2,6 +2,7 @@ import {
   Controller,
   Get,
   Post,
+  Patch,
   Param,
   Body,
   Req,
@@ -27,5 +28,14 @@ export class NodesController {
     @Req() req: any,
   ) {
     return this.nodesService.saveNodes(pageId, body.nodes, req['userId']);
+  }
+
+  @Patch()
+  patchNodes(
+    @Param('pageId') pageId: string,
+    @Body() body: { upserts: any[]; deletes: string[] },
+    @Req() req: any,
+  ) {
+    return this.nodesService.patchNodes(pageId, body, req['userId']);
   }
 }

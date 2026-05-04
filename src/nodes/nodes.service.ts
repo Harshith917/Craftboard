@@ -1,5 +1,11 @@
 import { Injectable, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { Prisma } from 'generated/prisma/client';
+
+interface Delta {
+  upserts: Omit<Prisma.NodeCreateManyInput, 'pageId'>[];
+  deletes: string[];
+}
 
 @Injectable()
 export class NodesService {
@@ -21,16 +27,52 @@ export class NodesService {
     });
   }
 
-  // replaces all nodes on the page with the new set
-  async saveNodes(pageId: string, nodes: any[], userId: string) {
+  async saveNodes(
+    pageId: string,
+    nodes: Prisma.NodeCreateManyInput[],
+    userId: string,
+  ) {
     await this.verifyPageOwnership(pageId, userId);
 
-    const saved = await this.prisma.$transaction([
-      this.prisma.node.deleteMany({ where: { pageId } }),
-      ...nodes.map((node) =>
-        this.prisma.node.create({ data: { ...node, pageId } }),
-      ),
-    ]);
+    await this.prisma.node.deleteMany({ where: { pageId } });
+
+    if (nodes.length > 0) {
+      await this.prisma.node.createMany({
+        data: nodes.map((node) => ({ ...node, pageId })),
+      });
+    }
+
+    return this.prisma.node.findMany({
+      where: { pageId },
+      orderBy: { zIndex: 'asc' },
+    });
+  }
+
+  async patchNodes(pageId: string, delta: Delta, userId: string) {
+    await this.verifyPageOwnership(pageId, userId);
+
+    const { upserts, deletes } = delta;
+    const idsToDelete = [
+      ...deletes,
+      ...upserts
+        .map((n) => n.id)
+        .filter((id): id is string => id !== undefined),
+    ];
+
+    if (idsToDelete.length > 0) {
+      await this.prisma.node.deleteMany({
+        where: { id: { in: idsToDelete }, pageId },
+      });
+    }
+
+    if (upserts.length > 0) {
+      await this.prisma.node.createMany({
+        data: upserts.map((node) => ({
+          ...node,
+          pageId,
+        })) as Prisma.NodeCreateManyInput[],
+      });
+    }
 
     return this.prisma.node.findMany({
       where: { pageId },

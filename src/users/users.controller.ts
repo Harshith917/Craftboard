@@ -14,8 +14,9 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post('sync')
+  @UseGuards(ClerkAuthGuard)
   async syncUser(@Req() req: Request) {
-    const clerkUserId = req['clerkUserId'];
+    const clerkUserId = req['userId'];
 
     // Fetch full user data from Clerk
     const clerkUser = await clerk.users.getUser(clerkUserId);
