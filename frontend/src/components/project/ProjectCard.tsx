@@ -106,17 +106,17 @@ function initials(name: string) {
 
 const ROLE_BADGE: Record<string, string> = {
   owner: "bg-amber-50 text-amber-700 border-amber-200",
-  editor: "bg-blue-50 text-blue-700 border-blue-200",
-  viewer: "bg-gray-100 text-gray-500 border-gray-200",
+  editor: "bg-indigo-50 text-indigo-600 border-indigo-200",
+  viewer: "bg-muted text-muted-foreground border-border",
 };
 
 const THUMBNAIL_GRADIENTS = [
-  "from-blue-100 via-blue-50 to-indigo-100",
-  "from-emerald-100 via-teal-50 to-cyan-100",
-  "from-violet-100 via-purple-50 to-fuchsia-100",
-  "from-amber-100 via-orange-50 to-rose-100",
-  "from-rose-100 via-pink-50 to-purple-100",
-  "from-cyan-100 via-sky-50 to-blue-100",
+  "from-indigo-500 via-violet-500 to-purple-500",
+  "from-teal-500 via-emerald-500 to-cyan-500",
+  "from-fuchsia-500 via-purple-500 to-indigo-500",
+  "from-amber-500 via-orange-500 to-rose-500",
+  "from-rose-500 via-pink-500 to-fuchsia-500",
+  "from-cyan-500 via-sky-500 to-blue-500",
 ];
 
 function thumbnailGradient(id: string) {
@@ -174,27 +174,27 @@ export function ProjectCard({
     <ContextMenu items={menuItems}>
       <div
         onClick={() => onClick?.(project)}
-        className="group relative bg-white border border-gray-100 rounded-xl overflow-hidden hover:border-gray-200 hover:shadow-md transition-all duration-200 cursor-pointer"
+        className="group relative bg-card border border-border rounded-2xl overflow-hidden surface-hover cursor-pointer"
       >
         <div className={`relative h-32 bg-gradient-to-br ${gradient} flex items-center justify-center overflow-hidden`}>
           {project.thumbnail ? (
             <img src={project.thumbnail} alt={project.name} className="w-full h-full object-cover" />
           ) : (
-            <div className="flex flex-col items-center gap-1 opacity-50 group-hover:opacity-70 transition-opacity">
-              <FolderOpen size={28} className="text-white/70" />
-              <span className="text-[10px] font-medium text-white/50 uppercase tracking-wider">
+            <div className="flex flex-col items-center gap-1 opacity-60 group-hover:opacity-90 transition-opacity">
+              <FolderOpen size={28} className="text-white drop-shadow" />
+              <span className="text-[10px] font-semibold text-white/80 uppercase tracking-wider drop-shadow">
                 {project.name.slice(0, 2).toUpperCase() || "PR"}
               </span>
             </div>
           )}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.03] transition-colors" />
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
 
           <button
             onClick={handleStar}
             className={`absolute top-2 left-2 p-1.5 rounded-lg transition-all z-10 ${
               favorite
-                ? "text-amber-400 bg-white/80 hover:bg-white"
-                : "text-gray-400 hover:text-amber-400 bg-white/0 hover:bg-white/80 opacity-0 group-hover:opacity-100"
+                ? "text-amber-400 bg-white/90 hover:bg-white"
+                : "text-white hover:text-amber-300 bg-black/20 hover:bg-white/90 opacity-0 group-hover:opacity-100 backdrop-blur-sm"
             }`}
           >
             <Star size={13} fill={favorite ? "currentColor" : "none"} />
@@ -202,14 +202,14 @@ export function ProjectCard({
 
           <div className="absolute top-2 right-2 flex items-center gap-1">
             {project.isPinned && (
-              <div className="p-1 rounded-lg bg-white/80 text-gray-500">
+              <div className="p-1 rounded-lg bg-white/90 text-slate-500">
                 <Pin size={11} />
               </div>
             )}
             {isOwner && (
               <button
                 onClick={(e) => { e.stopPropagation(); onSettings?.(project); }}
-                className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 bg-white/0 hover:bg-white/80 opacity-0 group-hover:opacity-100 transition-all"
+                className="p-1.5 rounded-lg text-white hover:text-slate-700 bg-black/20 hover:bg-white/90 opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-all"
                 title="Settings"
               >
                 <SettingsIcon size={13} />
@@ -218,7 +218,7 @@ export function ProjectCard({
             <DropdownMenu
               align="end"
               trigger={
-                <div className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 bg-white/0 hover:bg-white/80 opacity-0 group-hover:opacity-100 transition-all">
+                <div className="p-1.5 rounded-lg text-white hover:text-slate-700 bg-black/20 hover:bg-white/90 opacity-0 group-hover:opacity-100 backdrop-blur-sm transition-all">
                   <MoreHorizontal size={14} />
                 </div>
               }
@@ -229,7 +229,7 @@ export function ProjectCard({
 
         <div className="p-4">
           <div className="flex items-start justify-between gap-2 mb-1.5">
-            <h3 className="text-sm font-semibold text-gray-900 truncate leading-tight group-hover:text-blue-600 transition-colors">
+            <h3 className="text-sm font-semibold text-foreground truncate leading-tight group-hover:text-primary transition-colors">
               {project.name}
             </h3>
             {project.myRole && (
@@ -250,7 +250,7 @@ export function ProjectCard({
           <div className="space-y-1.5">
             {owner && (
               <div className="flex items-center gap-1.5">
-                <div className="w-4 h-4 rounded-full bg-gray-200 flex items-center justify-center text-[8px] font-semibold text-gray-500 shrink-0 overflow-hidden">
+                <div className="w-4 h-4 rounded-full bg-muted flex items-center justify-center text-[8px] font-semibold text-muted-foreground shrink-0 overflow-hidden">
                   {owner.imageUrl ? (
                     <img src={owner.imageUrl} alt="" className="w-full h-full object-cover" />
                   ) : (
@@ -274,7 +274,7 @@ export function ProjectCard({
               </span>
             </div>
 
-            <div className="flex items-center justify-between pt-1.5 border-t border-gray-50">
+            <div className="flex items-center justify-between pt-1.5 border-t border-border/60">
               <span className="flex items-center gap-1 text-[11px] text-muted-foreground">
                 {project.visibility === "private" ? (
                   <Lock size={11} />
@@ -293,7 +293,7 @@ export function ProjectCard({
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); onInvite?.(project); }}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-gray-500 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-white bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] hover:opacity-90 rounded-lg transition-opacity cursor-pointer shadow-[0_6px_14px_-6px_rgba(139,92,246,0.55)]"
               >
                 <UserPlus size={12} />
                 Invite
@@ -302,7 +302,7 @@ export function ProjectCard({
                 <button
                   type="button"
                   onClick={(e) => { e.stopPropagation(); onLeave?.(project); }}
-                  className="flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 rounded-lg transition-colors cursor-pointer"
+                  className="flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-rose-500 hover:text-rose-700 bg-rose-50 hover:bg-rose-100 rounded-lg transition-colors cursor-pointer"
                   title="Leave project"
                 >
                   <LogOut size={12} />

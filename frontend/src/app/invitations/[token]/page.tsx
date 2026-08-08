@@ -72,10 +72,10 @@ export default function InvitationPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-app flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 size={24} className="animate-spin text-gray-300" />
-          <p className="text-sm text-gray-400">Loading invitation...</p>
+          <Loader2 size={24} className="animate-spin text-muted-foreground/40" />
+          <p className="text-sm text-muted-foreground">Loading invitation...</p>
         </div>
       </div>
     );
@@ -83,17 +83,17 @@ export default function InvitationPage() {
 
   if (declined) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 max-w-sm w-full text-center">
-          <div className="w-14 h-14 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-4">
-            <X size={24} className="text-gray-400" />
+      <div className="min-h-screen bg-app flex items-center justify-center">
+        <div className="bg-white rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
+          <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+            <X size={24} className="text-muted-foreground" />
           </div>
-          <h1 className="text-lg font-semibold text-gray-900 mb-1">Invitation declined</h1>
-          <p className="text-sm text-gray-400 mb-6">
-            You have declined the invitation to join <span className="font-medium text-gray-700">{invitation?.project?.name}</span>.
+          <h1 className="text-lg font-semibold text-foreground mb-1">Invitation declined</h1>
+          <p className="text-sm text-muted-foreground mb-6">
+            You have declined the invitation to join <span className="font-medium text-foreground">{invitation?.project?.name}</span>.
             The project owner has been notified.
           </p>
-          <Button variant="default" onClick={() => router.push("/")}>
+          <Button variant="default" className="bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90" onClick={() => router.push("/")}>
             Go to Dashboard
           </Button>
         </div>
@@ -103,20 +103,20 @@ export default function InvitationPage() {
 
   if (accepted) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 max-w-sm w-full text-center">
-          <div className="w-14 h-14 rounded-full bg-green-50 flex items-center justify-center mx-auto mb-4">
-            <CheckCircle2 size={24} className="text-green-400" />
+      <div className="min-h-screen bg-app flex items-center justify-center">
+        <div className="bg-white rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
+          <div className="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
+            <CheckCircle2 size={24} className="text-emerald-400" />
           </div>
-          <h1 className="text-lg font-semibold text-gray-900 mb-1">
+          <h1 className="text-lg font-semibold text-foreground mb-1">
             {successProject ? "You're in!" : "Already a member"}
           </h1>
-          <p className="text-sm text-gray-400 mb-6">
+          <p className="text-sm text-muted-foreground mb-6">
             {successProject
               ? `You have joined ${successProject}`
               : "You are already a member of this project."}
           </p>
-          <Button variant="default" onClick={() => router.push("/")}>
+          <Button variant="default" className="bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90" onClick={() => router.push("/")}>
             Go to Dashboard
           </Button>
         </div>
@@ -126,14 +126,14 @@ export default function InvitationPage() {
 
   if (error && !invitation) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 max-w-sm w-full text-center">
-          <div className="w-14 h-14 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4">
-            <XCircle size={24} className="text-red-400" />
+      <div className="min-h-screen bg-app flex items-center justify-center">
+        <div className="bg-white rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
+          <div className="w-14 h-14 rounded-full bg-rose-50 flex items-center justify-center mx-auto mb-4">
+            <XCircle size={24} className="text-rose-400" />
           </div>
-          <h1 className="text-lg font-semibold text-gray-900 mb-1">Invitation invalid</h1>
-          <p className="text-sm text-gray-400 mb-6">{error}</p>
-          <Button variant="default" onClick={() => router.push("/")}>
+          <h1 className="text-lg font-semibold text-foreground mb-1">Invitation invalid</h1>
+          <p className="text-sm text-muted-foreground mb-6">{error}</p>
+          <Button variant="default" className="bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90" onClick={() => router.push("/")}>
             Go to Dashboard
           </Button>
         </div>
@@ -143,16 +143,16 @@ export default function InvitationPage() {
 
   if (!isSignedIn) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 max-w-sm w-full text-center">
-          <div className="w-14 h-14 rounded-full bg-gray-50 flex items-center justify-center mx-auto mb-4">
-            <LogIn size={24} className="text-gray-400" />
+      <div className="min-h-screen bg-app flex items-center justify-center">
+        <div className="bg-white rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
+          <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
+            <LogIn size={24} className="text-muted-foreground" />
           </div>
-          <h1 className="text-lg font-semibold text-gray-900 mb-1">Sign in to accept</h1>
-          <p className="text-sm text-gray-400 mb-6">
+          <h1 className="text-lg font-semibold text-foreground mb-1">Sign in to accept</h1>
+          <p className="text-sm text-muted-foreground mb-6">
             You need to sign in before accepting this invitation.
           </p>
-          <Button variant="default" onClick={() => router.push("/sign-in")}>
+          <Button variant="default" className="bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90" onClick={() => router.push("/sign-in")}>
             Sign in
           </Button>
         </div>
@@ -164,42 +164,42 @@ export default function InvitationPage() {
   const isCancelled = status === "cancelled";
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl border border-gray-100 shadow-sm max-w-md w-full overflow-hidden">
+    <div className="min-h-screen bg-app flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl border border-border shadow-xl max-w-md w-full overflow-hidden">
         {/* Project header */}
-        <div className="relative h-28 bg-gradient-to-br from-gray-900 to-gray-700 flex items-end p-6">
+        <div className="relative h-28 bg-[linear-gradient(120deg,#191332,#2a1f5c,#4c2fa8)] flex items-end p-6">
           <h1 className="text-xl font-bold text-white">{invitation?.project?.name}</h1>
         </div>
 
         <div className="p-6">
           {/* Invited by */}
           <div className="flex items-center gap-3 mb-5">
-            <div className="h-10 w-10 rounded-xl overflow-hidden border border-gray-100 bg-gray-50 flex items-center justify-center shrink-0">
+            <div className="h-10 w-10 rounded-xl overflow-hidden border border-border bg-muted flex items-center justify-center shrink-0">
               {invitation?.invitedBy?.imageUrl ? (
                 <img src={invitation.invitedBy.imageUrl} alt="" className="h-full w-full object-cover" />
               ) : (
-                <User size={18} className="text-gray-400" />
+                <User size={18} className="text-muted-foreground" />
               )}
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-semibold text-gray-900 truncate">
+              <p className="text-sm font-semibold text-foreground truncate">
                 {invitation?.invitedBy
                   ? [invitation.invitedBy.firstName, invitation.invitedBy.lastName].filter(Boolean).join(" ") ||
                     invitation.invitedBy.email
                   : "Someone"}
               </p>
-              <p className="text-xs text-gray-400">invited you to join</p>
+              <p className="text-xs text-muted-foreground">invited you to join</p>
             </div>
           </div>
 
           {/* Project description */}
           {invitation?.project?.description && (
-            <p className="text-sm text-gray-500 mb-4 leading-relaxed">{invitation.project.description}</p>
+            <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{invitation.project.description}</p>
           )}
 
           {/* Project stats */}
           {invitation?.project && "memberCount" in invitation.project && (
-            <div className="flex items-center gap-3 text-xs text-gray-400 mb-4">
+            <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
               <span className="flex items-center gap-1">
                 <Users size={12} />
                 {(invitation.project as any).memberCount || "—"} members
@@ -209,16 +209,16 @@ export default function InvitationPage() {
 
           {/* Message */}
           {invitation?.message && (
-            <div className="bg-gray-50 rounded-xl px-3 py-2.5 mb-4">
-              <p className="text-xs text-gray-500 italic">
+            <div className="bg-muted/60 rounded-xl px-3 py-2.5 mb-4">
+              <p className="text-xs text-muted-foreground italic">
                 &ldquo;{invitation.message}&rdquo;
               </p>
             </div>
           )}
 
           {/* Meta */}
-          <div className="flex items-center gap-2 text-xs text-gray-400 mb-6">
-            <span className="capitalize bg-gray-100 text-gray-600 px-2 py-0.5 rounded-md flex items-center gap-1">
+          <div className="flex items-center gap-2 text-xs text-muted-foreground mb-6">
+            <span className="capitalize bg-primary/5 text-primary px-2 py-0.5 rounded-md flex items-center gap-1">
               <Shield size={10} />
               {invitation?.role}
             </span>
@@ -235,8 +235,8 @@ export default function InvitationPage() {
 
           {/* Terminal error */}
           {error && (
-            <div className="mb-4 px-3 py-2 bg-red-50 border border-red-100 rounded-xl">
-              <p className="text-xs text-red-600">{error}</p>
+            <div className="mb-4 px-3 py-2 bg-rose-50 border border-rose-100 rounded-xl">
+              <p className="text-xs text-rose-600">{error}</p>
             </div>
           )}
 
@@ -247,8 +247,8 @@ export default function InvitationPage() {
             </div>
           )}
           {isCancelled && (
-            <div className="mb-4 px-3 py-2 bg-gray-50 border border-gray-100 rounded-xl">
-              <p className="text-xs text-gray-500">This invitation was cancelled.</p>
+            <div className="mb-4 px-3 py-2 bg-muted border border-border rounded-xl">
+              <p className="text-xs text-muted-foreground">This invitation was cancelled.</p>
             </div>
           )}
 
@@ -265,7 +265,7 @@ export default function InvitationPage() {
             </Button>
             <Button
               variant="default"
-              className="flex-1"
+              className="flex-1 bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90"
               onClick={handleAccept}
               disabled={accepting || declining || !!isExpired || !!isCancelled}
             >

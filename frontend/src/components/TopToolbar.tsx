@@ -31,8 +31,8 @@ type Role = "owner" | "editor" | "viewer";
 
 const ROLE_STYLES: Record<Role, string> = {
   owner: "bg-amber-50  text-amber-700  border-amber-200",
-  editor: "bg-blue-50   text-blue-700   border-blue-200",
-  viewer: "bg-gray-100  text-gray-500   border-gray-200",
+  editor: "bg-indigo-50  text-indigo-600  border-indigo-200",
+  viewer: "bg-muted  text-muted-foreground  border-border",
 };
 
 interface AlignmentHandlers {
@@ -220,17 +220,17 @@ export default function TopToolbar({
   }, [accessRequests]);
 
   return (
-    <div className="absolute top-0 left-0 right-0 bg-white border-b border-gray-200 shadow-sm px-3 z-20 flex items-center justify-between h-14">
+    <div className="absolute top-0 left-0 right-0 bg-white/85 backdrop-blur-xl border-b border-border shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] px-3 z-20 flex items-center justify-between h-14">
       <div className="flex items-center gap-3">
         <button
           onClick={onBack}
-          className="p-2 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+          className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors"
           title="Back"
         >
           <ArrowLeft size={16} />
         </button>
 
-        <h1 className="text-sm font-semibold text-gray-900 max-w-[200px] truncate">{projectName || "Untitled"}</h1>
+        <h1 className="text-sm font-semibold text-foreground max-w-[200px] truncate">{projectName || "Untitled"}</h1>
 
         <span
           className={`text-xs font-medium px-2 py-0.5 rounded-md border capitalize ${ROLE_STYLES[role]}`}
@@ -238,15 +238,15 @@ export default function TopToolbar({
           {role}
         </span>
 
-        <div className="w-px h-5 bg-gray-200 mx-1" />
+        <div className="w-px h-5 bg-border mx-1" />
 
-        <div className="flex items-center gap-1 p-1 bg-gray-100 rounded-lg">
+        <div className="flex items-center gap-1 p-1 bg-muted rounded-xl">
           <button
             onClick={() => setTool("select")}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-all ${
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
               tool === "select"
-                ? "bg-white text-blue-600 shadow-sm"
-                : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                ? "bg-white text-primary shadow-sm"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
             }`}
           >
             <MousePointer size={15} />
@@ -254,10 +254,10 @@ export default function TopToolbar({
           </button>
           <button
             onClick={() => setTool("pan")}
-            className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-all ${
+            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
               tool === "pan"
-                ? "bg-white text-blue-600 shadow-sm"
-                : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                ? "bg-white text-primary shadow-sm"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
             }`}
           >
             <Move size={15} />
@@ -267,62 +267,62 @@ export default function TopToolbar({
 
         {selectedIds.length > 0 && canEdit && (
           <>
-            <div className="w-px h-5 bg-gray-200 mx-1" />
+            <div className="w-px h-5 bg-border mx-1" />
             <div className="flex items-center gap-0.5">
               <button
                 onClick={() => alignment.alignLeft(selectedIds)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                 title="Align left"
               >
                 <AlignStartVertical size={14} />
               </button>
               <button
                 onClick={() => alignment.alignCenterX(selectedIds)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                 title="Align center horizontally"
               >
                 <AlignCenterVertical size={14} />
               </button>
               <button
                 onClick={() => alignment.alignRight(selectedIds)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                 title="Align right"
               >
                 <AlignEndVertical size={14} />
               </button>
-              <div className="w-px h-4 bg-gray-200 mx-0.5" />
+              <div className="w-px h-4 bg-border mx-0.5" />
               <button
                 onClick={() => alignment.alignTop(selectedIds)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                 title="Align top"
               >
                 <AlignStartHorizontal size={14} />
               </button>
               <button
                 onClick={() => alignment.alignCenterY(selectedIds)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                 title="Align center vertically"
               >
                 <AlignCenterHorizontal size={14} />
               </button>
               <button
                 onClick={() => alignment.alignBottom(selectedIds)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                 title="Align bottom"
               >
                 <AlignEndHorizontal size={14} />
               </button>
-              <div className="w-px h-4 bg-gray-200 mx-0.5" />
+              <div className="w-px h-4 bg-border mx-0.5" />
               <button
                 onClick={() => alignment.distributeHorizontally(selectedIds)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                 title="Distribute horizontally"
               >
                 <Columns3 size={14} />
               </button>
               <button
                 onClick={() => alignment.distributeVertically(selectedIds)}
-                className="p-1.5 rounded text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+                className="p-1.5 rounded text-muted-foreground hover:text-primary hover:bg-muted transition-colors"
                 title="Distribute vertically"
               >
                 <Rows3 size={14} />
@@ -337,7 +337,7 @@ export default function TopToolbar({
           <button
             onClick={undo}
             disabled={!canUndo}
-            className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             title="Undo (Ctrl+Z)"
           >
             <RotateCcw size={15} />
@@ -345,7 +345,7 @@ export default function TopToolbar({
           <button
             onClick={redo}
             disabled={!canRedo}
-            className="p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             title="Redo (Ctrl+Shift+Z)"
           >
             <RotateCcw size={15} className="scale-x-[-1]" />
@@ -355,66 +355,66 @@ export default function TopToolbar({
         {/* Members dropdown */}
         {members && members.length > 0 && (
           <>
-            <div className="w-px h-5 bg-gray-200" />
+            <div className="w-px h-5 bg-border" />
             <div className="relative" ref={membersRef}>
               <button
                 onClick={() => setMembersOpen(!membersOpen)}
                 className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-colors relative ${
-                  membersOpen ? "bg-gray-100 text-gray-900" : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                  membersOpen ? "bg-muted text-foreground" : "text-muted-foreground hover:text-foreground hover:bg-muted"
                 }`}
               >
                 <Users size={14} />
                 Members
                 {role === "owner" && accessRequests.length > 0 && (
-                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 text-white text-[8px] font-bold rounded-full flex items-center justify-center">
                     {accessRequests.length}
                   </span>
                 )}
                 <ChevronDown size={12} />
               </button>
               {membersOpen && (
-                <div className="absolute top-full mt-1 right-0 w-80 bg-white border border-gray-100 rounded-xl shadow-lg overflow-hidden z-30">
+                <div className="absolute top-full mt-1 right-0 w-80 bg-popover border border-border rounded-2xl shadow-xl overflow-hidden z-30">
                   <div className="max-h-96 overflow-y-auto py-1">
                     {/* Pending access requests (owner only) */}
                     {role === "owner" && accessRequests.length > 0 && (
                       <>
-                        <div className="px-3 py-2 text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Pending requests</div>
+                        <div className="px-3 py-2 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Pending requests</div>
                         {accessRequests.map((req) => (
                           <div key={req.requestId} className="flex items-start gap-3 px-3 py-2.5">
-                            <div className="w-7 h-7 rounded-full bg-gray-100 overflow-hidden flex items-center justify-center shrink-0 mt-0.5">
+                            <div className="w-7 h-7 rounded-full bg-muted overflow-hidden flex items-center justify-center shrink-0 mt-0.5">
                               {req.userImage ? (
                                 <img src={req.userImage} alt="" className="w-full h-full object-cover" />
                               ) : (
-                                <span className="text-[9px] font-semibold text-gray-500">{req.userName[0]?.toUpperCase()}</span>
+                                <span className="text-[9px] font-semibold text-muted-foreground">{req.userName[0]?.toUpperCase()}</span>
                               )}
                             </div>
                             <div className="min-w-0 flex-1">
-                              <div className="text-xs font-medium text-gray-900 truncate">{req.userName}</div>
-                              <div className="text-[10px] text-gray-400">{req.message ? `"${req.message}"` : "wants to join"}</div>
+                              <div className="text-xs font-medium text-foreground truncate">{req.userName}</div>
+                              <div className="text-[10px] text-muted-foreground">{req.message ? `"${req.message}"` : "wants to join"}</div>
                             </div>
                             <div className="flex gap-1 shrink-0">
                               <button
                                 onClick={() => respondToRequest(req.requestId, false)}
-                                className="px-2 py-1 text-[10px] text-gray-500 border border-gray-200 rounded-md hover:bg-gray-50 transition-colors"
+                                className="px-2 py-1 text-[10px] text-muted-foreground border border-border rounded-md hover:bg-muted transition-colors"
                               >
                                 Deny
                               </button>
                               <button
                                 onClick={() => respondToRequest(req.requestId, true)}
-                                className="px-2 py-1 text-[10px] font-medium text-white bg-gray-900 rounded-md hover:bg-gray-700 transition-colors"
+                                className="px-2 py-1 text-[10px] font-medium text-white bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] rounded-md hover:opacity-90 transition-opacity"
                               >
                                 Approve
                               </button>
                             </div>
                           </div>
                         ))}
-                        <div className="border-t border-gray-100 my-1" />
+                        <div className="border-t border-border my-1" />
                       </>
                     )}
 
                     {/* Members list */}
                     {role === "owner" && accessRequests.length > 0 && (
-                      <div className="px-3 py-2 text-[10px] font-semibold text-gray-400 uppercase tracking-wider">Members</div>
+                      <div className="px-3 py-2 text-[10px] font-semibold text-muted-foreground uppercase tracking-wider">Members</div>
                     )}
                     {members.map((m, idx) => {
                       const initials = [m.firstName, m.lastName].filter(Boolean).map((s) => (s as string)[0]).join("").toUpperCase().slice(0, 2);
@@ -422,16 +422,16 @@ export default function TopToolbar({
                       const isOwner = m.role === "owner";
                       return (
                         <div key={`${m.id}-${idx}`} className="flex items-center gap-3 px-3 py-2.5">
-                          <div className="w-7 h-7 rounded-full bg-gray-100 overflow-hidden flex items-center justify-center shrink-0">
+                          <div className="w-7 h-7 rounded-full bg-muted overflow-hidden flex items-center justify-center shrink-0">
                             {m.imageUrl ? (
                               <img src={m.imageUrl} alt="" className="w-full h-full object-cover" />
                             ) : (
-                              <span className="text-[9px] font-semibold text-gray-500">{initials}</span>
+                              <span className="text-[9px] font-semibold text-muted-foreground">{initials}</span>
                             )}
                           </div>
                           <div className="min-w-0 flex-1">
-                            <div className="text-xs font-medium text-gray-900 truncate">{name}</div>
-                            <div className="text-[10px] text-gray-400 truncate">{m.email}</div>
+                            <div className="text-xs font-medium text-foreground truncate">{name}</div>
+                            <div className="text-[10px] text-muted-foreground truncate">{m.email}</div>
                           </div>
                           {isOwner ? (
                             <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-amber-50 text-amber-700 capitalize shrink-0">Owner</span>
@@ -440,14 +440,14 @@ export default function TopToolbar({
                               <select
                                 value={m.role}
                                 onChange={(e) => onRoleChange?.(m.id, e.target.value)}
-                                className="text-[10px] px-1.5 py-0.5 rounded border border-gray-200 bg-white text-gray-600 focus:outline-none focus:ring-1 focus:ring-gray-400 capitalize shrink-0"
+                                className="text-[10px] px-1.5 py-0.5 rounded border border-border bg-background text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/40 capitalize shrink-0"
                               >
                                 <option value="viewer">Viewer</option>
                                 <option value="editor">Editor</option>
                               </select>
                               <button
                                 onClick={() => onRemoveMember?.(m.id)}
-                                className="p-1 rounded text-gray-300 hover:text-red-500 hover:bg-red-50 transition-colors shrink-0"
+                                className="p-1 rounded text-muted-foreground/40 hover:text-rose-500 hover:bg-rose-50 transition-colors shrink-0"
                                 title="Remove member"
                               >
                                 <X size={12} />
@@ -461,10 +461,10 @@ export default function TopToolbar({
                     {/* Leave project (non-owner) */}
                     {role !== "owner" && onLeaveProject && (
                       <>
-                        <div className="border-t border-gray-100 my-1" />
+                        <div className="border-t border-border my-1" />
                         <button
                           onClick={onLeaveProject}
-                          className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-red-600 hover:bg-red-50 transition-colors"
+                          className="w-full flex items-center gap-2 px-3 py-2.5 text-xs text-rose-600 hover:bg-rose-50 transition-colors"
                         >
                           <LogOut size={13} />
                           Leave project
@@ -478,23 +478,23 @@ export default function TopToolbar({
           </>
         )}
 
-        <div className="w-px h-5 bg-gray-200" />
+        <div className="w-px h-5 bg-border" />
 
         <NotificationBell projectId={projectId} />
 
-        <div className="w-px h-5 bg-gray-200" />
+        <div className="w-px h-5 bg-border" />
 
         <CollaboratorAvatars others={others ?? []} currentUser={currentUser} />
 
-        <div className="w-px h-5 bg-gray-200" />
+        <div className="w-px h-5 bg-border" />
 
         <button
           onClick={onSave}
           disabled={!isLive}
-          className={`flex items-center gap-2 px-3 py-1.5 rounded-md transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
+          className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-colors disabled:opacity-40 disabled:cursor-not-allowed ${
             isLive
-              ? "bg-green-100 text-green-700 hover:bg-green-200"
-              : "bg-gray-100 text-gray-600"
+              ? "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
+              : "bg-muted text-muted-foreground"
           }`}
           title={saveLabel}
         >

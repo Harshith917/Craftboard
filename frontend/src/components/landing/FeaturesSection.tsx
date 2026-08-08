@@ -20,14 +20,14 @@ const FEATURES = [
 
 export default function FeaturesSection() {
   return (
-    <section id="features" className="border-t border-gray-100 bg-gray-50/50 py-20 sm:py-28">
+    <section id="features" className="border-t border-border/60 bg-app py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">Features</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+          <span className="text-xs font-semibold uppercase tracking-widest text-primary">Features</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
             Everything you need to design
           </h2>
-          <p className="mt-3 text-sm text-gray-500">
+          <p className="mt-3 text-sm text-muted-foreground">
             A complete set of tools for creating wireframes, mockups, and layouts with your team.
           </p>
         </div>
@@ -36,13 +36,13 @@ export default function FeaturesSection() {
           {FEATURES.map((feature) => (
             <div
               key={feature.title}
-              className="group rounded-xl border border-gray-100 bg-white p-5 hover:border-gray-200 hover:shadow-sm transition-all duration-200"
+              className="group rounded-2xl border border-border bg-white p-5 hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(109,91,245,0.25)] transition-all duration-200"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-gray-50 group-hover:bg-blue-50 transition-colors mb-3">
-                <feature.icon size={18} className="text-gray-500 group-hover:text-blue-600 transition-colors" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/5 group-hover:bg-[linear-gradient(135deg,#6d5bf5,#a855f7)] group-hover:text-white transition-all duration-200 mb-3">
+                <feature.icon size={18} className="text-primary group-hover:text-white transition-colors" />
               </div>
-              <h3 className="text-sm font-semibold text-gray-900 mb-1">{feature.title}</h3>
-              <p className="text-xs text-gray-400 leading-relaxed">{feature.desc}</p>
+              <h3 className="text-sm font-semibold text-foreground mb-1">{feature.title}</h3>
+              <p className="text-xs text-muted-foreground leading-relaxed">{feature.desc}</p>
             </div>
           ))}
         </div>

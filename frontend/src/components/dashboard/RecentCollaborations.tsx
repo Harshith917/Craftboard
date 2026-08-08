@@ -25,10 +25,12 @@ interface RecentCollaborationsProps {
 
 export function RecentCollaborations({ collaborators }: RecentCollaborationsProps) {
   return (
-    <div className="rounded-xl border border-gray-100 bg-white p-5">
+    <div className="rounded-2xl surface p-5">
       <div className="flex items-center gap-2 mb-4">
-        <Users size={14} className="text-muted-foreground" />
-        <h2 className="text-sm font-semibold text-gray-900">Collaborators</h2>
+        <div className="p-1.5 rounded-lg bg-teal-50 text-teal-600">
+          <Users size={13} className="" />
+        </div>
+        <h2 className="text-sm font-semibold text-foreground">Collaborators</h2>
       </div>
 
       {collaborators.length === 0 ? (
@@ -47,10 +49,10 @@ export function RecentCollaborations({ collaborators }: RecentCollaborationsProp
                 initial={{ opacity: 0, y: 6 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.04, duration: 0.25 }}
-                className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-muted transition-colors"
               >
                 <div
-                  className={`w-7 h-7 rounded-full ${AVATAR_COLORS[colorIndex]} flex items-center justify-center text-white text-[10px] font-semibold shrink-0`}
+                  className={`w-7 h-7 rounded-full ${AVATAR_COLORS[colorIndex]} flex items-center justify-center text-white text-[10px] font-semibold shrink-0 ring-2 ring-white`}
                 >
                   {collab.imageUrl ? (
                     <img src={collab.imageUrl} alt="" className="w-full h-full rounded-full object-cover" />
@@ -59,7 +61,7 @@ export function RecentCollaborations({ collaborators }: RecentCollaborationsProp
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-xs font-medium text-gray-900 truncate">{name}</p>
+                  <p className="text-xs font-medium text-foreground truncate">{name}</p>
                   <p className="text-[11px] text-muted-foreground truncate">{collab.email}</p>
                 </div>
               </motion.div>

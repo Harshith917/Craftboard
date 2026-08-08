@@ -26,28 +26,30 @@ export function RecentPages({ pages }: RecentPagesProps) {
   return (
     <section>
       <div className="flex items-center gap-2 mb-4">
-        <History className="w-4 h-4 text-gray-700" />
-        <h2 className="text-sm font-semibold text-gray-900">Recent Pages</h2>
+        <div className="p-1.5 rounded-lg bg-violet-50 text-violet-600">
+          <History className="w-3.5 h-3.5" />
+        </div>
+        <h2 className="text-sm font-semibold text-foreground">Recent Pages</h2>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
         {pages.map((p) => (
           <button
             key={p.pageId}
             onClick={() => router.push(`/editor/${p.projectId}/page/${p.pageId}`)}
-            className="flex items-center gap-3 p-3 rounded-lg border border-gray-100 hover:border-gray-200 hover:shadow-sm transition-all text-left group"
+            className="flex items-center gap-3 p-3 rounded-xl surface surface-hover text-left group"
           >
-            <div className="w-8 h-8 rounded-md bg-gray-50 flex items-center justify-center shrink-0">
-              <FileText className="w-4 h-4 text-gray-400" />
+            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-50 to-violet-100 flex items-center justify-center shrink-0 ring-1 ring-black/5">
+              <FileText className="w-4 h-4 text-violet-500" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-xs font-medium text-gray-800 truncate group-hover:text-blue-600 transition-colors">
+              <p className="text-xs font-semibold text-foreground truncate group-hover:text-primary transition-colors">
                 {p.pageName}
               </p>
-              <p className="text-[10px] text-gray-400 truncate">
+              <p className="text-[10px] text-muted-foreground truncate">
                 {p.projectName} · {timeAgo(p.visitedAt)}
               </p>
             </div>
-            <ExternalLink className="w-3 h-3 text-gray-300 group-hover:text-gray-500 shrink-0 transition-colors" />
+            <ExternalLink className="w-3 h-3 text-muted-foreground/40 group-hover:text-primary shrink-0 transition-colors" />
           </button>
         ))}
       </div>

@@ -81,13 +81,13 @@ export default function AccessCard({
     : (isIncoming ? item.senderImage : null);
 
   return (
-    <div className="flex items-start gap-4 p-4 bg-white border border-gray-100 rounded-xl hover:border-gray-200 transition-colors">
+    <div className="flex items-start gap-4 p-4 bg-white border border-border rounded-2xl hover:border-primary/20 hover:shadow-[0_6px_24px_-12px_rgba(109,91,245,0.25)] transition-all">
       {/* Avatar */}
-      <div className="w-9 h-9 rounded-full bg-gray-100 overflow-hidden flex items-center justify-center shrink-0 mt-0.5">
+      <div className="w-9 h-9 rounded-full bg-muted overflow-hidden flex items-center justify-center shrink-0 mt-0.5">
         {displayImage ? (
           <img src={displayImage} alt="" className="w-full h-full object-cover" />
         ) : (
-          <span className="text-xs font-semibold text-gray-500">
+          <span className="text-xs font-semibold text-muted-foreground">
             {displayName ? getInitials(displayName, "") : <Mail size={14} />}
           </span>
         )}
@@ -98,13 +98,13 @@ export default function AccessCard({
         <div className="flex items-center gap-2 flex-wrap">
           {/* Type badge */}
           <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded border ${
-            isInvitation ? "bg-purple-50 text-purple-600 border-purple-200" : "bg-blue-50 text-blue-600 border-blue-200"
+            isInvitation ? "bg-purple-50 text-purple-600 border-purple-200" : "bg-indigo-50 text-indigo-600 border-indigo-200"
           }`}>
             {isInvitation ? "Invitation" : "Request"}
           </span>
 
           {/* Title */}
-          <span className="text-sm font-medium text-gray-900 truncate">
+          <span className="text-sm font-medium text-foreground truncate">
             {isIncoming && isInvitation && (
               <>{item.senderName || "Someone"} invited you to <strong>{item.projectName || "a project"}</strong></>
             )}
@@ -127,11 +127,11 @@ export default function AccessCard({
 
         {/* Message */}
         {item.message && (
-          <p className="text-xs text-gray-500 mt-1 italic">&ldquo;{item.message}&rdquo;</p>
+          <p className="text-xs text-muted-foreground mt-1 italic">&ldquo;{item.message}&rdquo;</p>
         )}
 
         {/* Meta row */}
-        <div className="flex items-center gap-3 text-[11px] text-gray-400 mt-1.5">
+        <div className="flex items-center gap-3 text-[11px] text-muted-foreground mt-1.5">
           <span className="flex items-center gap-1">
             <FolderOpen size={11} />
             Role: {item.role}
@@ -155,14 +155,14 @@ export default function AccessCard({
             <>
               <button
                 onClick={() => onAccept?.(item)}
-                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-green-600 bg-green-50 hover:bg-green-100 rounded-lg transition-colors"
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded-xl transition-colors"
               >
                 <CheckCircle size={13} />
                 Accept
               </button>
               <button
                 onClick={() => onDecline?.(item)}
-                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors"
               >
                 <Ban size={13} />
                 Decline
@@ -174,14 +174,14 @@ export default function AccessCard({
             <>
               <button
                 onClick={() => onApprove?.(item)}
-                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-green-600 bg-green-50 hover:bg-green-100 rounded-lg transition-colors"
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-emerald-600 bg-emerald-50 hover:bg-emerald-100 rounded-xl transition-colors"
               >
                 <CheckCircle size={13} />
                 Approve
               </button>
               <button
                 onClick={() => onReject?.(item)}
-                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+                className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors"
               >
                 <Ban size={13} />
                 Reject
@@ -194,22 +194,22 @@ export default function AccessCard({
               {item.token && (
                 <button
                   onClick={copyLink}
-                  className="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+                  className="p-2 text-muted-foreground hover:text-foreground hover:bg-muted rounded-xl transition-colors"
                   title="Copy link"
                 >
-                  {copied ? <Check size={14} className="text-green-500" /> : <Link2 size={14} />}
+                  {copied ? <Check size={14} className="text-emerald-500" /> : <Link2 size={14} />}
                 </button>
               )}
               <button
                 onClick={() => onResend?.(item)}
-                className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                className="p-2 text-muted-foreground hover:text-primary hover:bg-primary/10 rounded-xl transition-colors"
                 title="Resend"
               >
                 <RefreshCw size={14} />
               </button>
               <button
                 onClick={() => onCancel?.(item)}
-                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                className="p-2 text-muted-foreground hover:text-rose-500 hover:bg-rose-50 rounded-xl transition-colors"
                 title="Cancel"
               >
                 <XCircle size={14} />
@@ -220,7 +220,7 @@ export default function AccessCard({
           {!isIncoming && !isInvitation && (
             <button
               onClick={() => onCancel?.(item)}
-              className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-red-600 bg-red-50 hover:bg-red-100 rounded-lg transition-colors"
+              className="flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-xl transition-colors"
             >
               <XCircle size={13} />
               Cancel
@@ -233,7 +233,7 @@ export default function AccessCard({
       {item.projectId && (
         <button
           onClick={() => onProjectClick?.(item.projectId)}
-          className="shrink-0 p-1.5 text-gray-300 hover:text-blue-500 hover:bg-blue-50 rounded-lg transition-colors"
+          className="shrink-0 p-1.5 text-muted-foreground/40 hover:text-primary hover:bg-primary/10 rounded-xl transition-colors"
           title="View project"
         >
           <FolderOpen size={14} />

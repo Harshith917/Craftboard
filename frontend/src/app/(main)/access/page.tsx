@@ -149,14 +149,14 @@ export default function AccessPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-xl font-bold text-gray-900">Access Center</h1>
-          <p className="text-xs text-gray-400 mt-0.5">
+          <h1 className="text-xl font-bold text-foreground tracking-tight">Access Center</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">
             Manage invitations and access requests in one place
           </p>
         </div>
         <button
           onClick={refresh}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-500 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-muted-foreground bg-white border border-border rounded-xl hover:bg-muted hover:text-foreground transition-colors"
         >
           <RefreshCw size={12} />
           Refresh
@@ -164,20 +164,20 @@ export default function AccessPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 mb-4">
+      <div className="flex items-center gap-1 mb-4 bg-muted p-1 rounded-xl w-fit">
         {TABS.map((t) => (
           <button
             key={t.value}
             onClick={() => setTab(t.value as "incoming" | "outgoing" | "history")}
             className={`px-4 py-1.5 text-xs font-medium rounded-lg transition-colors ${
               tab === t.value
-                ? "bg-gray-900 text-white"
-                : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                ? "bg-white text-primary shadow-sm"
+                : "text-muted-foreground hover:text-foreground hover:bg-muted"
             }`}
           >
             {t.label}
             {t.value === "incoming" && badgeCount > 0 && (
-              <span className="ml-1.5 bg-red-500 text-white text-[9px] px-1.5 py-0.5 rounded-full">
+              <span className="ml-1.5 bg-rose-500 text-white text-[9px] px-1.5 py-0.5 rounded-full">
                 {badgeCount}
               </span>
             )}
@@ -188,20 +188,20 @@ export default function AccessPage() {
       {/* Search + Filter */}
       <div className="flex items-center gap-3 mb-6">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder={tab === "history" ? "Search by project, user, or role..." : "Filter by project or user..."}
-            className="w-full pl-9 pr-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+            className="w-full pl-9 pr-3 py-1.5 text-xs border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white"
           />
         </div>
         {tab === "history" && (
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
+            className="text-xs border border-border rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white"
           >
             {STATUS_FILTERS.map((f) => (
               <option key={f.value} value={f.value}>{f.label}</option>
@@ -214,24 +214,26 @@ export default function AccessPage() {
       {loading ? (
         <div className="space-y-3">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-4 p-4 bg-white border border-gray-100 rounded-xl animate-pulse">
-              <div className="w-9 h-9 rounded-full bg-gray-100 shrink-0" />
+            <div key={i} className="flex items-center gap-4 p-4 bg-white border border-border rounded-2xl animate-pulse">
+              <div className="w-9 h-9 rounded-full bg-muted shrink-0" />
               <div className="flex-1 space-y-2">
-                <div className="h-3.5 bg-gray-100 rounded w-1/3" />
-                <div className="h-3 bg-gray-100 rounded w-1/2" />
+                <div className="h-3.5 bg-muted rounded w-1/3" />
+                <div className="h-3 bg-muted rounded w-1/2" />
               </div>
             </div>
           ))}
         </div>
       ) : displayed.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <Inbox size={32} className="text-gray-200 mb-3" />
-          <p className="text-sm font-medium text-gray-500">
+          <div className="w-14 h-14 rounded-2xl bg-muted/60 flex items-center justify-center mb-3">
+            <Inbox size={28} className="text-muted-foreground/50" />
+          </div>
+          <p className="text-sm font-medium text-foreground">
             {tab === "incoming" && "Nothing to review"}
             {tab === "outgoing" && "Nothing sent"}
             {tab === "history" && "No history yet"}
           </p>
-          <p className="text-xs text-gray-400 mt-1 max-w-xs">
+          <p className="text-xs text-muted-foreground mt-1 max-w-xs">
             {tab === "incoming" && "Invitations and access requests will appear here."}
             {tab === "outgoing" && "Invite someone to a project or request access to see it here."}
             {tab === "history" && "Completed invitations and requests will appear here."}

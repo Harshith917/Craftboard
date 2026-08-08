@@ -179,15 +179,15 @@ export default function PagesPage() {
     const p = publicProject;
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="bg-white border border-gray-100 rounded-2xl max-w-md w-full overflow-hidden">
-          <div className="h-32 bg-gradient-to-br from-gray-900 to-gray-700 flex items-end p-6">
+        <div className="bg-white border border-border rounded-2xl max-w-md w-full overflow-hidden shadow-[0_12px_40px_-12px_rgba(0,0,0,0.15)]">
+          <div className="h-32 bg-[linear-gradient(120deg,#191332,#2a1f5c,#4c2fa8)] flex items-end p-6">
             <h1 className="text-xl font-bold text-white">{p.name}</h1>
           </div>
           <div className="p-6">
             {p.description && (
-              <p className="text-sm text-gray-500 mb-4 leading-relaxed">{p.description}</p>
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{p.description}</p>
             )}
-            <div className="flex items-center gap-4 text-xs text-gray-400 mb-6">
+            <div className="flex items-center gap-4 text-xs text-muted-foreground mb-6">
               <span className="flex items-center gap-1">
                 <Users size={12} />
                 {p.memberCount} member{p.memberCount !== 1 ? "s" : ""}
@@ -204,15 +204,15 @@ export default function PagesPage() {
                 <p className="text-xs text-amber-700">Access request pending — waiting for the owner to respond.</p>
               </div>
             ) : p.hasPendingInvitation ? (
-              <div className="px-4 py-3 bg-blue-50 border border-blue-100 rounded-xl flex items-center gap-2">
-                <Send size={14} className="text-blue-600" />
-                <p className="text-xs text-blue-700">You have a pending invitation. Check your invitations.</p>
+              <div className="px-4 py-3 bg-primary/5 border border-primary/15 rounded-xl flex items-center gap-2">
+                <Send size={14} className="text-primary" />
+                <p className="text-xs text-primary">You have a pending invitation. Check your invitations.</p>
               </div>
             ) : (
               <button
                 onClick={handleRequestAccess}
                 disabled={requesting}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-gray-900 text-white text-sm font-medium rounded-xl hover:bg-gray-700 disabled:opacity-50 transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-white text-sm font-medium rounded-xl bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] hover:opacity-90 disabled:opacity-50 shadow-[0_8px_24px_-8px_rgba(109,91,245,0.6)] transition-all"
               >
                 {requesting ? <Loader2 size={14} className="animate-spin" /> : <LogIn size={14} />}
                 {requesting ? "Sending request..." : "Request access to this project"}
@@ -242,14 +242,14 @@ export default function PagesPage() {
       <div className="flex items-center justify-end gap-2 mb-4">
         <button
           onClick={() => setInviteOpen(true)}
-          className="flex items-center gap-2 px-3 py-1.5 text-xs border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 text-xs border border-border rounded-xl hover:bg-muted transition-colors"
         >
           <Users className="w-3.5 h-3.5" />
           Invite
         </button>
         <button
           onClick={() => router.push(`/project/${projectId}/settings`)}
-          className="flex items-center gap-2 px-3 py-1.5 text-xs border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 text-xs border border-border rounded-xl hover:bg-muted transition-colors"
         >
           <Settings className="w-3.5 h-3.5" />
           Project Settings
@@ -271,9 +271,9 @@ export default function PagesPage() {
             <div
               key={p.id}
               onClick={() => router.push(`/editor/${projectId}/page/${p.id}`)}
-              className="group bg-white border border-gray-100 rounded-xl p-4 hover:border-gray-300 hover:-translate-y-0.5 transition-all cursor-pointer"
+              className="group bg-white border border-border rounded-2xl p-4 hover:border-primary/25 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-12px_rgba(109,91,245,0.3)] transition-all cursor-pointer"
             >
-              <div className="w-full aspect-video bg-gray-50 rounded-lg mb-3 flex items-center justify-center text-gray-300 text-sm border border-gray-100">
+              <div className="w-full aspect-video bg-gradient-to-br from-muted via-muted/50 to-primary/5 rounded-xl mb-3 flex items-center justify-center text-muted-foreground text-sm border border-border">
                 {p.order + 1}
               </div>
 
@@ -289,26 +289,26 @@ export default function PagesPage() {
                     className="h-7 text-xs px-2 flex-1"
                     autoFocus
                   />
-                  <button onClick={() => handleRename(p.id)} className="text-green-600 hover:text-green-700 shrink-0">
+                  <button onClick={() => handleRename(p.id)} className="text-emerald-600 hover:text-emerald-700 shrink-0">
                     <Check className="w-3.5 h-3.5" />
                   </button>
-                  <button onClick={() => setEditingId(null)} className="text-gray-400 hover:text-gray-600 shrink-0">
+                  <button onClick={() => setEditingId(null)} className="text-muted-foreground hover:text-foreground shrink-0">
                     <X className="w-3.5 h-3.5" />
                   </button>
                 </div>
               ) : (
                 <div className="flex items-center justify-between gap-2">
-                  <span className="text-sm font-medium text-gray-800 truncate">{p.name}</span>
+                  <span className="text-sm font-medium text-foreground truncate">{p.name}</span>
                   <div className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
                     <button
                       onClick={(e) => { e.stopPropagation(); setEditingId(p.id); setEditingName(p.name); }}
-                      className="text-gray-400 hover:text-gray-700 transition-colors"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
                     >
                       <Pencil className="w-3.5 h-3.5" />
                     </button>
                     <button
                       onClick={(e) => { e.stopPropagation(); handleDelete(p.id); }}
-                      className="text-gray-400 hover:text-red-500 transition-colors"
+                      className="text-muted-foreground hover:text-rose-500 transition-colors"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                     </button>

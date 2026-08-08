@@ -13,9 +13,9 @@ const actions = [
     icon: Plus,
     desc: "Create a new design project",
     href: null,
-    color: "text-blue-600",
-    bg: "bg-blue-50",
-    hoverBg: "hover:bg-blue-50",
+    color: "text-indigo-600",
+    bg: "bg-indigo-50",
+    hoverBg: "hover:bg-indigo-50",
   },
   {
     label: "All Projects",
@@ -31,9 +31,9 @@ const actions = [
     icon: Users,
     desc: "Add collaborators to projects",
     href: null,
-    color: "text-emerald-600",
-    bg: "bg-emerald-50",
-    hoverBg: "hover:bg-emerald-50",
+    color: "text-teal-600",
+    bg: "bg-teal-50",
+    hoverBg: "hover:bg-teal-50",
   },
   {
     label: "Access Center",
@@ -78,8 +78,11 @@ export function QuickActions() {
   };
 
   return (
-    <div className="rounded-xl border border-gray-100 bg-white p-5">
-      <h2 className="text-sm font-semibold text-gray-900 mb-3">Quick Actions</h2>
+    <div className="rounded-2xl surface p-5">
+      <h2 className="text-sm font-semibold text-foreground mb-1">
+        Quick Actions
+      </h2>
+      <p className="text-xs text-muted-foreground mb-3">Jump straight in</p>
       <div className="space-y-1.5">
         {actions.map((action, i) => {
           const Icon = action.icon;
@@ -91,17 +94,18 @@ export function QuickActions() {
               transition={{ delay: i * 0.06, duration: 0.3 }}
               onClick={() => handleAction(action)}
               disabled={creating}
-              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left hover:bg-gray-50 transition-colors disabled:opacity-50 group"
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left hover:bg-muted transition-colors disabled:opacity-50 group"
             >
-              <div className={`p-1.5 rounded-md ${action.bg} ${action.color}`}>
+              <div className={`p-1.5 rounded-lg ${action.bg} ${action.color}`}>
                 <Icon size={14} />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                <p className="text-xs font-semibold text-foreground group-hover:text-primary transition-colors">
                   {action.label}
                 </p>
                 <p className="text-[11px] text-muted-foreground">{action.desc}</p>
               </div>
+              <ArrowRight size={13} className="text-muted-foreground/50 opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0" />
             </motion.button>
           );
         })}

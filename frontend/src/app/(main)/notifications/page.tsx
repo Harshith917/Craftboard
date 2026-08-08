@@ -70,17 +70,17 @@ export default function NotificationsPage() {
         <div>
           <button
             onClick={() => router.back()}
-            className="flex items-center gap-1 text-xs text-gray-400 hover:text-gray-700 mb-2 transition-colors"
+            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground mb-2 transition-colors"
           >
             <ArrowLeft size={13} />
             Back
           </button>
-          <h1 className="text-xl font-bold text-gray-900">Notifications</h1>
-          <p className="text-xs text-gray-400 mt-0.5">{total} total</p>
+          <h1 className="text-xl font-bold text-foreground tracking-tight">Notifications</h1>
+          <p className="text-xs text-muted-foreground mt-0.5">{total} total</p>
         </div>
         <button
           onClick={handleMarkAllRead}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-600 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground bg-muted hover:bg-muted rounded-xl transition-colors"
         >
           <CheckCheck size={13} />
           Mark all read
@@ -88,15 +88,15 @@ export default function NotificationsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 mb-4">
+      <div className="flex items-center gap-1 mb-4 bg-muted p-1 rounded-xl w-fit">
         {TABS.map((t) => (
           <button
             key={t.value}
             onClick={() => setTab(t.value)}
             className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
               tab === t.value
-                ? "bg-gray-900 text-white"
-                : "text-gray-500 hover:text-gray-900 hover:bg-gray-100"
+                ? "bg-white text-primary shadow-sm"
+                : "text-muted-foreground hover:text-foreground"
             }`}
           >
             {t.label}
@@ -107,19 +107,19 @@ export default function NotificationsPage() {
       {/* Search + Type filter */}
       <div className="flex items-center gap-3 mb-6">
         <div className="relative flex-1 max-w-xs">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-muted-foreground" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search notifications..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+            className="w-full pl-9 pr-3 py-1.5 text-xs border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white"
           />
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="text-xs border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
+          className="text-xs border border-border rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white"
         >
           <option value="">All types</option>
           {TYPE_FILTERS.map((t) => (
@@ -132,13 +132,15 @@ export default function NotificationsPage() {
       {loading ? (
         <div className="space-y-2">
           {Array.from({ length: 5 }).map((_, i) => (
-            <div key={i} className="h-20 bg-gray-50 rounded-xl animate-pulse" />
+            <div key={i} className="h-20 bg-muted/60 rounded-2xl animate-pulse" />
           ))}
         </div>
       ) : notifications.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-center">
-          <Inbox size={32} className="text-gray-200 mb-3" />
-          <p className="text-sm text-gray-400">
+          <div className="w-14 h-14 rounded-2xl bg-muted/60 flex items-center justify-center mb-3">
+            <Inbox size={28} className="text-muted-foreground/50" />
+          </div>
+          <p className="text-sm text-muted-foreground">
             {search || typeFilter ? "No matching notifications" : "No notifications yet"}
           </p>
         </div>
@@ -147,8 +149,8 @@ export default function NotificationsPage() {
           {notifications.map((n) => (
             <div
               key={n.id}
-              className={`group flex items-start gap-3 px-4 py-3 rounded-xl hover:bg-gray-50 transition-colors border border-transparent hover:border-gray-100 cursor-pointer ${
-                !n.read ? "bg-blue-50/20 border-blue-100/50" : ""
+              className={`group flex items-start gap-3 px-4 py-3 rounded-2xl hover:bg-muted/60 transition-colors border border-transparent hover:border-border cursor-pointer ${
+                !n.read ? "bg-primary/5 border-primary/15" : ""
               }`}
               onClick={() => {
                 if (!n.read) {
@@ -160,25 +162,25 @@ export default function NotificationsPage() {
               <div className="shrink-0 mt-1">
                 <div
                   className={`w-2.5 h-2.5 rounded-full ${
-                    !n.read ? "bg-blue-500" : "bg-gray-200"
+                    !n.read ? "bg-[linear-gradient(135deg,#6d5bf5,#a855f7)]" : "bg-border"
                   }`}
                 />
               </div>
 
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium text-gray-900">{n.title}</span>
+                  <span className="text-sm font-medium text-foreground">{n.title}</span>
                   {n.type && (
-                    <span className="text-[10px] text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded font-medium">
+                    <span className="text-[10px] text-muted-foreground bg-muted px-1.5 py-0.5 rounded font-medium">
                       {NOTIFICATION_TYPE_LABELS[n.type] || n.type}
                     </span>
                   )}
                 </div>
                 {n.message && (
-                  <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{n.message}</p>
+                  <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">{n.message}</p>
                 )}
                 <div className="flex items-center gap-2 mt-1.5">
-                  <span className="text-[10px] text-gray-400">{timeAgo(n.createdAt)}</span>
+                  <span className="text-[10px] text-muted-foreground">{timeAgo(n.createdAt)}</span>
                 </div>
               </div>
 
@@ -186,7 +188,7 @@ export default function NotificationsPage() {
                 {!n.read && (
                   <button
                     onClick={(e) => { e.stopPropagation(); markAsRead(n.id); }}
-                    className="p-1.5 rounded-lg text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                    className="p-1.5 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors"
                     title="Mark as read"
                   >
                     <CheckCheck size={13} />
@@ -194,7 +196,7 @@ export default function NotificationsPage() {
                 )}
                 <button
                   onClick={(e) => { e.stopPropagation(); handleDelete(n); }}
-                  className="p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+                  className="p-1.5 rounded-lg text-muted-foreground hover:text-rose-500 hover:bg-rose-50 transition-colors"
                   title="Delete"
                 >
                   <Trash2 size={13} />
@@ -211,17 +213,17 @@ export default function NotificationsPage() {
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1.5 text-xs border border-gray-200 rounded-lg disabled:opacity-30 hover:bg-gray-50 transition-colors"
+            className="px-3 py-1.5 text-xs border border-border rounded-xl disabled:opacity-30 hover:bg-muted transition-colors"
           >
             Previous
           </button>
-          <span className="text-xs text-gray-500 px-3">
+          <span className="text-xs text-muted-foreground px-3">
             Page {page} of {pages}
           </span>
           <button
             onClick={() => setPage((p) => Math.min(pages, p + 1))}
             disabled={page === pages}
-            className="px-3 py-1.5 text-xs border border-gray-200 rounded-lg disabled:opacity-30 hover:bg-gray-50 transition-colors"
+            className="px-3 py-1.5 text-xs border border-border rounded-xl disabled:opacity-30 hover:bg-muted transition-colors"
           >
             Next
           </button>

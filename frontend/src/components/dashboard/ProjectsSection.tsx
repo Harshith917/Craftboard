@@ -46,17 +46,17 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
   });
 
   return (
-    <div className="rounded-xl border border-gray-100 bg-white p-6">
+    <div className="rounded-2xl surface p-6">
       <div className="flex items-center justify-between mb-5">
         <div className="flex items-center gap-3">
-          <h2 className="text-sm font-semibold text-gray-900">Projects</h2>
-          <div className="flex items-center gap-1">
+          <h2 className="text-sm font-semibold text-foreground">Projects</h2>
+          <div className="flex items-center gap-1 p-0.5 rounded-lg bg-muted">
             <button
               onClick={() => setShowFavorites(false)}
               className={`px-2.5 py-1 text-xs rounded-md transition-colors ${
                 !showFavorites
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                  ? "bg-white text-primary shadow-sm font-medium"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               All
@@ -65,8 +65,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
               onClick={() => setShowFavorites(true)}
               className={`px-2.5 py-1 text-xs rounded-md transition-colors ${
                 showFavorites
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-500 hover:text-gray-900 hover:bg-gray-50"
+                  ? "bg-white text-primary shadow-sm font-medium"
+                  : "text-muted-foreground hover:text-foreground"
               }`}
             >
               Favorites
@@ -80,15 +80,15 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search projects..."
-            className="pl-8 h-8 text-xs"
+            className="pl-8 h-8 text-xs rounded-lg bg-card"
           />
         </div>
       </div>
 
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-center">
-          <div className="w-10 h-10 rounded-full bg-gray-50 flex items-center justify-center mb-2">
-            <FolderOpen size={18} className="text-gray-300" />
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-50 to-violet-100 flex items-center justify-center mb-3 ring-1 ring-black/5">
+            <FolderOpen size={20} className="text-violet-400" />
           </div>
           <p className="text-sm text-muted-foreground">
             {debouncedSearch

@@ -65,10 +65,12 @@ export function PendingRequests({ requests, onRespond }: PendingRequestsProps) {
 
   if (local.length === 0) {
     return (
-      <div className="rounded-xl border border-gray-100 bg-white p-5">
+      <div className="rounded-2xl surface p-5">
         <div className="flex items-center gap-2 mb-4">
-          <Users size={14} className="text-muted-foreground" />
-          <h2 className="text-sm font-semibold text-gray-900">Pending Requests</h2>
+          <div className="p-1.5 rounded-lg bg-amber-50 text-amber-600">
+            <Users size={13} className="" />
+          </div>
+          <h2 className="text-sm font-semibold text-foreground">Pending Requests</h2>
         </div>
         <div className="py-6 text-center">
           <p className="text-xs text-muted-foreground">No pending requests</p>
@@ -78,13 +80,15 @@ export function PendingRequests({ requests, onRespond }: PendingRequestsProps) {
   }
 
   return (
-    <div className="rounded-xl border border-gray-100 bg-white p-5">
+    <div className="rounded-2xl surface p-5">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Users size={14} className="text-muted-foreground" />
-          <h2 className="text-sm font-semibold text-gray-900">Pending Requests</h2>
+          <div className="p-1.5 rounded-lg bg-amber-50 text-amber-600">
+            <Users size={13} className="" />
+          </div>
+          <h2 className="text-sm font-semibold text-foreground">Pending Requests</h2>
         </div>
-        <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-amber-50 text-amber-700">
+        <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-amber-100 text-amber-700">
           {local.length}
         </span>
       </div>
@@ -98,10 +102,10 @@ export function PendingRequests({ requests, onRespond }: PendingRequestsProps) {
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-gray-50 transition-colors"
+              className="flex items-center gap-3 px-3 py-2.5 rounded-xl hover:bg-muted transition-colors"
             >
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-gray-900 truncate">
+                <p className="text-xs font-semibold text-foreground truncate">
                   {userName(req.user)}
                 </p>
                 <p className="text-[11px] text-muted-foreground truncate">
@@ -113,7 +117,7 @@ export function PendingRequests({ requests, onRespond }: PendingRequestsProps) {
                 <button
                   onClick={() => handleApprove(req.id)}
                   disabled={loading}
-                  className="p-1.5 rounded-md bg-gray-900 text-white hover:bg-gray-700 transition-colors disabled:opacity-50"
+                  className="p-1.5 rounded-md bg-[linear-gradient(135deg,#6d5bf5,#a855f7)] text-white hover:opacity-90 transition-opacity disabled:opacity-50 shadow-[0_6px_14px_-6px_rgba(139,92,246,0.6)]"
                 >
                   {loading ? (
                     <Loader2 size={12} className="animate-spin" />
@@ -124,7 +128,7 @@ export function PendingRequests({ requests, onRespond }: PendingRequestsProps) {
                 <button
                   onClick={() => handleDeny(req.id)}
                   disabled={loading}
-                  className="p-1.5 rounded-md border border-gray-200 text-gray-500 hover:bg-gray-50 transition-colors disabled:opacity-50"
+                  className="p-1.5 rounded-md border border-border text-muted-foreground hover:bg-muted transition-colors disabled:opacity-50"
                 >
                   <X size={12} />
                 </button>

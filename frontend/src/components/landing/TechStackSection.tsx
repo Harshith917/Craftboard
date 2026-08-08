@@ -15,14 +15,14 @@ const TECHNOLOGIES = [
 
 export default function TechStackSection() {
   return (
-    <section className="border-t border-gray-100 bg-white py-20 sm:py-28">
+    <section className="border-t border-border/60 bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">Technology</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+          <span className="text-xs font-semibold uppercase tracking-widest text-primary">Technology</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
             Built on modern foundations
           </h2>
-          <p className="mt-3 text-sm text-gray-500">
+          <p className="mt-3 text-sm text-muted-foreground">
             Every layer of CanvasFlow is powered by battle-tested open-source technologies.
           </p>
         </div>
@@ -31,13 +31,13 @@ export default function TechStackSection() {
           {TECHNOLOGIES.map((tech) => (
             <div
               key={tech.name}
-              className="group rounded-xl border border-gray-100 bg-white p-4 hover:border-gray-200 hover:shadow-sm transition-all duration-200"
+              className="group rounded-2xl border border-border bg-white p-4 hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(109,91,245,0.25)] transition-all duration-200"
             >
               <div className="flex items-center gap-3 mb-2">
                 <div className={`h-2.5 w-2.5 rounded-full shrink-0 ${tech.color}`} />
-                <span className="text-sm font-semibold text-gray-900">{tech.name}</span>
+                <span className="text-sm font-semibold text-foreground">{tech.name}</span>
               </div>
-              <p className="text-xs text-gray-400 leading-relaxed">{tech.desc}</p>
+              <p className="text-xs text-muted-foreground leading-relaxed">{tech.desc}</p>
             </div>
           ))}
         </div>

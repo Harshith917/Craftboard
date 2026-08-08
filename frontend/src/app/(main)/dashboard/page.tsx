@@ -25,11 +25,11 @@ export default function DashboardPage() {
         className="flex items-center justify-between"
       >
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-lg bg-gray-900 text-white">
+          <div className="p-2.5 rounded-xl bg-[linear-gradient(135deg,#6d5bf5,#a855f7)] text-white shadow-[0_8px_20px_-6px_rgba(139,92,246,0.6)]">
             <LayoutDashboard size={16} />
           </div>
           <div>
-            <h1 className="text-lg font-semibold text-gray-900">Dashboard</h1>
+            <h1 className="text-xl font-bold text-foreground tracking-tight">Dashboard</h1>
             <p className="text-sm text-muted-foreground">Overview of your projects and activity</p>
           </div>
         </div>
@@ -37,7 +37,7 @@ export default function DashboardPage() {
         <button
           onClick={refresh}
           disabled={loading}
-          className="flex items-center gap-2 px-3 py-1.5 text-xs font-medium text-gray-600 rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-muted-foreground rounded-lg surface hover:text-primary transition-colors disabled:opacity-50"
         >
           <RefreshCw size={13} className={loading ? "animate-spin" : ""} />
           Refresh

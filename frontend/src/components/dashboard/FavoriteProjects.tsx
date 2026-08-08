@@ -9,10 +9,10 @@ interface FavoriteProjectsProps {
 }
 
 const GRADIENTS = [
-  "from-rose-100 via-pink-50 to-purple-100",
-  "from-amber-100 via-orange-50 to-rose-100",
-  "from-blue-100 via-blue-50 to-indigo-100",
-  "from-emerald-100 via-teal-50 to-cyan-100",
+  "from-rose-500 via-pink-500 to-fuchsia-500",
+  "from-amber-500 via-orange-500 to-rose-500",
+  "from-indigo-500 via-violet-500 to-purple-500",
+  "from-teal-500 via-emerald-500 to-cyan-500",
 ];
 
 function gradient(id: string) {
@@ -27,8 +27,11 @@ export function FavoriteProjects({ projects }: FavoriteProjectsProps) {
   return (
     <section>
       <div className="flex items-center gap-2 mb-4">
-        <Heart className="w-4 h-4 text-rose-500" fill="currentColor" />
-        <h2 className="text-sm font-semibold text-gray-900">Favorites</h2>
+        <div className="p-1.5 rounded-lg bg-rose-50 text-rose-500">
+          <Heart className="w-3.5 h-3.5" fill="currentColor" />
+        </div>
+        <h2 className="text-sm font-semibold text-foreground">Favorites</h2>
+        <span className="text-[11px] text-muted-foreground">· {projects.length}</span>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
         {projects.map((p) => (
@@ -37,13 +40,13 @@ export function FavoriteProjects({ projects }: FavoriteProjectsProps) {
             onClick={() => router.push(`/project/${p.id}/pages`)}
             className="group text-left"
           >
-            <div className={`relative aspect-video rounded-lg bg-gradient-to-br ${gradient(p.id)} flex items-center justify-center mb-1.5 overflow-hidden`}>
-              <span className="text-lg font-bold text-white/70">
+            <div className={`relative aspect-video rounded-xl bg-gradient-to-br ${gradient(p.id)} flex items-center justify-center mb-1.5 overflow-hidden shadow-[0_8px_20px_-8px_rgba(0,0,0,0.35)]`}>
+              <span className="text-lg font-bold text-white drop-shadow">
                 {p.name.slice(0, 2).toUpperCase()}
               </span>
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/[0.04] transition-colors" />
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
             </div>
-            <p className="text-xs font-medium text-gray-800 truncate group-hover:text-blue-600 transition-colors">
+            <p className="text-xs font-medium text-foreground truncate group-hover:text-primary transition-colors">
               {p.name}
             </p>
           </button>

@@ -200,25 +200,25 @@ export default function ProjectsPage() {
       {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-3 mb-6">
         <div className="relative flex-1 min-w-[200px] max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search projects..."
-            className="w-full pl-9 pr-4 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
+            className="w-full pl-9 pr-4 py-2 text-sm border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 bg-white"
           />
         </div>
 
-        <div className="flex items-center border border-gray-200 rounded-lg overflow-hidden">
+        <div className="flex items-center border border-border rounded-xl overflow-hidden bg-white">
           {FILTER_OPTIONS.map((opt) => (
             <button
               key={opt.value}
               onClick={() => setFilter(opt.value)}
               className={`px-3 py-2 text-sm transition-colors ${
                 filter === opt.value
-                  ? "bg-gray-900 text-white"
-                  : "bg-white text-gray-600 hover:bg-gray-50"
+                  ? "bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white"
+                  : "bg-white text-muted-foreground hover:bg-muted"
               }`}
             >
               {opt.label}
@@ -228,7 +228,7 @@ export default function ProjectsPage() {
 
         <button
           onClick={() => setModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] rounded-xl hover:opacity-90 shadow-[0_4px_16px_-6px_rgba(109,91,245,0.6)] transition-all"
         >
           <Plus className="w-4 h-4" />
           New Project
@@ -366,26 +366,26 @@ export default function ProjectsPage() {
       />
 
       {renameTarget && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/20">
-          <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-5 w-80">
-            <h3 className="text-sm font-semibold text-gray-900 mb-3">Rename Project</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
+          <div className="bg-white rounded-2xl shadow-xl border border-border p-5 w-80">
+            <h3 className="text-sm font-semibold text-foreground mb-3">Rename Project</h3>
             <input
               value={renameValue}
               onChange={(e) => setRenameValue(e.target.value)}
               onKeyDown={(e) => e.key === "Enter" && handleRenameSubmit()}
-              className="w-full text-sm px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 mb-3"
+              className="w-full text-sm px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 mb-3"
               autoFocus
             />
             <div className="flex items-center justify-end gap-2">
               <button
                 onClick={() => setRenameTarget(null)}
-                className="px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+                className="px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted rounded-lg transition-colors"
               >
                 Cancel
               </button>
               <button
                 onClick={handleRenameSubmit}
-                className="px-3 py-1.5 text-xs text-white bg-gray-900 hover:bg-gray-700 rounded-lg transition-colors"
+                className="px-3 py-1.5 text-xs text-white bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] hover:opacity-90 rounded-lg transition-opacity"
               >
                 Rename
               </button>

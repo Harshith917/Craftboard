@@ -23,10 +23,10 @@ const NODES: ArchNode[] = [
 ];
 
 const LAYERS_MAP = [
-  { label: "Presentation", items: ["Next.js Frontend", "Konva Canvas"], color: "border-blue-200 bg-blue-50/30" },
-  { label: "Authentication", items: ["Clerk Auth"], color: "border-rose-200 bg-rose-50/30" },
-  { label: "Application", items: ["NestJS API", "Liveblocks", "Socket.IO"], color: "border-gray-200 bg-gray-50/30" },
-  { label: "Data", items: ["Prisma ORM", "PostgreSQL (Neon)"], color: "border-indigo-200 bg-indigo-50/30" },
+  { label: "Presentation", items: ["Next.js Frontend", "Konva Canvas"], color: "border-primary/20 bg-primary/5 text-primary" },
+  { label: "Authentication", items: ["Clerk Auth"], color: "border-rose-200 bg-rose-50/60 text-rose-700" },
+  { label: "Application", items: ["NestJS API", "Liveblocks", "Socket.IO"], color: "border-border bg-muted/50 text-muted-foreground" },
+  { label: "Data", items: ["Prisma ORM", "PostgreSQL (Neon)"], color: "border-indigo-200 bg-indigo-50/60 text-indigo-700" },
 ];
 
 function getNode(name: string): ArchNode {
@@ -35,14 +35,14 @@ function getNode(name: string): ArchNode {
 
 export default function ArchitectureSection() {
   return (
-    <section id="architecture" className="border-t border-gray-100 bg-white py-20 sm:py-28">
+    <section id="architecture" className="border-t border-border/60 bg-white py-20 sm:py-28">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">Architecture</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+          <span className="text-xs font-semibold uppercase tracking-widest text-primary">Architecture</span>
+          <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
             How CanvasFlow works
           </h2>
-          <p className="mt-3 text-sm text-gray-500">
+          <p className="mt-3 text-sm text-muted-foreground">
             A layered architecture designed for real-time, collaborative design.
           </p>
         </div>
@@ -50,13 +50,13 @@ export default function ArchitectureSection() {
         {/* Architecture Diagram */}
         <div className="relative max-w-5xl mx-auto">
           {/* Vertical connecting line */}
-          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-gray-200 -translate-x-1/2 hidden lg:block" />
+          <div className="absolute left-1/2 top-0 bottom-0 w-px bg-border -translate-x-1/2 hidden lg:block" />
 
           {LAYERS_MAP.map((layer, li) => (
             <div key={layer.label} className="relative mb-8 last:mb-0">
               {/* Layer label */}
               <div className="flex items-center justify-center mb-4">
-                <span className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-[11px] font-semibold uppercase tracking-wider ${layer.color} text-gray-600`}>
+                <span className={`inline-flex items-center gap-2 rounded-full border px-3.5 py-1 text-[11px] font-semibold uppercase tracking-wider ${layer.color}`}>
                   {layer.label}
                 </span>
               </div>
@@ -69,23 +69,23 @@ export default function ArchitectureSection() {
                   return (
                     <div
                       key={node.name}
-                      className="group relative w-56 rounded-xl border border-gray-200 bg-white p-4 hover:border-gray-300 hover:shadow-sm transition-all duration-200"
+                      className="group relative w-56 rounded-2xl border border-border bg-white p-4 hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(109,91,245,0.25)] transition-all duration-200"
                     >
                       {/* Badge */}
-                      <span className="absolute -top-2 right-3 rounded-full border border-gray-100 bg-white px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-gray-400">
+                      <span className="absolute -top-2 right-3 rounded-full border border-border bg-white px-2 py-0.5 text-[9px] font-semibold uppercase tracking-wider text-muted-foreground">
                         {node.badge}
                       </span>
 
                       <div className="flex items-center gap-3 mb-2">
-                        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${node.color} text-white`}>
+                        <div className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg ${node.color} text-white shadow-sm`}>
                           <Icon size={15} />
                         </div>
                         <div>
-                          <div className="text-sm font-semibold text-gray-900">{node.short}</div>
-                          <div className="text-[10px] text-gray-400 mt-px">{node.name}</div>
+                          <div className="text-sm font-semibold text-foreground">{node.short}</div>
+                          <div className="text-[10px] text-muted-foreground mt-px">{node.name}</div>
                         </div>
                       </div>
-                      <p className="text-[11px] text-gray-400 leading-relaxed">{node.desc}</p>
+                      <p className="text-[11px] text-muted-foreground leading-relaxed">{node.desc}</p>
                     </div>
                   );
                 })}
@@ -93,8 +93,8 @@ export default function ArchitectureSection() {
 
               {/* Down arrow between layers */}
               {li < LAYERS_MAP.length - 1 && (
-                <div className="flex items-center justify-center h-8 text-gray-300 my-2">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-gray-300">
+                <div className="flex items-center justify-center h-8 text-border my-2">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" className="text-muted-foreground/50">
                     <path d="M8 3v10M8 13l4-4M8 13l-4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </div>
