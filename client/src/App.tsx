@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import MainLayout from "@/layouts/MainLayout";
 import EditorLayout from "@/layouts/EditorLayout";
@@ -17,7 +18,8 @@ import UserProfilePage from "@/pages/UserProfilePage";
 import InvitationsPage from "@/pages/InvitationsPage";
 import RequestsPage from "@/pages/RequestsPage";
 import InvitationTokenPage from "@/pages/InvitationTokenPage";
-import EditorPage from "@/pages/EditorPage";
+
+const EditorPage = lazy(() => import("@/pages/EditorPage"));
 
 export default function App() {
   return (
@@ -44,7 +46,20 @@ export default function App() {
       </Route>
 
       <Route element={<EditorLayout />}>
-        <Route path="/editor/:projectId/page/:pageId" element={<EditorPage />} />
+        <Route
+          path="/editor/:projectId/page/:pageId"
+          element={
+            <Suspense
+              fallback={
+                <div className="flex h-screen items-center justify-center bg-gray-50 text-sm text-gray-400">
+                  Loading editor...
+                </div>
+              }
+            >
+              <EditorPage />
+            </Suspense>
+          }
+        />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />
