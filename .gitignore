@@ -1,6 +1,3 @@
-# runtime second frontend instance (regenerate by copying frontend/)
-frontend2/
-
 # logs
 *.log
 
