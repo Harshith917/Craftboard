@@ -12,7 +12,13 @@ import { Server, Socket } from 'socket.io';
 import { verifyToken } from '@clerk/backend';
 
 @WebSocketGateway({
-  cors: { origin: process.env.FRONTEND_URL, credentials: true },
+  cors: {
+    origin: (process.env.FRONTEND_URLS ?? process.env.FRONTEND_URL ?? '')
+      .split(',')
+      .map((o) => o.trim())
+      .filter(Boolean),
+    credentials: true,
+  },
 })
 export class AppGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer() server!: Server;

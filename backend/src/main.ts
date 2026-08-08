@@ -26,8 +26,18 @@ async function bootstrap() {
 
   app.use(cookieParser());
 
+  const allowedOrigins = (
+    process.env.FRONTEND_URLS ?? process.env.FRONTEND_URL ?? ''
+  )
+    .split(',')
+    .map((o) => o.trim())
+    .filter(Boolean);
+
   app.enableCors({
-    origin: process.env.FRONTEND_URL,
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) callback(null, true);
+      else callback(new Error('Origin not allowed by CORS'));
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization'],

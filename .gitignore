@@ -1,0 +1,9 @@
+# runtime second frontend instance (regenerate by copying frontend/)
+frontend2/
+
+# logs
+*.log
+
+# os
+Thumbs.db
+.DS_Store
