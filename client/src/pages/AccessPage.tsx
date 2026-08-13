@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { Search, RefreshCw, Inbox } from "lucide-react";
 import { useAccess, AccessItem } from "@/hooks/useAccess";
@@ -21,12 +21,21 @@ const STATUS_FILTERS = [
   { value: "expired", label: "Expired" },
 ];
 
-export default function AccessPage() {
+interface AccessViewProps {
+  title: string;
+  subtitle: string;
+  typeFilter?: "access_request" | "invitation";
+}
+
+export default function AccessPage({ title, subtitle, typeFilter }: AccessViewProps) {
   const navigate = useNavigate();
   const [tab, setTab] = useState<"incoming" | "outgoing" | "history">("incoming");
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("");
   const debouncedSearch = useDebounce(search, 300);
+  const initialLoadRef = useRef(false);
+
+  const activeTab = typeFilter ? undefined : tab;
 
   const {
     incoming,
@@ -41,7 +50,13 @@ export default function AccessPage() {
     resendInvitation,
     approveRequest,
     rejectRequest,
-  } = useAccess(tab);
+  } = useAccess(activeTab);
+
+  useEffect(() => {
+    if (!typeFilter || initialLoadRef.current) return;
+    initialLoadRef.current = true;
+    refresh();
+  }, [typeFilter, refresh]);
 
   const handleAccept = async (item: AccessItem) => {
     if (item.token) {
@@ -102,81 +117,136 @@ export default function AccessPage() {
   };
 
   const getItems = () => {
-    let items: AccessItem[];
-    switch (tab) {
-      case "incoming":
-        items = incoming;
-        break;
-      case "outgoing":
-        items = outgoing;
-        break;
-      case "history":
-        items = history;
-        break;
-      default:
-        items = [];
+    type TabSource = "incoming" | "outgoing" | "history";
+    let sources: { item: AccessItem; source: TabSource }[] = [];
+
+    const lists: { list: AccessItem[]; source: TabSource }[] = typeFilter
+      ? [
+          { list: incoming, source: "incoming" },
+          { list: outgoing, source: "outgoing" },
+          { list: history, source: "history" },
+        ]
+      : [
+          {
+            list:
+              tab === "incoming"
+                ? incoming
+                : tab === "outgoing"
+                  ? outgoing
+                  : history,
+            source: tab,
+          },
+        ];
+
+    for (const { list, source } of lists) {
+      for (const item of list) sources.push({ item, source });
+    }
+
+    if (typeFilter) {
+      sources = sources.filter(({ item }) => item.type === typeFilter);
     }
 
     if (debouncedSearch) {
       const q = debouncedSearch.toLowerCase();
-      items = items.filter(
-        (i) =>
-          i.projectName?.toLowerCase().includes(q) ||
-          i.senderName?.toLowerCase().includes(q) ||
-          i.receiverName?.toLowerCase().includes(q) ||
-          i.role?.toLowerCase().includes(q),
+      sources = sources.filter(
+        ({ item }) =>
+          item.projectName?.toLowerCase().includes(q) ||
+          item.senderName?.toLowerCase().includes(q) ||
+          item.receiverName?.toLowerCase().includes(q) ||
+          item.role?.toLowerCase().includes(q),
       );
     }
 
     if (statusFilter) {
-      items = items.filter((i) => i.status === statusFilter);
+      sources = sources.filter(({ item }) => item.status === statusFilter);
     }
 
-    return items;
+    return sources;
   };
 
   const displayed = getItems();
+  const onlyType = (list: AccessItem[]) =>
+    typeFilter ? list.filter((i) => i.type === typeFilter) : list;
+  const counts = {
+    incoming: onlyType(incoming).filter((i) => i.status === "pending").length,
+    outgoing: onlyType(outgoing).filter((i) => i.status === "pending").length,
+    history: onlyType(history).length,
+  };
+
+  const emptyTitle =
+    (typeFilter === "access_request" && "No requests found") ||
+    (typeFilter === "invitation" && "No invitations found") ||
+    (tab === "incoming" && "Nothing to review") ||
+    (tab === "outgoing" && "Nothing sent") ||
+    "No history yet";
+
+  const emptyMessage =
+    (typeFilter === "access_request" && "Access requests from your team will appear here.") ||
+    (typeFilter === "invitation" && "Invitations to your projects will appear here.") ||
+    (tab === "incoming" && "Invitations and access requests will appear here.") ||
+    (tab === "outgoing" && "Invite someone to a project or request access to see it here.") ||
+    "Completed invitations and requests will appear here.";
 
   return (
     <div>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
         <div>
-          <h1 className="text-xl font-bold text-foreground tracking-tight">Access Center</h1>
-          <p className="text-xs text-muted-foreground mt-0.5">
-            Manage invitations and access requests in one place
-          </p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-1.5">Collaboration</p>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">{title}</h1>
+          <p className="text-sm text-muted-foreground mt-1.5">{subtitle}</p>
         </div>
         <button
           onClick={refresh}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-muted-foreground bg-white border border-border rounded-xl hover:bg-muted hover:text-foreground transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-muted-foreground bg-card border border-border rounded-lg hover:bg-muted hover:text-primary transition-colors"
         >
           <RefreshCw size={12} />
           Refresh
         </button>
       </div>
 
-      {/* Tabs */}
-      <div className="flex items-center gap-1 mb-4 bg-muted p-1 rounded-xl w-fit">
-        {TABS.map((t) => (
-          <button
-            key={t.value}
-            onClick={() => setTab(t.value as "incoming" | "outgoing" | "history")}
-            className={`px-4 py-1.5 text-xs font-medium rounded-lg transition-colors ${
-              tab === t.value
-                ? "bg-white text-primary shadow-sm"
-                : "text-muted-foreground hover:text-foreground hover:bg-muted"
-            }`}
-          >
-            {t.label}
-            {t.value === "incoming" && badgeCount > 0 && (
-              <span className="ml-1.5 bg-rose-500 text-white text-[9px] px-1.5 py-0.5 rounded-full">
-                {badgeCount}
-              </span>
-            )}
-          </button>
+      {/* Summary chips */}
+      <div className="flex flex-wrap gap-3 mb-8">
+        {[
+          { label: "Pending incoming", count: counts.incoming },
+          { label: "Pending outgoing", count: counts.outgoing },
+          { label: "History entries", count: counts.history },
+        ].map((s) => (
+          <div key={s.label} className="flex items-center gap-2 px-3 py-1.5 border border-border rounded-full bg-card">
+            <span
+              className={`w-1.5 h-1.5 rounded-full ${
+                s.count > 0 && s.label !== "History entries" ? "bg-primary" : "bg-border"
+              }`}
+            />
+            <span className="text-xs text-muted-foreground">{s.label}</span>
+            <span className="text-xs font-semibold text-foreground">{s.count}</span>
+          </div>
         ))}
       </div>
+
+      {/* Tabs */}
+      {!typeFilter && (
+        <div className="flex items-center gap-5 mb-6 border-b border-border">
+          {TABS.map((t) => (
+            <button
+              key={t.value}
+              onClick={() => setTab(t.value as "incoming" | "outgoing" | "history")}
+              className={`py-2.5 text-sm transition-colors border-b-2 flex items-center gap-1.5 ${
+                tab === t.value
+                  ? "text-foreground font-semibold border-primary"
+                  : "text-muted-foreground border-transparent hover:text-foreground"
+              }`}
+            >
+              {t.label}
+              {t.value === "incoming" && badgeCount > 0 && (
+                <span className="bg-primary text-white text-[9px] px-1.5 py-0.5 rounded-full">
+                  {badgeCount}
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      )}
 
       {/* Search + Filter */}
       <div className="flex items-center gap-3 mb-6">
@@ -186,15 +256,15 @@ export default function AccessPage() {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder={tab === "history" ? "Search by project, user, or role..." : "Filter by project or user..."}
-            className="w-full pl-9 pr-3 py-1.5 text-xs border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white"
+            placeholder={typeFilter || tab === "history" ? "Search by project, user, or role..." : "Filter by project or user..."}
+            className="w-full pl-9 pr-3 py-1.5 text-xs border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/40 bg-card"
           />
         </div>
-        {tab === "history" && (
+        {(typeFilter || tab === "history") && (
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="text-xs border border-border rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white"
+            className="text-xs border border-border rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary/40 bg-card"
           >
             {STATUS_FILTERS.map((f) => (
               <option key={f.value} value={f.value}>{f.label}</option>
@@ -207,7 +277,7 @@ export default function AccessPage() {
       {loading ? (
         <div className="space-y-3">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="flex items-center gap-4 p-4 bg-white border border-border rounded-2xl animate-pulse">
+            <div key={i} className="flex items-center gap-4 p-4 bg-card border border-border rounded-2xl animate-pulse">
               <div className="w-9 h-9 rounded-full bg-muted shrink-0" />
               <div className="flex-1 space-y-2">
                 <div className="h-3.5 bg-muted rounded w-1/3" />
@@ -221,24 +291,16 @@ export default function AccessPage() {
           <div className="w-14 h-14 rounded-2xl bg-muted/60 flex items-center justify-center mb-3">
             <Inbox size={28} className="text-muted-foreground/50" />
           </div>
-          <p className="text-sm font-medium text-foreground">
-            {tab === "incoming" && "Nothing to review"}
-            {tab === "outgoing" && "Nothing sent"}
-            {tab === "history" && "No history yet"}
-          </p>
-          <p className="text-xs text-muted-foreground mt-1 max-w-xs">
-            {tab === "incoming" && "Invitations and access requests will appear here."}
-            {tab === "outgoing" && "Invite someone to a project or request access to see it here."}
-            {tab === "history" && "Completed invitations and requests will appear here."}
-          </p>
+          <p className="text-sm font-medium text-foreground">{emptyTitle}</p>
+          <p className="text-xs text-muted-foreground mt-1 max-w-xs">{emptyMessage}</p>
         </div>
       ) : (
         <div className="space-y-2">
-          {displayed.map((item) => (
+          {displayed.map(({ item, source }) => (
             <AccessCard
               key={`${item.type}-${item.id}`}
               item={item}
-              actions={tab as "incoming" | "outgoing" | "history"}
+              actions={source}
               onAccept={handleAccept}
               onDecline={handleDecline}
               onCancel={handleCancel}

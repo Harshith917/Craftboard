@@ -80,7 +80,7 @@ export default function AccessCard({
     : (isIncoming ? item.senderImage : null);
 
   return (
-    <div className="flex items-start gap-4 p-4 bg-white border border-border rounded-2xl hover:border-primary/20 hover:shadow-[0_6px_24px_-12px_rgba(109,91,245,0.25)] transition-all">
+    <div className="flex items-start gap-4 p-4 bg-card border border-border rounded-2xl hover:border-primary/20 hover:shadow-[0_6px_24px_-12px_rgba(14,165,233,0.25)] transition-all">
       {/* Avatar */}
       <div className="w-9 h-9 rounded-full bg-muted overflow-hidden flex items-center justify-center shrink-0 mt-0.5">
         {displayImage ? (
@@ -97,7 +97,7 @@ export default function AccessCard({
         <div className="flex items-center gap-2 flex-wrap">
           {/* Type badge */}
           <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded border ${
-            isInvitation ? "bg-purple-50 text-purple-600 border-purple-200" : "bg-indigo-50 text-indigo-600 border-indigo-200"
+            isInvitation ? "bg-sky-50 text-sky-700 border-sky-200" : "bg-slate-100 text-slate-700 border-slate-200"
           }`}>
             {isInvitation ? "Invitation" : "Request"}
           </span>

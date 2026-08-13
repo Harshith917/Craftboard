@@ -1,20 +1,16 @@
-import { Navigate } from "react-router-dom";
-import { useAuth } from "@clerk/clerk-react";
 import NavBar from "@/components/landing/NavBar";
 import HeroSection from "@/components/landing/HeroSection";
 import TechStackSection from "@/components/landing/TechStackSection";
 import FeaturesSection from "@/components/landing/FeaturesSection";
 import WorkflowSection from "@/components/landing/WorkflowSection";
 import ArchitectureSection from "@/components/landing/ArchitectureSection";
-import HighlightsSection from "@/components/landing/HighlightsSection";
+import EngineeringSection from "@/components/landing/EngineeringSection";
 import ShowcaseSection from "@/components/landing/ShowcaseSection";
 import Footer from "@/components/landing/Footer";
 
 export default function LandingPage() {
-  const { isSignedIn } = useAuth();
-  if (isSignedIn) return <Navigate to="/sync" replace />;
   return (
-    <div className="min-h-screen bg-app">
+    <div className="min-h-screen bg-background">
       <NavBar />
       <main>
         <HeroSection />
@@ -22,7 +18,7 @@ export default function LandingPage() {
         <FeaturesSection />
         <WorkflowSection />
         <ArchitectureSection />
-        <HighlightsSection />
+        <EngineeringSection />
         <ShowcaseSection />
       </main>
       <Footer />

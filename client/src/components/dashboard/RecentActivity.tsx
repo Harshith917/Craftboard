@@ -1,6 +1,6 @@
 
 import { motion } from "motion/react";
-import { Clock, ArrowRight } from "lucide-react";
+import { Clock } from "lucide-react";
 import type { DashboardActivity } from "@/hooks/useDashboard";
 
 function timeAgo(date: string) {
@@ -21,12 +21,15 @@ interface RecentActivityProps {
 
 export function RecentActivity({ activities }: RecentActivityProps) {
   return (
-    <div className="rounded-2xl surface p-5">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="p-1.5 rounded-lg bg-blue-50 text-blue-600">
-          <Clock size={13} className="" />
+    <div className="rounded-2xl border border-border bg-card p-5">
+      <div className="flex items-center gap-2.5 mb-4">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-300">
+          <Clock size={15} />
         </div>
-        <h2 className="text-sm font-semibold text-foreground">Recent Activity</h2>
+        <div>
+          <h2 className="text-sm font-semibold text-foreground leading-none">Recent Activity</h2>
+          <p className="text-[11px] text-muted-foreground mt-0.5">Latest updates</p>
+        </div>
       </div>
 
       {activities.length === 0 ? (
@@ -43,7 +46,7 @@ export function RecentActivity({ activities }: RecentActivityProps) {
               transition={{ delay: i * 0.04, duration: 0.3 }}
               className="group flex items-center gap-3 px-2 py-2 rounded-lg hover:bg-muted transition-colors cursor-pointer"
             >
-              <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 shrink-0" />
+              <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-r from-sky-400 to-cyan-400 shrink-0" />
 
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-medium text-foreground truncate group-hover:text-primary transition-colors">
@@ -51,7 +54,7 @@ export function RecentActivity({ activities }: RecentActivityProps) {
                 </p>
                 <p className="text-[11px] text-muted-foreground mt-0.5 flex items-center gap-1">
                   <span>{activity.userName}</span>
-                  <span>Â·</span>
+                  <span>·</span>
                   <span>{timeAgo(activity.timestamp)}</span>
                 </p>
               </div>

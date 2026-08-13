@@ -1,5 +1,11 @@
-import { Navigate } from "react-router-dom";
+import AccessPage from "@/pages/AccessPage";
 
 export default function RequestsPage() {
-  return <Navigate to="/access" replace />;
+  return (
+    <AccessPage
+      title="Requests"
+      subtitle="Review and manage access requests from your team"
+      typeFilter="access_request"
+    />
+  );
 }

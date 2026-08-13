@@ -1,6 +1,5 @@
-
 import { useNavigate } from "react-router-dom";
-import { History, ExternalLink, FileText } from "lucide-react";
+import { ArrowUpRight, FileText } from "lucide-react";
 import type { RecentPage } from "@/hooks/useDashboard";
 
 function timeAgo(date: string) {
@@ -15,40 +14,62 @@ function timeAgo(date: string) {
   return new Date(date).toLocaleDateString("en-US", { month: "short", day: "numeric" });
 }
 
+const GRADIENTS = [
+  "from-sky-500 via-sky-400 to-cyan-400",
+  "from-slate-800 via-slate-700 to-slate-600",
+  "from-sky-600 via-sky-500 to-cyan-500",
+  "from-cyan-500 via-sky-400 to-sky-300",
+];
+
+function gradient(id: string) {
+  let hash = 0;
+  for (let i = 0; i < id.length; i++) hash = (hash * 31 + id.charCodeAt(i)) | 0;
+  return GRADIENTS[Math.abs(hash) % GRADIENTS.length];
+}
+
 interface RecentPagesProps {
   pages: RecentPage[];
 }
 
 export function RecentPages({ pages }: RecentPagesProps) {
   const navigate = useNavigate();
+  const visible = pages.slice(0, 6);
 
   return (
-    <section>
-      <div className="flex items-center gap-2 mb-4">
-        <div className="p-1.5 rounded-lg bg-violet-50 text-violet-600">
-          <History className="w-3.5 h-3.5" />
+    <section className="overflow-hidden rounded-2xl border border-border bg-card">
+      <div className="flex flex-wrap items-center justify-between gap-3 p-5 pb-4">
+        <div>
+          <h2 className="text-sm font-semibold text-foreground">Continue where you left off</h2>
+          <p className="mt-0.5 text-[11px] text-muted-foreground">Jump back into your most recent work</p>
         </div>
-        <h2 className="text-sm font-semibold text-foreground">Recent Pages</h2>
+        <span className="text-[11px] font-medium px-2 py-1 rounded-md bg-muted text-muted-foreground">
+          {visible.length} recent page{visible.length !== 1 ? "s" : ""}
+        </span>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-        {pages.map((p) => (
+
+      <div className="grid grid-cols-1 gap-3 p-5 pt-0 sm:grid-cols-2">
+        {visible.map((p) => (
           <button
             key={p.pageId}
             onClick={() => navigate(`/editor/${p.projectId}/page/${p.pageId}`)}
-            className="flex items-center gap-3 p-3 rounded-xl surface surface-hover text-left group"
+            className="group flex items-center gap-4 rounded-xl border border-border bg-app p-4 text-left transition-all hover:border-sky-300 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_-14px_rgba(14,165,233,0.4)] dark:hover:border-sky-500/40"
           >
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-indigo-50 to-violet-100 flex items-center justify-center shrink-0 ring-1 ring-black/5">
-              <FileText className="w-4 h-4 text-violet-500" />
+            <div
+              className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${gradient(p.projectId)} text-white shadow-[0_8px_20px_-10px_rgba(0,0,0,0.5)]`}
+            >
+              <FileText size={20} className="drop-shadow" />
             </div>
             <div className="min-w-0 flex-1">
-              <p className="text-xs font-semibold text-foreground truncate group-hover:text-primary transition-colors">
+              <p className="truncate text-sm font-semibold text-foreground transition-colors group-hover:text-primary">
                 {p.pageName}
               </p>
-              <p className="text-[10px] text-muted-foreground truncate">
-                {p.projectName} Â· {timeAgo(p.visitedAt)}
+              <p className="mt-0.5 truncate text-xs text-muted-foreground">
+                {p.projectName} · {timeAgo(p.visitedAt)}
               </p>
             </div>
-            <ExternalLink className="w-3 h-3 text-muted-foreground/40 group-hover:text-primary shrink-0 transition-colors" />
+            <span className="shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100">
+              <ArrowUpRight size={16} />
+            </span>
           </button>
         ))}
       </div>

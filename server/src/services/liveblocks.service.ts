@@ -11,7 +11,7 @@ export class LiveblocksService {
       secret: process.env.LIVEBLOCKS_SECRET_KEY!,
     });
     this.webhookHandler = new WebhookHandler(
-      process.env.LIVEBLOCKS_WEBHOOK_SECRET!,
+      process.env.LIVEBLOCKS_WEBHOOK_SECRET ?? 'dev-local-insecure-secret',
     );
   }
 
@@ -32,6 +32,19 @@ export class LiveblocksService {
   extractPageId(roomId: string): string | null {
     const match = roomId.match(/^page-(.+)$/);
     return match ? match[1] : null;
+  }
+
+  /**
+   * Fetches the full storage document for a room and extracts the `nodes`
+   * LiveMap. Returns null when the room has no initialized storage yet, so
+   * callers can safely skip persisting. Throws on Liveblocks API errors.
+   */
+  async getStorageNodes(roomId: string): Promise<any[] | null> {
+    const doc: any = await this.liveblocks.getStorageDocument(roomId, 'json');
+    if (!doc || typeof doc !== 'object' || !('nodes' in doc)) return null;
+    const nodes = doc.nodes;
+    if (!nodes || typeof nodes !== 'object') return null;
+    return Object.values(nodes);
   }
 
   async authorizeUser(userId: string, roomId: string) {

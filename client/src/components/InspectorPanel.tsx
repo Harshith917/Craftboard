@@ -655,7 +655,7 @@ export default function InspectorPanel({
         {!canEdit && (
           <div className="flex items-center gap-1.5 px-2 py-2 text-[11px] text-gray-400 bg-gray-50 rounded-lg">
             <Eye size={12} />
-            View-only â€” no editing available
+            View-only — no editing available
           </div>
         )}
       </Section>

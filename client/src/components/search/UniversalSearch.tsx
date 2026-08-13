@@ -117,16 +117,14 @@ function getInitials(firstName?: string | null, lastName?: string | null): strin
 
 function getGradient(name: string): string {
   const colors = [
-    "from-blue-400 to-blue-500",
-    "from-purple-400 to-purple-500",
-    "from-emerald-400 to-emerald-500",
-    "from-amber-400 to-amber-500",
-    "from-rose-400 to-rose-500",
+    "from-sky-400 to-sky-500",
+    "from-slate-400 to-slate-500",
     "from-cyan-400 to-cyan-500",
-    "from-violet-400 to-violet-500",
-    "from-pink-400 to-pink-500",
-    "from-teal-400 to-teal-500",
-    "from-orange-400 to-orange-500",
+    "from-sky-500 to-cyan-500",
+    "from-slate-500 to-slate-600",
+    "from-cyan-500 to-sky-500",
+    "from-sky-400 to-cyan-400",
+    "from-slate-400 to-sky-400",
   ];
   let hash = 0;
   for (let i = 0; i < name.length; i++) {
@@ -200,7 +198,7 @@ function ProjectResult({
             </span>
             {ownerName}
           </span>
-          <span className="text-[11px] text-gray-300">Â·</span>
+          <span className="text-[11px] text-gray-300">·</span>
           <span className="text-[11px] text-gray-400 flex items-center gap-1">
             <Users size={10} />
             {project.memberCount}

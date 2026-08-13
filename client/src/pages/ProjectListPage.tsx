@@ -5,9 +5,6 @@ import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
 import { Search, Plus } from "lucide-react";
 import {
-  Pagination,
-  PaginationContent,
-  PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
@@ -195,28 +192,36 @@ export default function ProjectsPage() {
 
   return (
     <div>
-      {/* Toolbar */}
-      <div className="flex flex-wrap items-center gap-3 mb-6">
-        <div className="relative flex-1 min-w-[200px] max-w-sm">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search projects..."
-            className="w-full pl-9 pr-4 py-2 text-sm border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 bg-white"
-          />
+      {/* Header */}
+      <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-1.5">Workspace</p>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">Projects</h1>
+          <p className="text-sm text-muted-foreground mt-1.5">
+            {meta ? `${meta.total} project${meta.total !== 1 ? "s" : ""} in your workspace` : "Create and manage your design projects"}
+          </p>
         </div>
 
-        <div className="flex items-center border border-border rounded-xl overflow-hidden bg-white">
+        <button
+          onClick={() => setModalOpen(true)}
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary/90 shadow-[0_8px_20px_-8px_rgba(14,165,233,0.6)] transition-all"
+        >
+          <Plus className="w-4 h-4" />
+          New Project
+        </button>
+      </div>
+
+      {/* Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 mb-8 border-b border-border">
+        <div className="flex items-center gap-5">
           {FILTER_OPTIONS.map((opt) => (
             <button
               key={opt.value}
               onClick={() => setFilter(opt.value)}
-              className={`px-3 py-2 text-sm transition-colors ${
+              className={`py-2.5 text-sm transition-colors border-b-2 ${
                 filter === opt.value
-                  ? "bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white"
-                  : "bg-white text-muted-foreground hover:bg-muted"
+                  ? "text-foreground font-semibold border-primary"
+                  : "text-muted-foreground border-transparent hover:text-foreground"
               }`}
             >
               {opt.label}
@@ -224,13 +229,16 @@ export default function ProjectsPage() {
           ))}
         </div>
 
-        <button
-          onClick={() => setModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] rounded-xl hover:opacity-90 shadow-[0_4px_16px_-6px_rgba(109,91,245,0.6)] transition-all"
-        >
-          <Plus className="w-4 h-4" />
-          New Project
-        </button>
+        <div className="relative w-64 mb-3">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Search projects..."
+            className="w-full pl-9 pr-4 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary/40 bg-card"
+          />
+        </div>
       </div>
 
       {/* Grid */}
@@ -273,19 +281,15 @@ export default function ProjectsPage() {
           </div>
 
           {meta && meta.totalPages > 1 && (
-            <Pagination className="mt-8">
-              <PaginationContent>
-                <PaginationItem>
-                  <PaginationPrevious
-                    onClick={() => setPage((p) => Math.max(1, p - 1))}
-                    className={
-                      page === 1
-                        ? "pointer-events-none opacity-50"
-                        : "cursor-pointer"
-                    }
-                  />
-                </PaginationItem>
-
+            <div className="flex items-center justify-between mt-8 px-4 py-3 border border-border rounded-xl bg-card">
+              <p className="text-xs text-muted-foreground">
+                Page {page} of {meta.totalPages} · {meta.total} project{meta.total !== 1 ? "s" : ""}
+              </p>
+              <div className="flex items-center gap-1">
+                <PaginationPrevious
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                />
                 {Array.from({ length: meta.totalPages }, (_, i) => i + 1)
                   .filter(
                     (p) =>
@@ -298,35 +302,24 @@ export default function ProjectsPage() {
                     return (
                       <span key={p} className="flex items-center">
                         {prev && p - prev > 1 && (
-                          <PaginationItem>
-                            <PaginationEllipsis />
-                          </PaginationItem>
+                          <PaginationEllipsis />
                         )}
-                        <PaginationItem>
-                          <PaginationLink
-                            isActive={p === page}
-                            onClick={() => setPage(p)}
-                            className="cursor-pointer"
-                          >
-                            {p}
-                          </PaginationLink>
-                        </PaginationItem>
+                        <PaginationLink
+                          isActive={p === page}
+                          onClick={() => setPage(p)}
+                          className="cursor-pointer"
+                        >
+                          {p}
+                        </PaginationLink>
                       </span>
                     );
                   })}
-
-                <PaginationItem>
-                  <PaginationNext
-                    onClick={() => setPage((p) => Math.min(meta.totalPages, p + 1))}
-                    className={
-                      page === meta.totalPages
-                        ? "pointer-events-none opacity-50"
-                        : "cursor-pointer"
-                    }
-                  />
-                </PaginationItem>
-              </PaginationContent>
-            </Pagination>
+                <PaginationNext
+                  onClick={() => setPage((p) => Math.min(meta.totalPages, p + 1))}
+                  className={page === meta.totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                />
+              </div>
+            </div>
           )}
         </>
       )}
@@ -365,7 +358,7 @@ export default function ProjectsPage() {
 
       {renameTarget && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm">
-          <div className="bg-white rounded-2xl shadow-xl border border-border p-5 w-80">
+          <div className="bg-card rounded-2xl shadow-xl border border-border p-5 w-80">
             <h3 className="text-sm font-semibold text-foreground mb-3">Rename Project</h3>
             <input
               value={renameValue}
@@ -383,7 +376,7 @@ export default function ProjectsPage() {
               </button>
               <button
                 onClick={handleRenameSubmit}
-                className="px-3 py-1.5 text-xs text-white bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] hover:opacity-90 rounded-lg transition-opacity"
+                className="px-3 py-1.5 text-xs text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors"
               >
                 Rename
               </button>

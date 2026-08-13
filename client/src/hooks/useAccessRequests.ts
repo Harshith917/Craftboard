@@ -83,7 +83,7 @@ export function useAccessRequests() {
         toast.success(`Approved access for ${userName}`);
       } catch {
         setRequests(prev);
-        setError("Failed to approve â€” please try again");
+        setError("Failed to approve — please try again");
         toast.error("Failed to approve access request");
       } finally {
         setActionLoading(null);
@@ -104,7 +104,7 @@ export function useAccessRequests() {
         toast.success(`Denied access for ${userName}`);
       } catch {
         setRequests(prev);
-        setError("Failed to deny â€” please try again");
+        setError("Failed to deny — please try again");
         toast.error("Failed to deny access request");
       } finally {
         setActionLoading(null);

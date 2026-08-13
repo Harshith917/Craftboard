@@ -1,43 +1,67 @@
-import { PlusCircle, Send, Users, ShieldCheck, Pen, Share2, ChevronDown } from "lucide-react";
+import { FolderPlus, UserPlus, Users, ShieldCheck, PenTool, Share2 } from "lucide-react";
 
 const STEPS = [
-  { icon: PlusCircle, label: "Create Project", desc: "Start a new design project with a name and description." },
-  { icon: Send, label: "Invite Team", desc: "Send invitations by email. Teammates join instantly." },
-  { icon: Users, label: "Collaborate Live", desc: "Edit the same canvas together. See changes in real time." },
-  { icon: ShieldCheck, label: "Manage Access", desc: "Assign roles â€” owner, editor, or viewer â€” per member." },
-  { icon: Pen, label: "Design Together", desc: "Use the full shape library, inspector, and alignment tools." },
-  { icon: Share2, label: "Export & Share", desc: "Share canvases with view-only links and embeddable views." },
+  {
+    icon: FolderPlus,
+    title: "Create Project",
+    desc: "Start a new design project with a name and description.",
+  },
+  {
+    icon: UserPlus,
+    title: "Invite Team",
+    desc: "Send invitations by email. Teammates join instantly.",
+  },
+  {
+    icon: Users,
+    title: "Collaborate Live",
+    desc: "Edit the same canvas together. See changes in real time.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Manage Access",
+    desc: "Assign roles — owner, editor, or viewer — per member.",
+  },
+  {
+    icon: PenTool,
+    title: "Design Together",
+    desc: "Use the full shape library, inspector, and alignment tools.",
+  },
+  {
+    icon: Share2,
+    title: "Export & Share",
+    desc: "Share canvases with view-only links and embeddable views.",
+  },
 ];
 
 export default function WorkflowSection() {
   return (
-    <section className="border-t border-border/60 bg-white py-20 sm:py-28">
+    <section className="border-t border-border/60 bg-app py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-semibold uppercase tracking-widest text-primary">Workflow</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            From idea to design in minutes
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+          <div className="max-w-xl">
+            <span className="text-xs font-semibold uppercase tracking-widest text-sky-500">Workflow</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+              From idea to design in minutes
+            </h2>
+          </div>
+          <p className="text-sm text-muted-foreground max-w-sm md:text-right">
             A simple, linear workflow that keeps your team moving.
           </p>
         </div>
 
-        <div className="max-w-3xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {STEPS.map((step, i) => (
-            <div key={step.label} className="flex gap-6 group">
-              <div className="flex flex-col items-center">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border bg-white group-hover:border-primary/30 group-hover:bg-[linear-gradient(135deg,rgba(109,91,245,0.1),rgba(168,85,247,0.1))] transition-colors">
-                  <step.icon size={17} className="text-muted-foreground group-hover:text-primary transition-colors" />
+            <div key={step.title} className="relative rounded-2xl border border-border bg-background p-5 surface-hover">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-300">
+                  <step.icon size={16} />
                 </div>
-                {i < STEPS.length - 1 && (
-                  <div className="h-10 w-px bg-border my-2" />
-                )}
+                <span className="text-[10px] font-bold uppercase tracking-widest text-muted-foreground">
+                  Step {i + 1}
+                </span>
               </div>
-              <div className="pb-6">
-                <h3 className="text-sm font-semibold text-foreground">{step.label}</h3>
-                <p className="text-xs text-muted-foreground mt-0.5">{step.desc}</p>
-              </div>
+              <div className="text-sm font-semibold text-foreground">{step.title}</div>
+              <p className="mt-1.5 text-xs text-muted-foreground leading-relaxed">{step.desc}</p>
             </div>
           ))}
         </div>

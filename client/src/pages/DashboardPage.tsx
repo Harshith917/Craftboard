@@ -1,52 +1,71 @@
 import { motion } from "motion/react";
-import { LayoutDashboard, RefreshCw } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
+import { Plus, RefreshCw } from "lucide-react";
 import { useDashboard } from "@/hooks/useDashboard";
 import { DashboardSkeleton } from "@/components/dashboard/DashboardSkeleton";
-import { OverviewCards } from "@/components/dashboard/OverviewCards";
-import { QuickActions } from "@/components/dashboard/QuickActions";
 import { ProjectsSection } from "@/components/dashboard/ProjectsSection";
-import { RecentActivity } from "@/components/dashboard/RecentActivity";
-import { PendingRequests } from "@/components/dashboard/PendingRequests";
-import { RecentCollaborations } from "@/components/dashboard/RecentCollaborations";
-import { PinnedProjects } from "@/components/dashboard/PinnedProjects";
-import { FavoriteProjects } from "@/components/dashboard/FavoriteProjects";
 import { RecentPages } from "@/components/dashboard/RecentPages";
+import { PinnedProjects } from "@/components/dashboard/PinnedProjects";
+import { PendingRequests } from "@/components/dashboard/PendingRequests";
+import { QuickActions } from "@/components/dashboard/QuickActions";
+import { SidebarStats } from "@/components/dashboard/SidebarStats";
 
 export default function DashboardPage() {
+  const navigate = useNavigate();
+  const { user } = useUser();
   const { data, loading, error, refresh } = useDashboard();
 
-  return (
-    <div className="space-y-8">
-      <motion.div
-        initial={{ opacity: 0, y: -8 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="flex items-center justify-between"
-      >
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-[linear-gradient(135deg,#6d5bf5,#a855f7)] text-white shadow-[0_8px_20px_-6px_rgba(139,92,246,0.6)]">
-            <LayoutDashboard size={16} />
-          </div>
-          <div>
-            <h1 className="text-xl font-bold text-foreground tracking-tight">Dashboard</h1>
-            <p className="text-sm text-muted-foreground">Overview of your projects and activity</p>
-          </div>
-        </div>
+  const firstName = user?.firstName || user?.username || "";
+  const hour = new Date().getHours();
+  const greeting =
+    hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  const today = new Date().toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+  const pendingCount = data?.stats.pendingRequests ?? 0;
 
-        <button
-          onClick={refresh}
-          disabled={loading}
-          className="flex items-center gap-2 px-3.5 py-2 text-xs font-medium text-muted-foreground rounded-lg surface hover:text-primary transition-colors disabled:opacity-50"
-        >
-          <RefreshCw size={13} className={loading ? "animate-spin" : ""} />
-          Refresh
-        </button>
-      </motion.div>
+  return (
+    <div>
+      {/* Header */}
+      <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-500">
+            {today}
+          </p>
+          <h1 className="mt-1.5 text-3xl font-bold tracking-tight text-foreground">
+            {firstName ? `${greeting}, ${firstName}` : greeting}
+          </h1>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            Here&apos;s what&apos;s happening across your workspace.
+          </p>
+        </div>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={refresh}
+            disabled={loading}
+            className="inline-flex h-9 items-center gap-2 rounded-lg border border-border bg-card px-3.5 text-xs font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors disabled:opacity-50"
+          >
+            <RefreshCw size={13} className={loading ? "animate-spin" : ""} />
+            Refresh
+          </button>
+          <button
+            onClick={() => navigate("/project")}
+            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[linear-gradient(110deg,#0ea5e9,#38bdf8)] px-3.5 text-xs font-medium text-white hover:opacity-90 shadow-[0_6px_18px_-8px_rgba(14,165,233,0.7)] transition-opacity"
+          >
+            <Plus size={14} />
+            New project
+          </button>
+        </div>
+      </div>
 
       {error && (
         <motion.div
           initial={{ opacity: 0, y: -4 }}
           animate={{ opacity: 1, y: 0 }}
-          className="px-4 py-3 bg-red-50 border border-red-100 rounded-xl text-sm text-red-600"
+          className="mb-8 rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm text-red-600 dark:border-red-500/20 dark:bg-red-500/10 dark:text-red-400"
         >
           {error}
         </motion.div>
@@ -55,34 +74,25 @@ export default function DashboardPage() {
       {loading ? (
         <DashboardSkeleton />
       ) : data ? (
-        <>
-          <OverviewCards stats={data.stats} />
-
-          {data.pinnedProjects?.length > 0 && (
-            <PinnedProjects projects={data.pinnedProjects} />
-          )}
-
-          {data.favoriteProjects?.length > 0 && (
-            <FavoriteProjects projects={data.favoriteProjects} />
-          )}
-
-          {data.recentPages?.length > 0 && (
-            <RecentPages pages={data.recentPages} />
-          )}
-
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-6">
-              <ProjectsSection projects={data.projects} />
-            </div>
-
-            <div className="space-y-4">
-              <QuickActions />
-              <RecentActivity activities={data.recentActivity} />
-              <PendingRequests requests={data.pendingRequests} onRespond={refresh} />
-              <RecentCollaborations collaborators={data.collaborators} />
-            </div>
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {/* Main column */}
+          <div className="space-y-8 lg:col-span-2">
+            {data.recentPages?.length > 0 && <RecentPages pages={data.recentPages} />}
+            <ProjectsSection projects={data.projects} />
           </div>
-        </>
+
+          {/* Sidebar */}
+          <aside className="space-y-8 self-start lg:sticky lg:top-6">
+            <SidebarStats stats={data.stats} />
+            {data.pinnedProjects?.length > 0 && (
+              <PinnedProjects projects={data.pinnedProjects} />
+            )}
+            {pendingCount > 0 && (
+              <PendingRequests requests={data.pendingRequests} onRespond={refresh} />
+            )}
+            <QuickActions />
+          </aside>
+        </div>
       ) : null}
     </div>
   );

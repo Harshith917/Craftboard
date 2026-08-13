@@ -4,6 +4,7 @@ import Konva from "konva";
 import { useParams, useNavigate } from "react-router-dom";
 import { useApi } from "@/lib/api";
 import { useAuth, useUser } from "@clerk/clerk-react";
+import { useSocket } from "@/hooks/useSocket";
 import { toast } from "sonner";
 import { getUserColor } from "@/lib/presence";
 import { useIdleDetection } from "@/hooks/useIdleDetection";
@@ -53,6 +54,11 @@ export default function EditorPage() {
   const [role, setRole] = useState<Role | null>(null);
   const [projectName, setProjectName] = useState<string>("");
   const visitedRef = useRef(false);
+  const roleRef = useRef<Role | null>(null);
+  useEffect(() => {
+    roleRef.current = role;
+  }, [role]);
+  const socket = useSocket(projectId);
   const [accessState, setAccessState] = useState<
     "loading" | "granted" | "denied" | "error"
   >( "loading" );
@@ -82,32 +88,50 @@ export default function EditorPage() {
 
   // Poll for access changes so the UI reacts immediately without reload
   const pollingRef = useRef(false);
+  const checkRoleChange = useCallback(async () => {
+    try {
+      const { role } = await api.get(`project/${projectId}/pages/${pageId}/my-role`);
+      const currentRole = roleRef.current;
+      if (currentRole && role !== currentRole) {
+        window.location.reload();
+        return;
+      }
+      setAccessState((prev) => {
+        if (prev === "denied") {
+          fetchAccess();
+          return "loading";
+        }
+        return prev;
+      });
+    } catch (err) {
+      if (err?.status === 403) {
+        setAccessState("denied");
+      }
+    }
+  }, [projectId, pageId, api, fetchAccess]);
+
   useEffect(() => {
     const interval = setInterval(() => {
       if (pollingRef.current) return;
       pollingRef.current = true;
-
-      api.get(`project/${projectId}/pages/${pageId}/my-role`).then(() => {
+      checkRoleChange().finally(() => {
         pollingRef.current = false;
-        setAccessState((prev) => {
-          if (prev === "denied") {
-            fetchAccess();
-            return "loading";
-          }
-          return prev;
-        });
-      }).catch((err) => {
-        pollingRef.current = false;
-        if (err?.status === 403) {
-          setAccessState("denied");
-        }
       });
     }, 4000);
     return () => {
       clearInterval(interval);
       pollingRef.current = false;
     };
-  }, [projectId, pageId]);
+  }, [checkRoleChange]);
+
+  useEffect(() => {
+    if (!socket) return;
+    const handler = () => checkRoleChange();
+    socket.on("project-role-changed", handler);
+    return () => {
+      socket.off("project-role-changed", handler);
+    };
+  }, [socket, checkRoleChange]);
 
   useEffect(() => {
     if (visitedRef.current) return;

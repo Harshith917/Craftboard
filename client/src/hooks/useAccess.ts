@@ -31,7 +31,7 @@ export function useAccess(activeTab?: Tab) {
   const [outgoing, setOutgoing] = useState<AccessItem[]>([]);
   const [history, setHistory] = useState<AccessItem[]>([]);
   const [badgeCount, setBadgeCount] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const fetchedTabsRef = useRef<Set<Tab>>(new Set());
   const fetchedCountRef = useRef(false);

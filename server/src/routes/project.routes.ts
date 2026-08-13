@@ -68,9 +68,13 @@ projectRouter.post('/membership/:membershipId/toggle-archive', asyncHandler(asyn
   res.json(await svc.toggleArchive(req.params.membershipId, req.userId));
 }));
 
-projectRouter.post('/:id/record-open', asyncHandler(async (req, res) => {
-  res.json(await svc.recordOpen(req.params.id, req.userId));
-}));
+projectRouter.post(
+  '/:id/record-open',
+  requireProjectRole('viewer', 'editor', 'owner'),
+  asyncHandler(async (req, res) => {
+    res.json(await svc.recordOpen(req.params.id, req.userId));
+  }),
+);
 
 projectRouter.get(
   '/:id/settings',
@@ -88,9 +92,13 @@ projectRouter.post('/:id/toggle-pin', asyncHandler(async (req, res) => {
   res.json(await svc.togglePin(req.params.id, req.userId));
 }));
 
-projectRouter.post('/:id/pages/:pageId/visit', asyncHandler(async (req, res) => {
-  res.json(await svc.recordPageVisit(req.params.pageId, req.params.id, req.userId));
-}));
+projectRouter.post(
+  '/:id/pages/:pageId/visit',
+  requireProjectRole('viewer', 'editor', 'owner'),
+  asyncHandler(async (req, res) => {
+    res.json(await svc.recordPageVisit(req.params.pageId, req.params.id, req.userId));
+  }),
+);
 
 projectRouter.get('/:id/recent-pages', asyncHandler(async (req, res) => {
   res.json(await svc.getRecentPages(req.userId));

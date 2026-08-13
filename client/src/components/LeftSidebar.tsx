@@ -9,10 +9,12 @@ import {
   Settings2,
   Plus,
   Layers,
+  Sparkles,
 } from "lucide-react";
 import { Node, ShapeType } from "@/types/CanvasTypes";
 import LayersPanel from "./LayersPanel";
 import InsertPanel from "./InsertPanel";
+import AIPanel from "./AIPanel";
 
 interface LeftSidebarProps {
   showGrid: boolean;
@@ -50,7 +52,7 @@ export default function LeftSidebar({
   addShape,
 }: LeftSidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
-  const [tab, setTab] = useState<"insert" | "layers">("insert");
+  const [tab, setTab] = useState<"insert" | "layers" | "ai">("insert");
 
   return (
     <div
@@ -83,6 +85,17 @@ export default function LeftSidebar({
                 >
                   <Layers size={12} />
                   Layers
+                </button>
+                <button
+                  onClick={() => setTab("ai")}
+                  className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-all ${
+                    tab === "ai"
+                      ? "bg-white text-primary shadow-sm"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <Sparkles size={12} />
+                  AI
                 </button>
               </div>
             </>
@@ -128,7 +141,7 @@ export default function LeftSidebar({
                 onChange={(e) => setShowGrid(e.target.checked)}
                 className="sr-only peer"
               />
-              <div className="w-8 h-4 rounded-full bg-border peer-checked:bg-[linear-gradient(90deg,#6d5bf5,#a855f7)] transition-colors duration-200" />
+              <div className="w-8 h-4 rounded-full bg-border peer-checked:bg-primary transition-colors duration-200" />
               <div className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-200 peer-checked:translate-x-4" />
             </div>
           </label>
@@ -150,7 +163,7 @@ export default function LeftSidebar({
                 onChange={(e) => setSnapToGrid(e.target.checked)}
                 className="sr-only peer"
               />
-              <div className="w-8 h-4 rounded-full bg-border peer-checked:bg-[linear-gradient(90deg,#6d5bf5,#a855f7)] transition-colors duration-200" />
+              <div className="w-8 h-4 rounded-full bg-border peer-checked:bg-primary transition-colors duration-200" />
               <div className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-200 peer-checked:translate-x-4" />
             </div>
           </label>
@@ -172,7 +185,7 @@ export default function LeftSidebar({
                 onChange={(e) => setSmartGuides(e.target.checked)}
                 className="sr-only peer"
               />
-              <div className="w-8 h-4 rounded-full bg-border peer-checked:bg-[linear-gradient(90deg,#6d5bf5,#a855f7)] transition-colors duration-200" />
+              <div className="w-8 h-4 rounded-full bg-border peer-checked:bg-primary transition-colors duration-200" />
               <div className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-200 peer-checked:translate-x-4" />
             </div>
           </label>
@@ -187,6 +200,14 @@ export default function LeftSidebar({
         >
           {tab === "insert" ? (
             <InsertPanel addShape={addShape} canEdit={canEdit} />
+          ) : tab === "ai" ? (
+            <AIPanel
+              nodes={nodes}
+              setNodes={setNodes}
+              saveToHistory={saveToHistory}
+              setSelectedIds={setSelectedIds}
+              canEdit={canEdit}
+            />
           ) : (
             <LayersPanel
               nodes={nodes}

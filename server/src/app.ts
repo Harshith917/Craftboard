@@ -17,6 +17,8 @@ import { dashboardRouter } from './routes/dashboard.routes';
 import { invitationsRouter } from './routes/invitations.routes';
 import { accessRouter } from './routes/access.routes';
 import { searchRouter } from './routes/search.routes';
+import { aiRouter } from './routes/ai.routes';
+import { captureMountParams } from './middleware/mount-params';
 
 export function createApp() {
   const app = express();
@@ -41,7 +43,7 @@ export function createApp() {
     cors({
       origin: (origin, callback) => {
         if (!origin || allowedOrigins.includes(origin)) callback(null, true);
-        else callback(new Error('Origin not allowed by CORS'));
+        else callback(new HttpError(403, 'Origin not allowed by CORS'));
       },
       credentials: true,
       methods: ['GET', 'POST', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -62,17 +64,20 @@ export function createApp() {
 
   app.use('/', healthRouter);
   app.use('/project', projectRouter);
+  app.use('/project/:projectId/pages', captureMountParams('/project/:projectId/pages'));
   app.use('/project/:projectId/pages', pageRouter);
   app.use('/users', usersRouter);
   app.use('/', nodesRouter);
   app.use('/liveblocks', liveblocksRouter);
   app.use('/access-requests', accessRequestsRouter);
+  app.use('/projects/:projectId/members', captureMountParams('/projects/:projectId/members'));
   app.use('/projects/:projectId/members', projectMembersRouter);
   app.use('/notifications', notificationsRouter);
   app.use('/dashboard', dashboardRouter);
   app.use('/', invitationsRouter);
   app.use('/access', accessRouter);
   app.use('/search', searchRouter);
+  app.use('/ai', aiRouter);
 
   // 404 for unknown routes (mirrors Nest's NotFoundException default).
   app.use((req, res) => {

@@ -1,43 +1,58 @@
-const TECHNOLOGIES = [
-  { name: "Next.js 15", desc: "React framework with server components, streaming, and App Router", color: "bg-black" },
-  { name: "NestJS", desc: "Progressive Node.js framework for scalable server-side applications", color: "bg-red-700" },
-  { name: "PostgreSQL", desc: "Relational database with advanced querying and JSON support", color: "bg-blue-800" },
-  { name: "Prisma", desc: "Type-safe ORM with auto-generated queries and migrations", color: "bg-indigo-600" },
-  { name: "Liveblocks", desc: "Real-time infrastructure for collaborative experiences", color: "bg-purple-600" },
-  { name: "Socket.IO", desc: "Bi-directional event-based communication layer", color: "bg-gray-800" },
-  { name: "Clerk", desc: "Authentication and user management with pre-built UI", color: "bg-rose-600" },
-  { name: "React Konva", desc: "Canvas rendering with declarative React components", color: "bg-teal-600" },
-  { name: "Tailwind CSS", desc: "Utility-first CSS framework for rapid UI development", color: "bg-sky-600" },
-  { name: "shadcn/ui", desc: "Reusable component library built with Radix and Tailwind", color: "bg-gray-900" },
-  { name: "Magic UI", desc: "Animated React components for modern interfaces", color: "bg-violet-600" },
-  { name: "TypeScript", desc: "Typed superset of JavaScript for safer code", color: "bg-blue-600" },
+import {
+  Atom,
+  Braces,
+  Server,
+  Shapes,
+  Zap,
+  Radio,
+  Database,
+  KeyRound,
+  Wind,
+  Network,
+  Component,
+  Rocket,
+} from "lucide-react";
+
+const STACK = [
+  { icon: Atom, name: "React 19 + Vite", role: "UI runtime & build" },
+  { icon: Braces, name: "TypeScript", role: "End-to-end type safety" },
+  { icon: Server, name: "Express 5", role: "REST API" },
+  { icon: Shapes, name: "Konva", role: "Canvas rendering" },
+  { icon: Zap, name: "Liveblocks", role: "CRDT real-time sync" },
+  { icon: Radio, name: "Socket.IO", role: "Live notifications & events" },
+  { icon: Database, name: "Prisma + PostgreSQL", role: "ORM & database" },
+  { icon: KeyRound, name: "Clerk", role: "Authentication" },
+  { icon: Wind, name: "Tailwind CSS v4", role: "Styling" },
+  { icon: Network, name: "SWR + Axios", role: "Data fetching" },
+  { icon: Component, name: "Radix UI", role: "Accessible primitives" },
+  { icon: Rocket, name: "Vite", role: "Dev tooling" },
 ];
 
 export default function TechStackSection() {
   return (
-    <section className="border-t border-border/60 bg-white py-20 sm:py-28">
+    <section id="stack" className="border-t border-border/60 bg-app py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-14">
-          <span className="text-xs font-semibold uppercase tracking-widest text-primary">Technology</span>
-          <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-            Built on modern foundations
-          </h2>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Every layer of CanvasFlow is powered by battle-tested open-source technologies.
+        {/* Split header */}
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
+          <div className="max-w-xl">
+            <span className="text-xs font-semibold uppercase tracking-widest text-sky-500">Tech stack</span>
+            <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
+              Modern tools, one canvas
+            </h2>
+          </div>
+          <p className="text-sm text-muted-foreground max-w-sm md:text-right">
+            A deliberately small, fast, and type-safe stack that makes real-time editing feel instant.
           </p>
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-          {TECHNOLOGIES.map((tech) => (
-            <div
-              key={tech.name}
-              className="group rounded-2xl border border-border bg-white p-4 hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(109,91,245,0.25)] transition-all duration-200"
-            >
-              <div className="flex items-center gap-3 mb-2">
-                <div className={`h-2.5 w-2.5 rounded-full shrink-0 ${tech.color}`} />
-                <span className="text-sm font-semibold text-foreground">{tech.name}</span>
+          {STACK.map((s) => (
+            <div key={s.name} className="group rounded-2xl border border-border bg-background p-5 surface-hover">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/5 group-hover:bg-[linear-gradient(135deg,#0ea5e9,#38bdf8)] group-hover:text-white transition-all duration-200 mb-3">
+                <s.icon size={16} className="text-sky-500 group-hover:text-white transition-colors" />
               </div>
-              <p className="text-xs text-muted-foreground leading-relaxed">{tech.desc}</p>
+              <div className="text-sm font-semibold text-foreground">{s.name}</div>
+              <div className="mt-0.5 text-xs text-muted-foreground">{s.role}</div>
             </div>
           ))}
         </div>

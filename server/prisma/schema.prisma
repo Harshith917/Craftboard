@@ -107,6 +107,7 @@ model Node {
   zIndex      Int         @default(0)
   imageUrl    String?
   points      Float[]
+  data        Json?
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
   page        Page        @relation(fields: [pageId], references: [id], onDelete: Cascade)
@@ -214,17 +215,29 @@ model AccessRequestEvent {
 
 enum NodeType {
   rect
+  roundedRect
   circle
-  text
-  frame
-  star
+  ellipse
+  triangle
   diamond
+  pentagon
+  hexagon
+  star
+  line
+  arrow
+  polyline
+  text
   image
+  frame
+  stickyNote
+  codeBlock
+  divider
 }
 
 enum StrokeStyle {
   solid
   dashed
+  dotted
 }
 
 enum ProjectVisibility {

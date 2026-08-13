@@ -99,12 +99,12 @@ export function RequestAccessModal({
         </>
       )}
 
-      {state === "sending" && <p className="text-xs text-gray-400">Sendingâ€¦</p>}
+      {state === "sending" && <p className="text-xs text-gray-400">Sending…</p>}
 
       {state === "pending" && (
         <div className="flex items-center gap-2 text-xs text-gray-400">
           <span className="w-3 h-3 rounded-full border-2 border-gray-300 border-t-gray-600 animate-spin" />
-          Waiting for the ownerâ€¦
+          Waiting for the owner…
         </div>
       )}
 

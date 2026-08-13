@@ -30,7 +30,7 @@ type Role = "owner" | "editor" | "viewer";
 
 const ROLE_STYLES: Record<Role, string> = {
   owner: "bg-amber-50  text-amber-700  border-amber-200",
-  editor: "bg-indigo-50  text-indigo-600  border-indigo-200",
+  editor: "bg-sky-50  text-sky-700  border-sky-200",
   viewer: "bg-muted  text-muted-foreground  border-border",
 };
 
@@ -400,7 +400,7 @@ export default function TopToolbar({
                               </button>
                               <button
                                 onClick={() => respondToRequest(req.requestId, true)}
-                                className="px-2 py-1 text-[10px] font-medium text-white bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] rounded-md hover:opacity-90 transition-opacity"
+                                className="px-2 py-1 text-[10px] font-medium text-white bg-primary rounded-md hover:opacity-90 transition-opacity"
                               >
                                 Approve
                               </button>

@@ -19,7 +19,7 @@ export function requireProjectRole(...required: MemberRole[]) {
       const userId: string = req.userId;
 
       let projectId: string | undefined =
-        req.params.projectId ?? req.body?.projectId;
+        req.params.projectId ?? req.projectId ?? req.body?.projectId;
 
       if (!projectId && req.params.id) {
         projectId = req.params.id;

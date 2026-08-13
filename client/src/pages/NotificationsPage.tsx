@@ -64,21 +64,22 @@ export default function NotificationsPage() {
   return (
     <div>
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
         <div>
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground mb-2 transition-colors"
+            className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary mb-2 transition-colors"
           >
             <ArrowLeft size={13} />
             Back
           </button>
-          <h1 className="text-xl font-bold text-foreground tracking-tight">Notifications</h1>
-          <p className="text-xs text-muted-foreground mt-0.5">{total} total</p>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-1.5">Activity</p>
+          <h1 className="text-3xl font-bold text-foreground tracking-tight">Notifications</h1>
+          <p className="text-sm text-muted-foreground mt-1.5">{total} total</p>
         </div>
         <button
           onClick={handleMarkAllRead}
-          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-muted-foreground hover:text-foreground bg-muted hover:bg-muted rounded-xl transition-colors"
+          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-primary bg-primary/5 hover:bg-primary/10 rounded-lg transition-colors"
         >
           <CheckCheck size={13} />
           Mark all read
@@ -86,15 +87,15 @@ export default function NotificationsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex items-center gap-1 mb-4 bg-muted p-1 rounded-xl w-fit">
+      <div className="flex items-center gap-5 mb-6 border-b border-border">
         {TABS.map((t) => (
           <button
             key={t.value}
             onClick={() => setTab(t.value)}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors ${
+            className={`py-2.5 text-sm transition-colors border-b-2 ${
               tab === t.value
-                ? "bg-white text-primary shadow-sm"
-                : "text-muted-foreground hover:text-foreground"
+                ? "text-foreground font-semibold border-primary"
+                : "text-muted-foreground border-transparent hover:text-foreground"
             }`}
           >
             {t.label}
@@ -111,13 +112,13 @@ export default function NotificationsPage() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search notifications..."
-            className="w-full pl-9 pr-3 py-1.5 text-xs border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white"
+            className="w-full pl-9 pr-3 py-1.5 text-xs border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/40 bg-card"
           />
         </div>
         <select
           value={typeFilter}
           onChange={(e) => setTypeFilter(e.target.value)}
-          className="text-xs border border-border rounded-xl px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary/40 bg-white"
+          className="text-xs border border-border rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-primary/40 bg-card"
         >
           <option value="">All types</option>
           {TYPE_FILTERS.map((t) => (
@@ -143,12 +144,12 @@ export default function NotificationsPage() {
           </p>
         </div>
       ) : (
-        <div className="space-y-1">
+        <div className="border border-border rounded-xl divide-y divide-border overflow-hidden bg-card">
           {notifications.map((n) => (
             <div
               key={n.id}
-              className={`group flex items-start gap-3 px-4 py-3 rounded-2xl hover:bg-muted/60 transition-colors border border-transparent hover:border-border cursor-pointer ${
-                !n.read ? "bg-primary/5 border-primary/15" : ""
+              className={`group flex items-start gap-3 px-4 py-3 transition-colors cursor-pointer ${
+                !n.read ? "bg-primary/[0.04]" : ""
               }`}
               onClick={() => {
                 if (!n.read) {
@@ -157,10 +158,10 @@ export default function NotificationsPage() {
                 }
               }}
             >
-              <div className="shrink-0 mt-1">
+              <div className="shrink-0 mt-1.5">
                 <div
                   className={`w-2.5 h-2.5 rounded-full ${
-                    !n.read ? "bg-[linear-gradient(135deg,#6d5bf5,#a855f7)]" : "bg-border"
+                    !n.read ? "bg-primary" : "bg-border"
                   }`}
                 />
               </div>
@@ -211,7 +212,7 @@ export default function NotificationsPage() {
           <button
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page === 1}
-            className="px-3 py-1.5 text-xs border border-border rounded-xl disabled:opacity-30 hover:bg-muted transition-colors"
+            className="px-3 py-1.5 text-xs border border-border rounded-lg disabled:opacity-30 hover:bg-muted transition-colors"
           >
             Previous
           </button>
@@ -221,7 +222,7 @@ export default function NotificationsPage() {
           <button
             onClick={() => setPage((p) => Math.min(pages, p + 1))}
             disabled={page === pages}
-            className="px-3 py-1.5 text-xs border border-border rounded-xl disabled:opacity-30 hover:bg-muted transition-colors"
+            className="px-3 py-1.5 text-xs border border-border rounded-lg disabled:opacity-30 hover:bg-muted transition-colors"
           >
             Next
           </button>

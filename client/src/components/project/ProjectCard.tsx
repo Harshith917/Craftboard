@@ -105,17 +105,17 @@ function initials(name: string) {
 
 const ROLE_BADGE: Record<string, string> = {
   owner: "bg-amber-50 text-amber-700 border-amber-200",
-  editor: "bg-indigo-50 text-indigo-600 border-indigo-200",
+  editor: "bg-sky-50 text-sky-700 border-sky-200",
   viewer: "bg-muted text-muted-foreground border-border",
 };
 
 const THUMBNAIL_GRADIENTS = [
-  "from-indigo-500 via-violet-500 to-purple-500",
-  "from-teal-500 via-emerald-500 to-cyan-500",
-  "from-fuchsia-500 via-purple-500 to-indigo-500",
-  "from-amber-500 via-orange-500 to-rose-500",
-  "from-rose-500 via-pink-500 to-fuchsia-500",
-  "from-cyan-500 via-sky-500 to-blue-500",
+  "from-sky-500 via-sky-400 to-cyan-400",
+  "from-slate-800 via-slate-700 to-slate-600",
+  "from-sky-600 via-sky-500 to-cyan-500",
+  "from-cyan-500 via-sky-400 to-sky-300",
+  "from-slate-700 via-slate-600 to-sky-900",
+  "from-sky-400 via-cyan-400 to-sky-500",
 ];
 
 function thumbnailGradient(id: string) {
@@ -292,7 +292,7 @@ export function ProjectCard({
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); onInvite?.(project); }}
-                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-white bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] hover:opacity-90 rounded-lg transition-opacity cursor-pointer shadow-[0_6px_14px_-6px_rgba(139,92,246,0.55)]"
+                className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-white bg-primary hover:bg-primary/90 rounded-lg transition-colors cursor-pointer shadow-[0_6px_14px_-6px_rgba(14,165,233,0.55)]"
               >
                 <UserPlus size={12} />
                 Invite

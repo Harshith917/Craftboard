@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import {
   Save,
   Loader2,
-  User,
   AlignLeft,
   Camera,
 } from "lucide-react";
 import { useProfile } from "@/hooks/useProfile";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
+import AppLoader from "@/components/common/AppLoader";
 
 function getInitials(firstName?: string | null, lastName?: string | null): string {
   return [firstName, lastName].filter(Boolean).map((s) => (s as string)[0]).join("").toUpperCase().slice(0, 2);
@@ -40,11 +40,7 @@ export default function SettingsPage() {
   };
 
   if (loading) {
-    return (
-      <div className="flex items-center justify-center py-32">
-        <Loader2 size={24} className="animate-spin text-muted-foreground/40" />
-      </div>
-    );
+    return <AppLoader message="Loading your settings..." />;
   }
 
   if (!profile) {
@@ -61,40 +57,41 @@ export default function SettingsPage() {
   return (
     <div className="max-w-2xl">
       <div className="mb-8">
-        <h1 className="text-xl font-bold text-foreground tracking-tight">Settings</h1>
-        <p className="text-sm text-muted-foreground mt-0.5">Manage your profile</p>
+        <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-primary mb-1.5">Account</p>
+        <h1 className="text-3xl font-bold text-foreground tracking-tight">Settings</h1>
+        <div className="h-px bg-border mt-5" />
       </div>
 
-      {/* Profile section */}
-      <div className="bg-white border border-border rounded-2xl overflow-hidden mb-6 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.06)]">
-        <div className="px-6 py-4 border-b border-border flex items-center gap-2">
-          <User size={16} className="text-primary" />
-          <h2 className="text-sm font-semibold text-foreground">Profile</h2>
-        </div>
-
-        <div className="p-6 space-y-5">
-          {/* Avatar */}
-          <div className="flex items-center gap-4">
-            <div className="relative group">
-              <div className="w-16 h-16 rounded-2xl overflow-hidden bg-muted border border-border">
-                {profile.imageUrl ? (
-                  <img src={profile.imageUrl} alt="" className="w-full h-full object-cover" />
-                ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <span className="text-lg font-bold text-muted-foreground">{initials}</span>
-                  </div>
-                )}
-              </div>
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 rounded-2xl flex items-center justify-center transition-all cursor-pointer">
+      {/* Profile banner card */}
+      <div className="surface rounded-2xl overflow-hidden mb-6">
+        {/* Cover */}
+        <div className="h-28 bg-gradient-to-br from-slate-900 via-sky-950 to-sky-800 relative overflow-hidden">
+          <div className="absolute -top-10 -right-8 w-48 h-48 bg-sky-400/20 rounded-full blur-3xl" />
+          <div className="absolute -bottom-16 left-1/4 w-40 h-40 bg-sky-500/10 rounded-full blur-3xl" />
+          {/* Avatar overlapping cover */}
+          <div className="absolute -bottom-9 left-6 group">
+            <div className="w-[4.5rem] h-[4.5rem] rounded-2xl overflow-hidden bg-card border-4 border-card shadow-xl relative">
+              {profile.imageUrl ? (
+                <img src={profile.imageUrl} alt="" className="w-full h-full object-cover" />
+              ) : (
+                <div className="w-full h-full flex items-center justify-center">
+                  <span className="text-xl font-bold text-foreground">{initials}</span>
+                </div>
+              )}
+              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 flex items-center justify-center transition-all cursor-pointer rounded-2xl">
                 <Camera size={16} className="text-white opacity-0 group-hover:opacity-100 transition-opacity" />
               </div>
             </div>
-            <div>
-              <p className="text-sm font-medium text-foreground">
-                {profile.firstName} {profile.lastName}
-              </p>
-              <p className="text-xs text-muted-foreground">Avatar is managed by your account provider</p>
-            </div>
+          </div>
+        </div>
+
+        {/* Details */}
+        <div className="px-6 pt-12 pb-6 space-y-5">
+          <div>
+            <p className="text-lg font-bold text-foreground">
+              {profile.firstName} {profile.lastName}
+            </p>
+            <p className="text-xs text-muted-foreground">Avatar is managed by your account provider</p>
           </div>
 
           {/* Bio */}
@@ -109,7 +106,7 @@ export default function SettingsPage() {
               placeholder="Tell us about yourself..."
               maxLength={500}
               rows={3}
-              className="w-full px-3 py-2 text-sm border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-transparent bg-white resize-none"
+              className="w-full px-3 py-2 text-sm border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-transparent bg-card resize-none"
             />
             <p className="text-[11px] text-muted-foreground mt-1">{bio.length}/500</p>
           </div>
@@ -118,7 +115,7 @@ export default function SettingsPage() {
             <Button
               onClick={handleSaveProfile}
               disabled={savingProfile || !canSave}
-              className="bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90 shadow-[0_4px_16px_-6px_rgba(109,91,245,0.6)] disabled:opacity-50"
+              className="bg-primary text-white hover:bg-primary/90 shadow-[0_4px_16px_-6px_rgba(14,165,233,0.5)] disabled:opacity-50"
             >
               {savingProfile ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
               {savingProfile ? "Saving..." : "Save changes"}
@@ -126,8 +123,6 @@ export default function SettingsPage() {
           </div>
         </div>
       </div>
-
-
     </div>
   );
 }

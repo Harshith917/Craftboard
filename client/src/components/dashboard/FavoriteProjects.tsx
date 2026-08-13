@@ -8,10 +8,10 @@ interface FavoriteProjectsProps {
 }
 
 const GRADIENTS = [
-  "from-rose-500 via-pink-500 to-fuchsia-500",
-  "from-amber-500 via-orange-500 to-rose-500",
-  "from-indigo-500 via-violet-500 to-purple-500",
-  "from-teal-500 via-emerald-500 to-cyan-500",
+  "from-sky-500 via-cyan-400 to-sky-300",
+  "from-slate-800 via-slate-700 to-slate-600",
+  "from-sky-600 via-sky-500 to-cyan-500",
+  "from-cyan-500 via-sky-400 to-sky-500",
 ];
 
 function gradient(id: string) {
@@ -24,28 +24,32 @@ export function FavoriteProjects({ projects }: FavoriteProjectsProps) {
   const navigate = useNavigate();
 
   return (
-    <section>
-      <div className="flex items-center gap-2 mb-4">
-        <div className="p-1.5 rounded-lg bg-rose-50 text-rose-500">
-          <Heart className="w-3.5 h-3.5" fill="currentColor" />
+    <section className="rounded-2xl border border-border bg-card p-5">
+      <div className="flex items-center gap-2.5 mb-4">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-300">
+          <Heart size={15} fill="currentColor" />
         </div>
-        <h2 className="text-sm font-semibold text-foreground">Favorites</h2>
-        <span className="text-[11px] text-muted-foreground">Â· {projects.length}</span>
+        <div className="flex-1">
+          <h2 className="text-sm font-semibold text-foreground leading-none">Favorites</h2>
+          <p className="text-[11px] text-muted-foreground mt-0.5">{projects.length} starred</p>
+        </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         {projects.map((p) => (
           <button
             key={p.id}
             onClick={() => navigate(`/project/${p.id}/pages`)}
             className="group text-left"
           >
-            <div className={`relative aspect-video rounded-xl bg-gradient-to-br ${gradient(p.id)} flex items-center justify-center mb-1.5 overflow-hidden shadow-[0_8px_20px_-8px_rgba(0,0,0,0.35)]`}>
-              <span className="text-lg font-bold text-white drop-shadow">
+            <div
+              className={`relative aspect-video rounded-xl bg-gradient-to-br ${gradient(p.id)} flex items-center justify-center mb-1.5 overflow-hidden shadow-[0_8px_20px_-8px_rgba(0,0,0,0.35)] ring-1 ring-black/5`}
+            >
+              <span className="text-base font-bold text-white drop-shadow">
                 {p.name.slice(0, 2).toUpperCase()}
               </span>
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
             </div>
-            <p className="text-xs font-medium text-foreground truncate group-hover:text-primary transition-colors">
+            <p className="text-[11px] font-medium text-foreground truncate group-hover:text-primary transition-colors">
               {p.name}
             </p>
           </button>

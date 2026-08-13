@@ -39,14 +39,18 @@ nodesRouter.post('/webhooks/liveblocks', asyncHandler(async (req, res) => {
   const pageId = liveblocksService.extractPageId(event.data.roomId);
   if (!pageId) return res.json({ ok: true });
 
-  const nodesMap = (event.data as any).storage?.nodes as
-    | Record<string, any>
-    | undefined;
-  if (!nodesMap) return res.json({ ok: true });
-
-  const nodes = Object.values(nodesMap);
-
-  await svc.saveNodesFromWebhook(pageId, nodes);
+  try {
+    // Liveblocks webhooks only report that storage changed; fetch the full
+    // document so we persist the complete node list.
+    const nodes = await liveblocksService.getStorageNodes(event.data.roomId);
+    if (nodes) {
+      await svc.saveNodesFromWebhook(pageId, nodes);
+    }
+  } catch (err) {
+    // Best-effort: log and respond ok so Liveblocks does not retry-spam us.
+    // A failed fetch must not wipe the page (replaceNodes is transactional).
+    console.error('Failed to persist canvas nodes from webhook', err);
+  }
 
   return res.json({ ok: true });
 }));

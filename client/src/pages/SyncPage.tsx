@@ -16,10 +16,11 @@ export default function SyncPage() {
     const createUser = async () => {
       try {
         await api.post("users/sync", {});
-        navigate("/dashboard", { replace: true });
       } catch (err) {
         console.error(err);
-        toast.error("Failed to sync account. Please try refreshing.");
+        toast.error("Failed to sync account.");
+      } finally {
+        navigate("/dashboard", { replace: true });
       }
     };
 

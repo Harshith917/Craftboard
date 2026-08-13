@@ -16,7 +16,7 @@ pageRouter.get(
   asyncHandler(async (req, res) => {
     const { page = '1', limit = '12', search = '' } = req.query as Record<string, string>;
     res.json(
-      await svc.getPages(req.params.projectId, req.userId, {
+      await svc.getPages(req.projectId, req.userId, {
         page: parseInt(page, 10),
         limit: parseInt(limit, 10),
         search,
@@ -29,7 +29,7 @@ pageRouter.post(
   '/',
   requireProjectRole('editor', 'owner'),
   asyncHandler(async (req, res) => {
-    res.json(await svc.createPage(req.params.projectId, req.userId));
+    res.json(await svc.createPage(req.projectId, req.userId));
   }),
 );
 
@@ -37,7 +37,7 @@ pageRouter.patch(
   '/:pageId',
   requireProjectRole('editor', 'owner'),
   asyncHandler(async (req, res) => {
-    res.json(await svc.updatePage(req.params.projectId, req.params.pageId, req.body, req.userId));
+    res.json(await svc.updatePage(req.projectId, req.params.pageId, req.body, req.userId));
   }),
 );
 
@@ -45,7 +45,7 @@ pageRouter.delete(
   '/:pageId',
   requireProjectRole('editor', 'owner'),
   asyncHandler(async (req, res) => {
-    res.json(await svc.deletePage(req.params.projectId, req.params.pageId, req.userId));
+    res.json(await svc.deletePage(req.projectId, req.params.pageId, req.userId));
   }),
 );
 

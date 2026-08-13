@@ -13,12 +13,12 @@ function NotificationItem({
   onMarkRead: (id: string) => void;
 }) {
   const typeStyles: Record<string, string> = {
-    access_request: "border-l-blue-400",
-    access_request_approved: "border-l-green-400",
+    access_request: "border-l-sky-400",
+    access_request_approved: "border-l-emerald-400",
     access_request_denied: "border-l-red-400",
     role_changed: "border-l-amber-400",
     member_removed: "border-l-red-400",
-    project_renamed: "border-l-purple-400",
+    project_renamed: "border-l-cyan-400",
   };
 
   const style = typeStyles[n.type] || "border-l-gray-300";

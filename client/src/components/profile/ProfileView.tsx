@@ -24,7 +24,7 @@ function timeAgo(date: string): string {
 
 function StatCard({ icon: Icon, label, value }: { icon: any; label: string; value: number }) {
   return (
-    <div className="bg-white border border-border rounded-2xl p-4 flex items-center gap-3 hover:border-primary/25 hover:shadow-[0_6px_24px_-10px_rgba(109,91,245,0.25)] transition-all">
+    <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 hover:border-primary/25 hover:shadow-[0_6px_24px_-10px_rgba(14,165,233,0.25)] transition-all">
       <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
         <Icon size={18} className="text-primary" />
       </div>
@@ -40,13 +40,13 @@ function ProjectCardView({ project }: { project: ProjectCard }) {
   return (
     <Link
       to={`/project/${project.id}/pages`}
-      className="bg-white border border-border rounded-2xl overflow-hidden hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(109,91,245,0.25)] transition-all group cursor-pointer"
+      className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(14,165,233,0.25)] transition-all group cursor-pointer"
     >
-      <div className="h-24 bg-gradient-to-br from-indigo-100 via-violet-50 to-purple-100 flex items-center justify-center relative">
+        <div className="h-24 bg-gradient-to-br from-sky-100 via-slate-50 to-cyan-100 flex items-center justify-center relative">
         {project.thumbnail ? (
           <img src={project.thumbnail} alt="" className="w-full h-full object-cover" />
         ) : (
-          <FolderOpen size={28} className="text-indigo-300" />
+            <FolderOpen size={28} className="text-sky-300" />
         )}
         <div className="absolute top-2 right-2">
           <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded capitalize cursor-default ${
@@ -65,12 +65,12 @@ function ProjectCardView({ project }: { project: ProjectCard }) {
             <Shield size={10} />
             {project.role}
           </span>
-          <span>Ã‚Â·</span>
+          <span>·</span>
           <span className="flex items-center gap-1">
             <Users size={10} />
             {project.memberCount}
           </span>
-          <span>Ã‚Â·</span>
+          <span>·</span>
           <span>{timeAgo(project.updatedAt)}</span>
         </div>
       </div>
@@ -91,17 +91,17 @@ function PublicProjectCard({
   const isOwn = project.owner?.id === currentUserId;
 
   return (
-    <div className="bg-white border border-border rounded-2xl overflow-hidden hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(109,91,245,0.25)] transition-all group">
+    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(14,165,233,0.25)] transition-all group">
       <Link
         to={isMember ? `/project/${project.id}/pages` : "#"}
         className="block cursor-pointer"
         onClick={(e) => { if (!isMember) e.preventDefault(); }}
       >
-        <div className="h-24 bg-gradient-to-br from-indigo-100 via-violet-50 to-purple-100 flex items-center justify-center relative">
+      <div className="h-24 bg-gradient-to-br from-sky-100 via-slate-50 to-cyan-100 flex items-center justify-center relative">
           {project.thumbnail ? (
             <img src={project.thumbnail} alt="" className="w-full h-full object-cover" />
           ) : (
-            <FolderOpen size={28} className="text-indigo-300" />
+          <FolderOpen size={28} className="text-sky-300" />
           )}
           <div className="absolute top-2 right-2 flex items-center gap-1">
             {project.visibility && (
@@ -123,7 +123,7 @@ function PublicProjectCard({
               <Users size={10} />
               {project.memberCount}
             </span>
-            <span>Ã‚Â·</span>
+            <span>·</span>
             <span>{timeAgo(project.updatedAt)}</span>
           </div>
         </div>
@@ -133,7 +133,7 @@ function PublicProjectCard({
         <div className="px-3 pb-3">
           <button
             onClick={() => onRequestAccess(project)}
-            className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-white bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] hover:opacity-90 rounded-xl transition-opacity cursor-pointer"
+            className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-white bg-primary hover:bg-primary/90 rounded-xl transition-colors cursor-pointer"
           >
             <UserPlus size={12} />
             Request Access
@@ -159,58 +159,60 @@ function ProfileHeader({ profile, isOwnProfile }: { profile: Profile; isOwnProfi
   const joinedDate = new Date(profile.createdAt).toLocaleDateString("en-US", { month: "long", year: "numeric" });
 
   return (
-    <div className="bg-white border border-border rounded-2xl p-6 shadow-[0_4px_20px_-8px_rgba(0,0,0,0.06)]">
-      <div className="flex items-start gap-5">
-        <div className="relative">
-          <div className="w-20 h-20 rounded-2xl overflow-hidden bg-muted border border-border">
+    <div className="surface rounded-2xl overflow-hidden">
+      {/* Cover */}
+      <div className="h-32 bg-gradient-to-br from-slate-900 via-sky-950 to-sky-800 relative overflow-hidden">
+        <div className="absolute -top-12 -right-10 w-56 h-56 bg-sky-400/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 left-1/3 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-4 right-6 hidden sm:flex items-center gap-1.5 text-[11px] text-white/70 bg-white/10 backdrop-blur px-2.5 py-1 rounded-full">
+          <Clock size={11} />
+          Joined {joinedDate}
+        </div>
+      </div>
+
+      {/* Details */}
+      <div className="px-6 pb-6">
+        <div className="relative -mt-12 mb-4 w-fit">
+          <div className="w-24 h-24 rounded-2xl overflow-hidden bg-card border-4 border-card shadow-xl">
             {profile.imageUrl ? (
               <img src={profile.imageUrl} alt="" className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full flex items-center justify-center">
-                <span className="text-xl font-bold text-muted-foreground">{initials}</span>
+                <span className="text-2xl font-bold text-muted-foreground">{initials}</span>
               </div>
             )}
           </div>
           {profile.isOnline && (
-            <div className="absolute -bottom-0.5 -right-0.5 w-5 h-5 bg-emerald-500 border-2 border-white rounded-full" />
+            <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 border-[3px] border-card rounded-full" />
           )}
         </div>
 
-        <div className="flex-1 min-w-0">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <h1 className="text-xl font-bold text-foreground tracking-tight truncate">{name}</h1>
-              <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1.5">
-                <span className="flex items-center gap-1">
-                  <Clock size={11} />
-                  Joined {joinedDate}
+        <div className="flex flex-wrap items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h1 className="text-2xl font-bold text-foreground tracking-tight truncate">{name}</h1>
+            <div className="flex items-center gap-2 text-xs text-muted-foreground mt-1.5">
+              {profile.isOnline && (
+                <span className="flex items-center gap-1 text-emerald-600">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                  Online
                 </span>
-                {profile.isOnline && (
-                  <>
-                    <span>Ã‚Â·</span>
-                    <span className="flex items-center gap-1 text-emerald-600">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
-                      Online
-                    </span>
-                  </>
-                )}
-              </div>
+              )}
             </div>
-            {isOwnProfile && (
-              <Link
-                to="/settings"
-                className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-muted-foreground bg-white border border-border rounded-xl hover:bg-muted hover:text-foreground transition-colors shrink-0 cursor-pointer"
-              >
-                <Edit3 size={12} />
-                Edit profile
-              </Link>
-            )}
           </div>
-
-          {profile.bio && (
-            <p className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-lg">{profile.bio}</p>
+          {isOwnProfile && (
+            <Link
+              to="/settings"
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-muted-foreground bg-card border border-border rounded-lg hover:bg-muted hover:text-primary transition-colors shrink-0 cursor-pointer"
+            >
+              <Edit3 size={12} />
+              Edit profile
+            </Link>
           )}
         </div>
+
+        {profile.bio && (
+          <p className="text-sm text-muted-foreground mt-3 leading-relaxed max-w-lg">{profile.bio}</p>
+        )}
       </div>
     </div>
   );
@@ -244,7 +246,7 @@ function ProjectsSection({
           <h2 className="text-sm font-semibold text-foreground mb-3">Owned Projects</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="bg-white border border-border rounded-2xl overflow-hidden animate-pulse">
+              <div key={i} className="bg-card border border-border rounded-2xl overflow-hidden animate-pulse">
                 <div className="h-24 bg-muted" />
                 <div className="p-3 space-y-2">
                   <div className="h-3.5 bg-muted rounded w-2/3" />
@@ -289,7 +291,7 @@ function ProjectsSection({
       )}
 
       {owned.length === 0 && shared.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-16 text-center bg-white border border-border rounded-2xl">
+        <div className="flex flex-col items-center justify-center py-16 text-center bg-card border border-border rounded-2xl">
           <div className="w-14 h-14 rounded-2xl bg-muted/60 flex items-center justify-center mb-3">
             <FolderOpen size={26} className="text-muted-foreground/50" />
           </div>
@@ -308,7 +310,7 @@ function ActivitySection({ activity }: { activity: ActivityType | null }) {
   if (!hasActivity) return null;
 
   return (
-    <div className="bg-white border border-border rounded-2xl p-5">
+    <div className="surface rounded-2xl p-5">
       <h2 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
         <Activity size={14} className="text-primary" />
         Activity
@@ -358,7 +360,7 @@ function ActivitySection({ activity }: { activity: ActivityType | null }) {
                     <p className="text-sm font-medium text-foreground truncate group-hover:text-primary transition-colors">
                       {v.pageName}
                     </p>
-                    <p className="text-[11px] text-muted-foreground">{v.projectName} Ã‚Â· {timeAgo(v.visitedAt)}</p>
+                    <p className="text-[11px] text-muted-foreground">{v.projectName} · {timeAgo(v.visitedAt)}</p>
                   </div>
                   <ExternalLink size={12} className="text-muted-foreground/40 group-hover:text-muted-foreground" />
                 </Link>
@@ -374,7 +376,7 @@ function ActivitySection({ activity }: { activity: ActivityType | null }) {
 function LoadingSkeleton() {
   return (
     <div className="space-y-6 animate-pulse">
-      <div className="bg-white border border-border rounded-2xl p-6 flex items-start gap-5">
+      <div className="bg-card border border-border rounded-2xl p-6 flex items-start gap-5">
         <div className="w-20 h-20 rounded-2xl bg-muted" />
         <div className="flex-1 space-y-3">
           <div className="h-5 bg-muted rounded w-1/3" />
@@ -384,7 +386,7 @@ function LoadingSkeleton() {
       </div>
       <div className="grid grid-cols-4 gap-3">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="bg-white border border-border rounded-2xl p-4 space-y-2">
+          <div key={i} className="bg-card border border-border rounded-2xl p-4 space-y-2">
             <div className="h-4 bg-muted rounded w-1/2" />
             <div className="h-3 bg-muted rounded w-2/3" />
           </div>
@@ -462,7 +464,7 @@ export function ProfileView({ userId }: ProfileViewProps) {
       )}
 
       {!isOwnProfile && publicProjects.length === 0 && (
-        <div className="flex flex-col items-center justify-center py-16 text-center bg-white border border-border rounded-2xl">
+        <div className="flex flex-col items-center justify-center py-16 text-center bg-card border border-border rounded-2xl">
           <div className="w-14 h-14 rounded-2xl bg-muted/60 flex items-center justify-center mb-3">
             <Globe size={26} className="text-muted-foreground/50" />
           </div>
@@ -482,9 +484,9 @@ export function ProfileView({ userId }: ProfileViewProps) {
             />
             <button
               onClick={() => setRequestProject(null)}
-              className="absolute -top-2 -right-2 w-6 h-6 bg-white border border-border rounded-full flex items-center justify-center text-xs text-muted-foreground hover:text-foreground shadow-sm cursor-pointer"
+              className="absolute -top-2 -right-2 w-6 h-6 bg-card border border-border rounded-full flex items-center justify-center text-xs text-muted-foreground hover:text-foreground shadow-sm cursor-pointer"
             >
-              Ã¢Å“â€¢
+              ×
             </button>
           </div>
         </div>

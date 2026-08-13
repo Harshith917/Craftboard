@@ -1,5 +1,6 @@
 import { prisma } from '../lib/prisma';
 import { NotificationsService } from './notifications.service';
+import { notifyUser } from '../lib/gateway';
 import {
   NotFoundException,
   ForbiddenException,
@@ -86,6 +87,14 @@ export class ProjectMembersService {
     if (targetUserId === requesterId) {
       throw new BadRequestException('Cannot change your own role');
     }
+    if (role === MemberRole.owner) {
+      throw new BadRequestException(
+        'Ownership can only be transferred through the transfer ownership flow',
+      );
+    }
+    if (![MemberRole.viewer, MemberRole.editor].includes(role)) {
+      throw new BadRequestException('Invalid role');
+    }
 
     const updated = await prisma.projectMember.update({
       where: { projectId_userId: { projectId, userId: targetUserId } },
@@ -101,6 +110,7 @@ export class ProjectMembersService {
       projectId,
       metadata: { newRole: role, changedBy: requesterId },
     });
+    notifyUser(targetUserId, 'project-role-changed', { projectId, role });
     return updated;
   }
 

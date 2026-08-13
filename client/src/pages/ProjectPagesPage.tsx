@@ -7,13 +7,10 @@ import { Input } from "@/components/ui/input";
 import { useDebounce } from "@/hooks/useDebounce";
 import {
   Pencil, Trash2, Check, X, Settings,
-  Users, Loader2, Send, LogIn, Clock,
+  Users, Loader2, Send, LogIn, Clock, Plus, Sparkles,
 } from "lucide-react";
 import {
-  Pagination,
-  PaginationContent,
   PaginationEllipsis,
-  PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
@@ -21,6 +18,7 @@ import {
 import { InviteDialog } from "@/components/invitations/InviteDialog";
 import { SkeletonGrid } from "@/components/custom/SkeletonGrid";
 import { EmptyState } from "@/components/custom/EmptyState";
+import PagesAIAssistant from "@/components/ai/PagesAIAssistant";
 
 interface IPage {
   id: string;
@@ -75,6 +73,7 @@ export default function PagesPage() {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editingName, setEditingName] = useState("");
   const [inviteOpen, setInviteOpen] = useState(false);
+  const [aiOpen, setAiOpen] = useState(false);
 
   const debouncedSearch = useDebounce(search);
 
@@ -177,9 +176,10 @@ export default function PagesPage() {
     const p = publicProject;
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="bg-white border border-border rounded-2xl max-w-md w-full overflow-hidden shadow-[0_12px_40px_-12px_rgba(0,0,0,0.15)]">
-          <div className="h-32 bg-[linear-gradient(120deg,#191332,#2a1f5c,#4c2fa8)] flex items-end p-6">
-            <h1 className="text-xl font-bold text-white">{p.name}</h1>
+        <div className="bg-card border border-border rounded-2xl max-w-md w-full overflow-hidden shadow-[0_12px_40px_-12px_rgba(0,0,0,0.15)]">
+          <div className="h-32 bg-gradient-to-br from-slate-900 via-sky-950 to-sky-800 flex items-end p-6 relative overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-sky-500/20 blur-2xl" />
+            <h1 className="text-xl font-bold text-white relative">{p.name}</h1>
           </div>
           <div className="p-6">
             {p.description && (
@@ -210,7 +210,7 @@ export default function PagesPage() {
               <button
                 onClick={handleRequestAccess}
                 disabled={requesting}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-white text-sm font-medium rounded-xl bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] hover:opacity-90 disabled:opacity-50 shadow-[0_8px_24px_-8px_rgba(109,91,245,0.6)] transition-all"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-white text-sm font-medium rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 shadow-[0_8px_24px_-8px_rgba(14,165,233,0.6)] transition-all"
               >
                 {requesting ? <Loader2 size={14} className="animate-spin" /> : <LogIn size={14} />}
                 {requesting ? "Sending request..." : "Request access to this project"}
@@ -226,9 +226,11 @@ export default function PagesPage() {
   return (
     <div>
       <PageHeader
+        eyebrow="Project"
         title="Pages"
-        subtitle={meta ? `${meta.total} page${meta.total !== 1 ? "s" : ""}` : ""}
+        subtitle={meta ? `${meta.total} page${meta.total !== 1 ? "s" : ""}` : "Pages are your design canvases"}
         actionLabel={creating ? "Adding..." : "Add page"}
+        actionIcon={<Plus className="w-4 h-4" />}
         onAction={handleCreate}
         search={search}
         onSearch={setSearch}
@@ -237,17 +239,24 @@ export default function PagesPage() {
         onRefresh={() => fetchPages(true)}
       />
 
-      <div className="flex items-center justify-end gap-2 mb-4">
+      <div className="flex items-center justify-end gap-2 mb-5">
+        <button
+          onClick={() => setAiOpen(true)}
+          className="flex items-center gap-2 px-3 py-1.5 text-xs border border-border rounded-lg hover:bg-muted transition-colors"
+        >
+          <Sparkles className="w-3.5 h-3.5 text-primary" />
+          AI Assistant
+        </button>
         <button
           onClick={() => setInviteOpen(true)}
-          className="flex items-center gap-2 px-3 py-1.5 text-xs border border-border rounded-xl hover:bg-muted transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 text-xs border border-border rounded-lg hover:bg-muted transition-colors"
         >
           <Users className="w-3.5 h-3.5" />
           Invite
         </button>
         <button
           onClick={() => navigate(`/project/${projectId}/settings`)}
-          className="flex items-center gap-2 px-3 py-1.5 text-xs border border-border rounded-xl hover:bg-muted transition-colors"
+          className="flex items-center gap-2 px-3 py-1.5 text-xs border border-border rounded-lg hover:bg-muted transition-colors"
         >
           <Settings className="w-3.5 h-3.5" />
           Project Settings
@@ -269,7 +278,7 @@ export default function PagesPage() {
             <div
               key={p.id}
               onClick={() => navigate(`/editor/${projectId}/page/${p.id}`)}
-              className="group bg-white border border-border rounded-2xl p-4 hover:border-primary/25 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-12px_rgba(109,91,245,0.3)] transition-all cursor-pointer"
+              className="group bg-card border border-border rounded-2xl p-4 hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-12px_rgba(14,165,233,0.3)] transition-all cursor-pointer"
             >
               <div className="w-full aspect-video bg-gradient-to-br from-muted via-muted/50 to-primary/5 rounded-xl mb-3 flex items-center justify-center text-muted-foreground text-sm border border-border">
                 {p.order + 1}
@@ -323,42 +332,45 @@ export default function PagesPage() {
       )}
 
       {meta && meta.totalPages > 1 && (
-        <Pagination className="mt-8">
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                onClick={() => setPage((p) => Math.max(1, p - 1))}
-                className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
-              />
-            </PaginationItem>
+        <div className="flex items-center justify-between mt-8 px-4 py-3 border border-border rounded-xl bg-card">
+          <p className="text-xs text-muted-foreground">
+            Page {page} of {meta.totalPages} · {meta.total} page{meta.total !== 1 ? "s" : ""}
+          </p>
+          <div className="flex items-center gap-1">
+            <PaginationPrevious
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              className={page === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+            />
             {Array.from({ length: meta.totalPages }, (_, i) => i + 1)
               .filter((p) => p === 1 || p === meta.totalPages || (p >= page - 1 && p <= page + 1))
               .map((p, i, arr) => {
                 const prev = arr[i - 1];
                 return (
                   <span key={p} className="flex items-center">
-                    {prev && p - prev > 1 && (
-                      <PaginationItem><PaginationEllipsis /></PaginationItem>
-                    )}
-                    <PaginationItem>
-                      <PaginationLink isActive={p === page} onClick={() => setPage(p)} className="cursor-pointer">
-                        {p}
-                      </PaginationLink>
-                    </PaginationItem>
+                    {prev && p - prev > 1 && <PaginationEllipsis />}
+                    <PaginationLink isActive={p === page} onClick={() => setPage(p)} className="cursor-pointer">
+                      {p}
+                    </PaginationLink>
                   </span>
                 );
               })}
-            <PaginationItem>
-              <PaginationNext
-                onClick={() => setPage((p) => Math.min(meta.totalPages, p + 1))}
-                className={page === meta.totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+            <PaginationNext
+              onClick={() => setPage((p) => Math.min(meta.totalPages, p + 1))}
+              className={page === meta.totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+            />
+          </div>
+        </div>
       )}
 
       <InviteDialog open={inviteOpen} onOpenChange={setInviteOpen} projectId={projectId ?? ""} />
+
+      <PagesAIAssistant
+        open={aiOpen}
+        onClose={() => setAiOpen(false)}
+        projectId={projectId ?? ""}
+        projectName={publicProject?.name ?? "this project"}
+        pages={pages}
+      />
     </div>
   );
 }

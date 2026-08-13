@@ -7,6 +7,12 @@ export const invitationsRouter = Router();
 
 const svc = new InvitationsService();
 
+// Public: look up an invitation by token so signed-out users can preview
+// the invitation before signing in.
+invitationsRouter.get('/invitations/:token', asyncHandler(async (req, res) => {
+  res.json(await svc.getByToken(req.params.token, (req as any).userId));
+}));
+
 invitationsRouter.use(requireAuth);
 
 invitationsRouter.get('/users/search', asyncHandler(async (req, res) => {
@@ -31,10 +37,6 @@ invitationsRouter.post('/projects/:projectId/invite/link', asyncHandler(async (r
 
 invitationsRouter.get('/projects/:projectId/invitations', asyncHandler(async (req, res) => {
   res.json(await svc.listForProject(req.params.projectId, req.userId));
-}));
-
-invitationsRouter.get('/invitations/:token', asyncHandler(async (req, res) => {
-  res.json(await svc.getByToken(req.params.token, req.userId));
 }));
 
 invitationsRouter.post('/invitations/:token/accept', asyncHandler(async (req, res) => {

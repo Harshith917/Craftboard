@@ -94,7 +94,7 @@ export function RequestCard({ request, selected, onSelect, onClick }: RequestCar
         </div>
         <div className="flex items-center gap-2 mt-0.5">
           <span className="text-xs text-gray-400">{request.project.name}</span>
-          <span className="text-gray-300">Â·</span>
+          <span className="text-gray-300">·</span>
           <span className="text-xs text-gray-400">{timeAgo(request.createdAt)}</span>
         </div>
         {request.message && (

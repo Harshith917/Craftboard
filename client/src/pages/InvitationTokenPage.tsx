@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "@clerk/clerk-react";
 import { Loader2, CheckCircle2, XCircle, LogIn, User, X, Clock, Shield, Users } from "lucide-react";
+import AppLoader from "@/components/common/AppLoader";
 import { Button } from "@/components/ui/button";
 import { useInvitations, ProjectInvitation } from "@/hooks/useInvitations";
 
@@ -71,10 +72,7 @@ export default function InvitationPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-app flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 size={24} className="animate-spin text-muted-foreground/40" />
-          <p className="text-sm text-muted-foreground">Loading invitation...</p>
-        </div>
+        <AppLoader message="Loading invitation..." />
       </div>
     );
   }
@@ -82,7 +80,7 @@ export default function InvitationPage() {
   if (declined) {
     return (
       <div className="min-h-screen bg-app flex items-center justify-center">
-        <div className="bg-white rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
+        <div className="bg-card rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
           <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
             <X size={24} className="text-muted-foreground" />
           </div>
@@ -91,7 +89,7 @@ export default function InvitationPage() {
             You have declined the invitation to join <span className="font-medium text-foreground">{invitation?.project?.name}</span>.
             The project owner has been notified.
           </p>
-          <Button variant="default" className="bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90" onClick={() => navigate("/")}>
+          <Button variant="default" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate("/dashboard")}>
             Go to Dashboard
           </Button>
         </div>
@@ -102,7 +100,7 @@ export default function InvitationPage() {
   if (accepted) {
     return (
       <div className="min-h-screen bg-app flex items-center justify-center">
-        <div className="bg-white rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
+        <div className="bg-card rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
           <div className="w-14 h-14 rounded-full bg-emerald-50 flex items-center justify-center mx-auto mb-4">
             <CheckCircle2 size={24} className="text-emerald-400" />
           </div>
@@ -114,7 +112,7 @@ export default function InvitationPage() {
               ? `You have joined ${successProject}`
               : "You are already a member of this project."}
           </p>
-          <Button variant="default" className="bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90" onClick={() => navigate("/")}>
+          <Button variant="default" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate("/dashboard")}>
             Go to Dashboard
           </Button>
         </div>
@@ -125,13 +123,13 @@ export default function InvitationPage() {
   if (error && !invitation) {
     return (
       <div className="min-h-screen bg-app flex items-center justify-center">
-        <div className="bg-white rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
+        <div className="bg-card rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
           <div className="w-14 h-14 rounded-full bg-rose-50 flex items-center justify-center mx-auto mb-4">
             <XCircle size={24} className="text-rose-400" />
           </div>
           <h1 className="text-lg font-semibold text-foreground mb-1">Invitation invalid</h1>
           <p className="text-sm text-muted-foreground mb-6">{error}</p>
-          <Button variant="default" className="bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90" onClick={() => navigate("/")}>
+          <Button variant="default" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate("/dashboard")}>
             Go to Dashboard
           </Button>
         </div>
@@ -142,7 +140,7 @@ export default function InvitationPage() {
   if (!isSignedIn) {
     return (
       <div className="min-h-screen bg-app flex items-center justify-center">
-        <div className="bg-white rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
+        <div className="bg-card rounded-2xl border border-border shadow-lg p-8 max-w-sm w-full text-center">
           <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center mx-auto mb-4">
             <LogIn size={24} className="text-muted-foreground" />
           </div>
@@ -150,7 +148,7 @@ export default function InvitationPage() {
           <p className="text-sm text-muted-foreground mb-6">
             You need to sign in before accepting this invitation.
           </p>
-          <Button variant="default" className="bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90" onClick={() => navigate("/sign-in")}>
+          <Button variant="default" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate(`/sign-in?redirect_url=${encodeURIComponent(`/invitations/${token}`)}`)}>
             Sign in
           </Button>
         </div>
@@ -163,10 +161,15 @@ export default function InvitationPage() {
 
   return (
     <div className="min-h-screen bg-app flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl border border-border shadow-xl max-w-md w-full overflow-hidden">
+      <div className="bg-card rounded-2xl border border-border shadow-xl max-w-md w-full overflow-hidden">
         {/* Project header */}
-        <div className="relative h-28 bg-[linear-gradient(120deg,#191332,#2a1f5c,#4c2fa8)] flex items-end p-6">
-          <h1 className="text-xl font-bold text-white">{invitation?.project?.name}</h1>
+        <div className="relative h-32 bg-gradient-to-br from-slate-900 via-sky-950 to-sky-800 flex items-end p-6 overflow-hidden">
+          <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full bg-sky-500/20 blur-2xl" />
+          <div className="absolute -bottom-16 left-1/4 w-40 h-40 rounded-full bg-sky-400/10 blur-3xl" />
+          <div className="relative">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-sky-300 mb-1">Invitation</p>
+            <h1 className="text-xl font-bold text-white relative">{invitation?.project?.name}</h1>
+          </div>
         </div>
 
         <div className="p-6">
@@ -263,7 +266,7 @@ export default function InvitationPage() {
             </Button>
             <Button
               variant="default"
-              className="flex-1 bg-[linear-gradient(110deg,#6d5bf5,#a855f7)] text-white hover:opacity-90"
+              className="flex-1 bg-primary text-white hover:bg-primary/90"
               onClick={handleAccept}
               disabled={accepting || declining || !!isExpired || !!isCancelled}
             >

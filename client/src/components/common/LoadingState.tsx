@@ -1,16 +1,16 @@
-import { Loader2 } from "lucide-react";
+import AppLoader from "@/components/common/AppLoader";
 
 export function LoadingPage({ message = "Loading..." }: { message?: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center py-32">
-      <Loader2 size={20} className="animate-spin text-gray-300 mb-3" />
-      <p className="text-sm text-gray-400">{message}</p>
-    </div>
-  );
+  return <AppLoader message={message} />;
 }
 
 export function LoadingSpinner({ size = 16 }: { size?: number }) {
-  return <Loader2 size={size} className="animate-spin text-gray-300" />;
+  return (
+    <span className="relative inline-block" style={{ width: size, height: size }}>
+      <span className="absolute inset-0 rounded-full border-2 border-sky-200/70" />
+      <span className="absolute inset-0 rounded-full border-2 border-transparent border-t-sky-500 animate-spin" />
+    </span>
+  );
 }
 
 export function SkeletonCard() {

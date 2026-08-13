@@ -79,6 +79,12 @@ export class PageService {
     userId: string,
   ) {
     await this.verifyOwnership(projectId, userId);
+
+    const page = await prisma.page.findFirst({
+      where: { id: pageId, projectId },
+    });
+    if (!page) throw new NotFoundException('Page not found');
+
     return prisma.page.update({
       where: { id: pageId },
       data: { name: data.name },
@@ -96,14 +102,18 @@ export class PageService {
     if (pages.length === 1)
       throw new ForbiddenException('Cannot delete the last page');
 
-    await prisma.page.delete({ where: { id: pageId } });
+    const target = pages.find((p) => p.id === pageId);
+    if (!target) throw new NotFoundException('Page not found');
 
-    const remaining = pages.filter((p) => p.id !== pageId);
-    await Promise.all(
-      remaining.map((p, i) =>
-        prisma.page.update({ where: { id: p.id }, data: { order: i } }),
-      ),
-    );
+    await prisma.$transaction(async (tx) => {
+      await tx.page.delete({ where: { id: pageId } });
+      const remaining = pages.filter((p) => p.id !== pageId);
+      await Promise.all(
+        remaining.map((p, i) =>
+          tx.page.update({ where: { id: p.id }, data: { order: i } }),
+        ),
+      );
+    });
 
     return { success: true };
   }

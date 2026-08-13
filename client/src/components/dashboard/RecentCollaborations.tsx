@@ -8,14 +8,14 @@ function initials(first: string | null, last: string | null) {
 }
 
 const AVATAR_COLORS = [
-  "bg-blue-500",
-  "bg-emerald-500",
-  "bg-violet-500",
-  "bg-amber-500",
-  "bg-rose-500",
+  "bg-sky-500",
+  "bg-slate-600",
   "bg-cyan-500",
-  "bg-indigo-500",
-  "bg-teal-500",
+  "bg-slate-500",
+  "bg-sky-600",
+  "bg-cyan-600",
+  "bg-sky-400",
+  "bg-slate-700",
 ];
 
 interface RecentCollaborationsProps {
@@ -24,12 +24,15 @@ interface RecentCollaborationsProps {
 
 export function RecentCollaborations({ collaborators }: RecentCollaborationsProps) {
   return (
-    <div className="rounded-2xl surface p-5">
-      <div className="flex items-center gap-2 mb-4">
-        <div className="p-1.5 rounded-lg bg-teal-50 text-teal-600">
-          <Users size={13} className="" />
+    <div className="rounded-2xl border border-border bg-card p-5">
+      <div className="flex items-center gap-2.5 mb-4">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-300">
+          <Users size={15} />
         </div>
-        <h2 className="text-sm font-semibold text-foreground">Collaborators</h2>
+        <div>
+          <h2 className="text-sm font-semibold text-foreground leading-none">Collaborators</h2>
+          <p className="text-[11px] text-muted-foreground mt-0.5">People you work with</p>
+        </div>
       </div>
 
       {collaborators.length === 0 ? (
@@ -51,7 +54,7 @@ export function RecentCollaborations({ collaborators }: RecentCollaborationsProp
                 className="flex items-center gap-2.5 px-2 py-1.5 rounded-lg hover:bg-muted transition-colors"
               >
                 <div
-                  className={`w-7 h-7 rounded-full ${AVATAR_COLORS[colorIndex]} flex items-center justify-center text-white text-[10px] font-semibold shrink-0 ring-2 ring-white`}
+                  className={`w-7 h-7 rounded-full ${AVATAR_COLORS[colorIndex]} flex items-center justify-center text-white text-[10px] font-semibold shrink-0 ring-2 ring-white dark:ring-slate-800`}
                 >
                   {collab.imageUrl ? (
                     <img src={collab.imageUrl} alt="" className="w-full h-full rounded-full object-cover" />

@@ -1,6 +1,7 @@
 import { Server } from 'socket.io';
 import type { Server as HttpServer } from 'http';
 import { verifyToken } from '@clerk/backend';
+import { prisma } from './prisma';
 
 // Singleton Socket.IO server attached to the same HTTP server, replacing the
 // NestJS @WebSocketGateway. Event names and auth behavior are preserved.
@@ -57,6 +58,31 @@ export function initGateway(httpServer: HttpServer): Server {
 
     // Empty handler preserved for client compatibility (was @SubscribeMessage('register')).
     client.on('register', () => {});
+
+    client.on('join-project', async (projectId: string) => {
+      const userId = client.data.userId as string;
+      if (!projectId || typeof projectId !== 'string' || !userId) return;
+
+      try {
+        const project = await prisma.project.findFirst({
+          where: {
+            id: projectId,
+            OR: [{ ownerId: userId }, { members: { some: { userId } } }],
+          },
+          select: { id: true },
+        });
+        if (project) client.join(projectId);
+      } catch {
+        // Ignore invalid project / DB errors.
+      }
+    });
+
+    client.on('project-updated', (payload: { projectId?: string }) => {
+      const room = payload?.projectId;
+      if (room && typeof room === 'string') {
+        client.broadcast.to(room).emit('project-updated', payload);
+      }
+    });
   });
 
   return io;

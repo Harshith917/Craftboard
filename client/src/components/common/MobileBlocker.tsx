@@ -26,7 +26,7 @@ export function MobileBlocker({ children }: { children: React.ReactNode }) {
           Desktop Only
         </h1>
         <p className="text-sm text-gray-500 max-w-sm">
-          CanvazzFlow is a design tool that requires a desktop screen. Please visit on a computer to get started.
+          Craftboard is a design tool that requires a desktop screen. Please visit on a computer to get started.
         </p>
       </div>
     );
