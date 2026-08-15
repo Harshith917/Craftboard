@@ -99,9 +99,6 @@ export class PageService {
       orderBy: { order: 'asc' },
     });
 
-    if (pages.length === 1)
-      throw new ForbiddenException('Cannot delete the last page');
-
     const target = pages.find((p) => p.id === pageId);
     if (!target) throw new NotFoundException('Page not found');
 

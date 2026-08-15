@@ -37,11 +37,11 @@ export default function TechStackSection() {
           <div className="max-w-xl">
             <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Tech stack</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              Modern tools, one canvas
+              The stack behind the canvas
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-sm md:text-right">
-            A deliberately small, fast, and type-safe stack that makes real-time editing feel instant.
+            A deliberately small, type-safe stack engineered for low-latency, real-time editing.
           </p>
         </div>
 

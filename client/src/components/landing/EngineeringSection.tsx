@@ -36,11 +36,11 @@ export default function EngineeringSection() {
           <div className="max-w-xl">
             <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Engineering</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              Built with modern engineering
+              Engineered for the modern web
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-sm md:text-right">
-            Every feature follows industry best practices for performance, security, and maintainability.
+            Security, performance, and developer experience are built into every layer.
           </p>
         </div>
 

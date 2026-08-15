@@ -8,11 +8,11 @@ export default function ArchitectureSection() {
           <div className="max-w-xl">
             <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Architecture</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              How Craftboard works
+              How it all fits together
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-sm md:text-right">
-            A layered architecture designed for real-time, collaborative design.
+            A layered architecture built for real-time, collaborative design.
           </p>
         </div>
 

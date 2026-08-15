@@ -41,11 +41,11 @@ export default function WorkflowSection() {
           <div className="max-w-xl">
             <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Workflow</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              From idea to design in minutes
+              From idea to shared canvas in minutes
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-sm md:text-right">
-            A simple, linear workflow that keeps your team moving.
+            Create a project, invite teammates, and start designing together — no setup required.
           </p>
         </div>
 

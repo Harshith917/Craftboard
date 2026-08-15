@@ -86,7 +86,9 @@ export default function EditorPage() {
     fetchAccess();
   }, [fetchAccess]);
 
-  // Poll for access changes so the UI reacts immediately without reload
+  // Poll for access changes so the UI reacts immediately without reload.
+  // The socket "project-role-changed" event covers the instant case; this is
+  // just a fallback, so keep it slow enough not to hit API rate limits.
   const pollingRef = useRef(false);
   const checkRoleChange = useCallback(async () => {
     try {
@@ -118,7 +120,7 @@ export default function EditorPage() {
       checkRoleChange().finally(() => {
         pollingRef.current = false;
       });
-    }, 4000);
+    }, 30000);
     return () => {
       clearInterval(interval);
       pollingRef.current = false;

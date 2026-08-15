@@ -11,9 +11,9 @@ import {
 import { Button } from "@/components/ui/button";
 
 const STATS = [
-  { value: "10ms", label: "sync" },
-  { value: "99%", label: "uptime" },
-  { value: "2k+", label: "teams" },
+  { value: "10ms", label: "sync latency" },
+  { value: "99.9%", label: "uptime" },
+  { value: "3", label: "access roles" },
 ];
 
 const COLLABORATORS = [
@@ -36,18 +36,18 @@ export default function HeroSection() {
       <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-500/5 px-3.5 py-1.5 text-xs font-medium text-indigo-600 dark:border-indigo-400/30 dark:text-indigo-300">
           <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
-          Real-time collaboration
+          Real-time wireframing for teams
         </div>
 
         <h1 className="mt-6 text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-[1.05]">
           Design together,
           <br />
-          <span className="text-gradient">in real time.</span>
+          <span className="text-gradient">ship faster.</span>
         </h1>
 
         <p className="mt-6 text-base sm:text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-          Craftboard is a collaborative design platform built for teams.
-          Create wireframes together in your browser. No setup required.
+          Craftboard is the browser-based wireframing tool where your team sketches,
+          collaborates, and keeps every canvas in sync — no downloads, no setup.
         </p>
 
         <div className="mt-9 flex flex-col sm:flex-row justify-center gap-3">

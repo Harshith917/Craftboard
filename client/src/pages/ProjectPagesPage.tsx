@@ -153,8 +153,8 @@ export default function PagesPage() {
       await apiRef.current.delete(`project/${projectId}/pages/${pageId}`);
       toast.success("Page deleted successfully");
       fetchPages(true);
-    } catch {
-      toast.error("Failed to delete page");
+    } catch (err: any) {
+      toast.error(err?.response?.data?.message || "Failed to delete page");
     }
   };
 

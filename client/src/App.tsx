@@ -25,8 +25,10 @@ const EditorPage = lazy(() => import("@/pages/EditorPage"));
 
 function RootRedirect() {
   const { isLoaded, isSignedIn } = useAuth();
-  if (!isLoaded) return null;
-  return <Navigate to={isSignedIn ? "/dashboard" : "/landing"} replace />;
+  // Landing page is the default entry point: show it immediately (even while
+  // Clerk is still loading) and only bounce authenticated users to the app.
+  if (isLoaded && isSignedIn) return <Navigate to="/dashboard" replace />;
+  return <LandingPage />;
 }
 
 export default function App() {

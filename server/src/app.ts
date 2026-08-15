@@ -44,7 +44,10 @@ export function createApp() {
       message: { statusCode: 429, message: 'Too many requests, try again later.' },
       // Liveblocks storage webhooks can burst during active collaboration;
       // they are already authenticated by signature, so skip them here.
-      skip: (req) => req.path === '/webhooks/liveblocks',
+      // Socket.IO uses authenticated HTTP long-polling + websocket upgrades,
+      // which otherwise burn the per-IP budget for the whole API.
+      skip: (req) =>
+        req.path === '/webhooks/liveblocks' || req.path.startsWith('/socket.io'),
     }),
   );
 

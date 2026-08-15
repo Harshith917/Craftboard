@@ -31,11 +31,11 @@ export default function ShowcaseSection() {
           <div className="max-w-xl">
             <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Demo</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              See it in action
+              Take a closer look
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-sm md:text-right">
-            A closer look at the interfaces that power Craftboard.
+            The key interfaces that power collaborative design on Craftboard.
           </p>
         </div>
 

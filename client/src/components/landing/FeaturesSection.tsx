@@ -84,11 +84,11 @@ export default function FeaturesSection() {
           <div className="max-w-xl">
             <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Features</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
-              Everything you need to design
+              Built for how teams actually design
             </h2>
           </div>
           <p className="text-sm text-muted-foreground max-w-sm md:text-right">
-            A complete set of tools for creating wireframes, mockups, and layouts with your team.
+            Real-time collaboration, structured projects, and granular access — everything a design team needs in one canvas.
           </p>
         </div>
 
