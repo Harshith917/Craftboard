@@ -132,54 +132,15 @@ export default function HeroSection() {
           </div>
 
           {/* Canvas */}
-          <div className="relative h-80 sm:h-96 bg-[linear-gradient(to_right,rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.05)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:26px_26px] overflow-hidden">
-            {/* mobile frame */}
-            <div className="absolute left-[12%] top-[16%] h-44 w-28 rounded-xl border-2 border-indigo-400 bg-white shadow-xl">
-              <div className="mx-auto mt-2.5 h-1.5 w-9 rounded-full bg-indigo-300/60" />
-              <div className="m-2.5 h-14 rounded bg-indigo-100" />
-              <div className="m-2.5 flex gap-2">
-                <div className="h-8 flex-1 rounded bg-neutral-200" />
-                <div className="h-8 flex-1 rounded bg-indigo-100" />
-              </div>
-              <span className="absolute -top-1.5 -left-1.5 h-3 w-3 rounded-full border-2 border-white bg-indigo-500 shadow" />
-              <span className="absolute -bottom-1.5 -right-1.5 h-3 w-3 rounded-full border-2 border-white bg-indigo-500 shadow" />
-            </div>
-
-            {/* circle */}
-            <div className="absolute right-[18%] top-[20%] h-20 w-20 rounded-full bg-[radial-gradient(circle_at_35%_35%,#737373,#262626)] shadow-xl" />
-
-            {/* text block */}
-            <div className="absolute right-[28%] top-[62%] space-y-2">
-              <div className="h-2 w-36 rounded-full bg-neutral-300" />
-              <div className="h-2 w-24 rounded-full bg-neutral-300" />
-              <div className="h-2 w-32 rounded-full bg-indigo-400/50" />
-            </div>
-
-            {/* sticky note */}
-            <div className="absolute left-[44%] bottom-[14%] h-16 w-20 rounded-md border border-indigo-200 bg-indigo-50 p-2 rotate-2">
-              <div className="h-1.5 w-8 rounded-full bg-indigo-300/70" />
-              <div className="mt-1.5 h-1.5 w-12 rounded-full bg-neutral-300" />
-            </div>
-
-            {/* cursors */}
-            <div className="absolute left-[48%] top-[30%] animate-pulse">
-              <MousePointer2 size={16} className="text-[#6366f1] fill-[#6366f1]" />
-              <span className="ml-0.5 rounded bg-[#6366f1] px-1.5 py-0.5 text-[9px] font-semibold text-white">Aria</span>
-            </div>
-            <div className="absolute left-[24%] top-[64%] animate-pulse" style={{ animationDelay: "0.6s" }}>
-              <MousePointer2 size={16} className="text-[#7c3aed] fill-[#7c3aed]" />
-              <span className="ml-0.5 rounded bg-[#7c3aed] px-1.5 py-0.5 text-[9px] font-semibold text-white">Noah</span>
-            </div>
-
-            {/* status bar */}
-            <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between border-t border-border/70 bg-muted/40 px-4 py-2 text-[10px] text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
-                Live
-              </span>
-              <span>3 editing · saved to cloud</span>
-              <span className="hidden sm:inline">100%</span>
-            </div>
+          <div className="relative h-80 sm:h-96 overflow-hidden">
+            <video
+              className="h-full w-full object-cover"
+              src="/hero.mp4"
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
           </div>
         </div>
       </div>
