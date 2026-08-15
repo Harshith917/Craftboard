@@ -82,7 +82,7 @@ export default function FeaturesSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div className="max-w-xl">
-            <span className="text-xs font-semibold uppercase tracking-widest text-sky-500">Features</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Features</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
               Everything you need to design
             </h2>
@@ -95,7 +95,7 @@ export default function FeaturesSection() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {FEATURES.map((f) => (
             <div key={f.title} className="group rounded-2xl border border-border bg-app p-5 surface-hover">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-300 mb-3 transition-colors group-hover:bg-[linear-gradient(135deg,#0ea5e9,#38bdf8)] group-hover:text-white">
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 mb-3 transition-colors group-hover:bg-[linear-gradient(135deg,#4f46e5,#7c3aed)] group-hover:text-white">
                 <f.icon size={16} />
               </div>
               <div className="text-sm font-semibold text-foreground">{f.title}</div>

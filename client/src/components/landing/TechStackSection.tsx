@@ -35,7 +35,7 @@ export default function TechStackSection() {
         {/* Split header */}
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div className="max-w-xl">
-            <span className="text-xs font-semibold uppercase tracking-widest text-sky-500">Tech stack</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Tech stack</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
               Modern tools, one canvas
             </h2>
@@ -48,8 +48,8 @@ export default function TechStackSection() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {STACK.map((s) => (
             <div key={s.name} className="group rounded-2xl border border-border bg-background p-5 surface-hover">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-sky-500/5 group-hover:bg-[linear-gradient(135deg,#0ea5e9,#38bdf8)] group-hover:text-white transition-all duration-200 mb-3">
-                <s.icon size={16} className="text-sky-500 group-hover:text-white transition-colors" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-indigo-500/5 group-hover:bg-[linear-gradient(135deg,#4f46e5,#7c3aed)] group-hover:text-white transition-all duration-200 mb-3">
+                <s.icon size={16} className="text-indigo-500 group-hover:text-white transition-colors" />
               </div>
               <div className="text-sm font-semibold text-foreground">{s.name}</div>
               <div className="mt-0.5 text-xs text-muted-foreground">{s.role}</div>

@@ -46,11 +46,11 @@ export function BulkActionsToolbar({
 
   return (
     <>
-      <div className="sticky bottom-4 z-30 mx-auto flex w-fit items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 shadow-lg">
-        <span className="text-sm font-medium text-gray-700">
+      <div className="sticky bottom-4 z-30 mx-auto flex w-fit items-center gap-3 rounded-xl border border-border bg-card px-4 py-3 shadow-lg">
+        <span className="text-sm font-medium text-foreground">
           {selectedCount} {selectedCount === 1 ? "request" : "requests"} selected
         </span>
-        <div className="h-5 w-px bg-gray-200" />
+        <div className="h-5 w-px bg-border" />
         <Button
           variant="default"
           size="sm"
@@ -69,7 +69,7 @@ export function BulkActionsToolbar({
         </Button>
         <button
           onClick={onClear}
-          className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
+          className="text-xs text-muted-foreground hover:text-foreground transition-colors"
         >
           Clear
         </button>

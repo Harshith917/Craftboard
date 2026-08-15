@@ -134,7 +134,7 @@ export default function CanvasArea(props: CanvasAreaProps) {
           <Line
             key={`guide-v-${i}`}
             points={[guide.position, -INF, guide.position, INF]}
-            stroke="#3b82f6"
+            stroke="#6366f1"
             strokeWidth={1}
             dash={[4, 4]}
           />
@@ -144,7 +144,7 @@ export default function CanvasArea(props: CanvasAreaProps) {
         <Line
           key={`guide-h-${i}`}
           points={[-INF, guide.position, INF, guide.position]}
-          stroke="#3b82f6"
+          stroke="#6366f1"
           strokeWidth={1}
           dash={[4, 4]}
         />
@@ -160,8 +160,8 @@ export default function CanvasArea(props: CanvasAreaProps) {
         y={props.selectionRect.y}
         width={props.selectionRect.width}
         height={props.selectionRect.height}
-        fill="rgba(59,130,246,0.1)"
-        stroke="#3b82f6"
+        fill="rgba(99,102,241,0.08)"
+        stroke="#6366f1"
         strokeWidth={1 / props.stageScale}
         dash={[4 / props.stageScale, 4 / props.stageScale]}
       />
@@ -169,11 +169,11 @@ export default function CanvasArea(props: CanvasAreaProps) {
   }, [props.selectionRect, props.stageScale]);
 
   return (
-    <div className="flex-1 relative bg-gray-50 mt-14 overflow-hidden">
+    <div className="flex-1 relative bg-muted mt-14 overflow-hidden">
       <Stage
         width={props.canvasSize.width}
         height={props.canvasSize.height}
-        className="bg-white shadow-sm border border-gray-200"
+        className="bg-white shadow-sm border border-border"
         scaleX={props.stageScale}
         scaleY={props.stageScale}
         x={props.stagePosition.x}
@@ -282,28 +282,28 @@ export default function CanvasArea(props: CanvasAreaProps) {
       </Stage>
 
       {/* Zoom controls */}
-      <div className="absolute bottom-6 right-6 bg-white rounded-lg shadow-lg border border-gray-200 p-1.5 flex flex-col gap-1">
+      <div className="absolute bottom-6 right-6 bg-card rounded-lg shadow-lg border border-border p-1.5 flex flex-col gap-1">
         <button
           onClick={props.zoomIn}
-          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-900"
+          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
           title="Zoom In"
         >
           <ZoomIn size={16} />
         </button>
-        <div className="text-center text-[10px] font-mono text-gray-400 py-0.5 select-none">
+        <div className="text-center text-[10px] font-mono text-muted-foreground py-0.5 select-none">
           {Math.round(props.stageScale * 100)}%
         </div>
         <button
           onClick={props.zoomOut}
-          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-900"
+          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
           title="Zoom Out"
         >
           <ZoomOut size={16} />
         </button>
-        <div className="w-full h-px bg-gray-100" />
+        <div className="w-full h-px bg-accent" />
         <button
           onClick={props.resetView}
-          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-900"
+          className="w-9 h-9 flex items-center justify-center rounded-lg hover:bg-accent transition-colors text-muted-foreground hover:text-foreground"
           title="Reset View"
         >
           <RotateCcw size={16} />
@@ -311,56 +311,56 @@ export default function CanvasArea(props: CanvasAreaProps) {
       </div>
 
       {/* Shape toolbar */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-lg shadow-lg border border-gray-200 p-1.5">
+      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-card rounded-lg shadow-lg border border-border p-1.5">
         <div className="flex items-center gap-0.5">
           <button
             onClick={() => addShape("rect")}
-            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-accent transition-colors"
             title="Rectangle"
           >
-            <Square className="w-4 h-4 text-gray-600" />
+            <Square className="w-4 h-4 text-muted-foreground" />
           </button>
           <button
             onClick={() => addShape("circle")}
-            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-accent transition-colors"
             title="Circle"
           >
-            <CircleIcon className="w-4 h-4 text-gray-600" />
+            <CircleIcon className="w-4 h-4 text-muted-foreground" />
           </button>
           <button
             onClick={() => addShape("text")}
-            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-accent transition-colors"
             title="Text"
           >
-            <Type className="w-4 h-4 text-gray-600" />
+            <Type className="w-4 h-4 text-muted-foreground" />
           </button>
           <button
             onClick={() => addShape("frame")}
-            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-accent transition-colors"
             title="Frame"
           >
-            <Layout className="w-4 h-4 text-gray-600" />
+            <Layout className="w-4 h-4 text-muted-foreground" />
           </button>
           <button
             onClick={() => addShape("star")}
-            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-accent transition-colors"
             title="Star"
           >
-            <StarIcon className="w-4 h-4 text-gray-600" />
+            <StarIcon className="w-4 h-4 text-muted-foreground" />
           </button>
           <button
             onClick={() => addShape("diamond")}
-            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-accent transition-colors"
             title="Diamond"
           >
-            <Diamond className="w-4 h-4 text-gray-600" />
+            <Diamond className="w-4 h-4 text-muted-foreground" />
           </button>
           <button
             onClick={() => addShape("arrow")}
-            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-gray-100 transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-md hover:bg-accent transition-colors"
             title="Arrow"
           >
-            <Minus className="w-4 h-4 text-gray-600" />
+            <Minus className="w-4 h-4 text-muted-foreground" />
           </button>
         </div>
       </div>

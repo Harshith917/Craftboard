@@ -98,29 +98,29 @@ export default function InsertPanel({ addShape, canEdit }: InsertPanelProps) {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="shrink-0 px-3 py-3 border-b border-gray-100">
+      <div className="shrink-0 px-3 py-3 border-b border-border">
         <div className="flex items-center gap-2 mb-2.5">
-          <Plus size={13} className="text-gray-400" />
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+          <Plus size={13} className="text-muted-foreground" />
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
             Insert
           </span>
         </div>
         <div className="relative">
           <Search
             size={12}
-            className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none"
+            className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground/70 pointer-events-none"
           />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search elements..."
-            className="w-full pl-7 pr-2 py-1.5 text-[12px] border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-100 transition-colors placeholder:text-gray-300"
+            className="w-full pl-7 pr-2 py-1.5 text-[12px] border border-border rounded-lg outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-100 transition-colors placeholder:text-muted-foreground/60"
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/70 hover:text-foreground"
             >
               &times;
             </button>
@@ -131,7 +131,7 @@ export default function InsertPanel({ addShape, canEdit }: InsertPanelProps) {
       {/* Categories */}
       <div className="flex-1 overflow-y-auto py-2 px-2">
         {!canEdit && (
-          <div className="flex items-center gap-1.5 px-3 py-2 mb-2 text-[11px] text-gray-400 bg-gray-50 rounded-lg">
+          <div className="flex items-center gap-1.5 px-3 py-2 mb-2 text-[11px] text-muted-foreground bg-muted rounded-lg">
             <MousePointer size={12} />
             View-only mode
           </div>
@@ -139,14 +139,14 @@ export default function InsertPanel({ addShape, canEdit }: InsertPanelProps) {
 
         {filtered.length === 0 ? (
           <div className="px-3 py-8 text-center">
-            <p className="text-[12px] text-gray-300">
+            <p className="text-[12px] text-muted-foreground/70">
               No results for &ldquo;{search}&rdquo;
             </p>
           </div>
         ) : (
           filtered.map((cat) => (
             <div key={cat.label} className="mb-2">
-              <span className="block px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+              <span className="block px-2 py-1 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
                 {cat.label}
               </span>
               <div className="grid grid-cols-2 gap-1">
@@ -157,10 +157,10 @@ export default function InsertPanel({ addShape, canEdit }: InsertPanelProps) {
                     onDragStart={(e) => handleDragStart(e, item.type)}
                     draggable={canEdit}
                     disabled={!canEdit}
-                    className="flex items-center gap-2 px-2.5 py-2 rounded-lg text-[12px] text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-transparent hover:border-gray-200"
+                    className="flex items-center gap-2 px-2.5 py-2 rounded-lg text-[12px] text-muted-foreground hover:bg-muted hover:text-foreground transition-colors disabled:opacity-40 disabled:cursor-not-allowed border border-transparent hover:border-border"
                     title={`Add ${item.label}`}
                   >
-                    <span className="shrink-0 text-gray-400">{item.icon}</span>
+                    <span className="shrink-0 text-muted-foreground">{item.icon}</span>
                     <span className="truncate">{item.label}</span>
                   </button>
                 ))}

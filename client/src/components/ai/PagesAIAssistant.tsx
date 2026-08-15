@@ -150,7 +150,7 @@ export default function PagesAIAssistant({
             <div key={m.id} className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}>
               <div
                 className={`max-w-[85%] px-3 py-2 rounded-2xl text-[13px] leading-relaxed whitespace-pre-wrap ${
-                  m.role === "user" ? "bg-primary text-white rounded-br-sm" : "bg-muted text-foreground rounded-bl-sm"
+                  m.role === "user" ? "bg-primary text-primary-foreground rounded-br-sm" : "bg-muted text-foreground rounded-bl-sm"
                 }`}
               >
                 {m.content}
@@ -187,7 +187,7 @@ export default function PagesAIAssistant({
             <button
               onClick={() => send()}
               disabled={loading || !input.trim()}
-              className="p-2 rounded-lg bg-primary text-white hover:bg-primary/90 disabled:opacity-40 transition-colors"
+              className="p-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-40 transition-colors"
             >
               <Send className="w-4 h-4" />
             </button>

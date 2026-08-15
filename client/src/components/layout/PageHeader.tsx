@@ -74,7 +74,7 @@ export function PageHeader({
           {actionLabel && onAction && (
             <Button
               onClick={onAction}
-              className="h-9 rounded-lg bg-primary text-white border-0 hover:bg-primary/90 shadow-[0_8px_20px_-8px_rgba(14,165,233,0.6)]"
+              className="h-9 rounded-lg bg-primary text-primary-foreground border-0 hover:bg-primary/90 shadow-[0_8px_20px_-8px_rgba(0,0,0,0.4)]"
             >
               {actionIcon}
               {actionLabel}

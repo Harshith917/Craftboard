@@ -177,8 +177,8 @@ export default function PagesPage() {
     return (
       <div className="flex items-center justify-center min-h-[60vh]">
         <div className="bg-card border border-border rounded-2xl max-w-md w-full overflow-hidden shadow-[0_12px_40px_-12px_rgba(0,0,0,0.15)]">
-          <div className="h-32 bg-gradient-to-br from-slate-900 via-sky-950 to-sky-800 flex items-end p-6 relative overflow-hidden">
-            <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-sky-500/20 blur-2xl" />
+          <div className="h-32 bg-gradient-to-br from-slate-900 via-indigo-950 to-indigo-800 flex items-end p-6 relative overflow-hidden">
+            <div className="absolute -top-10 -right-10 w-40 h-40 rounded-full bg-indigo-500/20 blur-2xl" />
             <h1 className="text-xl font-bold text-white relative">{p.name}</h1>
           </div>
           <div className="p-6">
@@ -210,7 +210,7 @@ export default function PagesPage() {
               <button
                 onClick={handleRequestAccess}
                 disabled={requesting}
-                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-white text-sm font-medium rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 shadow-[0_8px_24px_-8px_rgba(14,165,233,0.6)] transition-all"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 text-white text-sm font-medium rounded-xl bg-primary hover:bg-primary/90 disabled:opacity-50 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.4)] transition-all"
               >
                 {requesting ? <Loader2 size={14} className="animate-spin" /> : <LogIn size={14} />}
                 {requesting ? "Sending request..." : "Request access to this project"}
@@ -278,7 +278,7 @@ export default function PagesPage() {
             <div
               key={p.id}
               onClick={() => navigate(`/editor/${projectId}/page/${p.id}`)}
-              className="group bg-card border border-border rounded-2xl p-4 hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-12px_rgba(14,165,233,0.3)] transition-all cursor-pointer"
+              className="group bg-card border border-border rounded-2xl p-4 hover:border-primary/30 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-12px_rgba(0,0,0,0.25)] transition-all cursor-pointer"
             >
               <div className="w-full aspect-video bg-gradient-to-br from-muted via-muted/50 to-primary/5 rounded-xl mb-3 flex items-center justify-center text-muted-foreground text-sm border border-border">
                 {p.order + 1}

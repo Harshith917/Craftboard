@@ -29,7 +29,7 @@ export default function ShowcaseSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div className="max-w-xl">
-            <span className="text-xs font-semibold uppercase tracking-widest text-sky-500">Demo</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Demo</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
               See it in action
             </h2>
@@ -45,15 +45,15 @@ export default function ShowcaseSection() {
               key={s.title}
               className="group relative rounded-2xl border border-border bg-app p-5 surface-hover overflow-hidden"
             >
-              <div className="pointer-events-none absolute -top-16 right-0 h-32 w-32 rounded-full bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.16),transparent_70%)]" />
+              <div className="pointer-events-none absolute -top-16 right-0 h-32 w-32 rounded-full bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.10),transparent_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.08),transparent_70%)]" />
               <div className="relative">
                 <div className="flex items-center justify-between mb-4">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#0ea5e9,#38bdf8)] text-sm font-bold text-white">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#4f46e5,#7c3aed)] dark:bg-[linear-gradient(135deg,#6366f1,#8b5cf6)] text-sm font-bold text-white">
                     {s.letter}
                   </div>
                   <ArrowUpRight
                     size={16}
-                    className="text-muted-foreground transition-colors group-hover:text-sky-500"
+                    className="text-muted-foreground transition-colors group-hover:text-indigo-500"
                   />
                 </div>
                 <div className="text-sm font-semibold text-foreground">{s.title}</div>

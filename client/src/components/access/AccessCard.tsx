@@ -26,8 +26,8 @@ const STATUS_BADGE: Record<string, string> = {
   approved: "bg-green-50 text-green-600 border-green-200",
   denied: "bg-red-50 text-red-600 border-red-200",
   declined: "bg-red-50 text-red-600 border-red-200",
-  cancelled: "bg-gray-100 text-gray-500 border-gray-200",
-  expired: "bg-gray-100 text-gray-500 border-gray-200",
+  cancelled: "bg-accent text-muted-foreground border-border",
+  expired: "bg-accent text-muted-foreground border-border",
 };
 
 interface AccessCardProps {
@@ -80,7 +80,7 @@ export default function AccessCard({
     : (isIncoming ? item.senderImage : null);
 
   return (
-    <div className="flex items-start gap-4 p-4 bg-card border border-border rounded-2xl hover:border-primary/20 hover:shadow-[0_6px_24px_-12px_rgba(14,165,233,0.25)] transition-all">
+    <div className="flex items-start gap-4 p-4 bg-card border border-border rounded-2xl hover:border-primary/20 hover:shadow-[0_6px_24px_-12px_rgba(0,0,0,0.2)] transition-all">
       {/* Avatar */}
       <div className="w-9 h-9 rounded-full bg-muted overflow-hidden flex items-center justify-center shrink-0 mt-0.5">
         {displayImage ? (
@@ -97,7 +97,7 @@ export default function AccessCard({
         <div className="flex items-center gap-2 flex-wrap">
           {/* Type badge */}
           <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded border ${
-            isInvitation ? "bg-sky-50 text-sky-700 border-sky-200" : "bg-slate-100 text-slate-700 border-slate-200"
+            isInvitation ? "bg-indigo-50 text-indigo-700 border-indigo-200" : "bg-muted text-muted-foreground border-border"
           }`}>
             {isInvitation ? "Invitation" : "Request"}
           </span>
@@ -119,7 +119,7 @@ export default function AccessCard({
           </span>
 
           {/* Status badge */}
-          <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded capitalize border ${STATUS_BADGE[item.status] || "bg-gray-50 text-gray-500 border-gray-200"}`}>
+          <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded capitalize border ${STATUS_BADGE[item.status] || "bg-muted text-muted-foreground border-border"}`}>
             {item.status}
           </span>
         </div>

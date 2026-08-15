@@ -65,9 +65,9 @@ export default function SettingsPage() {
       {/* Profile banner card */}
       <div className="surface rounded-2xl overflow-hidden mb-6">
         {/* Cover */}
-        <div className="h-28 bg-gradient-to-br from-slate-900 via-sky-950 to-sky-800 relative overflow-hidden">
-          <div className="absolute -top-10 -right-8 w-48 h-48 bg-sky-400/20 rounded-full blur-3xl" />
-          <div className="absolute -bottom-16 left-1/4 w-40 h-40 bg-sky-500/10 rounded-full blur-3xl" />
+        <div className="h-28 bg-gradient-to-br from-slate-900 via-indigo-950 to-indigo-800 relative overflow-hidden">
+          <div className="absolute -top-10 -right-8 w-48 h-48 bg-indigo-400/20 rounded-full blur-3xl" />
+          <div className="absolute -bottom-16 left-1/4 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl" />
           {/* Avatar overlapping cover */}
           <div className="absolute -bottom-9 left-6 group">
             <div className="w-[4.5rem] h-[4.5rem] rounded-2xl overflow-hidden bg-card border-4 border-card shadow-xl relative">
@@ -115,7 +115,7 @@ export default function SettingsPage() {
             <Button
               onClick={handleSaveProfile}
               disabled={savingProfile || !canSave}
-              className="bg-primary text-white hover:bg-primary/90 shadow-[0_4px_16px_-6px_rgba(14,165,233,0.5)] disabled:opacity-50"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.4)] disabled:opacity-50"
             >
               {savingProfile ? <Loader2 size={14} className="animate-spin" /> : <Save size={14} />}
               {savingProfile ? "Saving..." : "Save changes"}

@@ -8,14 +8,14 @@ function initials(first: string | null, last: string | null) {
 }
 
 const AVATAR_COLORS = [
-  "bg-sky-500",
-  "bg-slate-600",
+  "bg-indigo-500",
+  "bg-violet-500",
   "bg-cyan-500",
-  "bg-slate-500",
-  "bg-sky-600",
-  "bg-cyan-600",
-  "bg-sky-400",
-  "bg-slate-700",
+  "bg-emerald-500",
+  "bg-rose-500",
+  "bg-amber-500",
+  "bg-blue-500",
+  "bg-fuchsia-500",
 ];
 
 interface RecentCollaborationsProps {
@@ -26,7 +26,7 @@ export function RecentCollaborations({ collaborators }: RecentCollaborationsProp
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
       <div className="flex items-center gap-2.5 mb-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-300">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">
           <Users size={15} />
         </div>
         <div>

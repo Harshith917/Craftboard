@@ -32,7 +32,7 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-sky-500">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-indigo-500">
             {today}
           </p>
           <h1 className="mt-1.5 text-3xl font-bold tracking-tight text-foreground">
@@ -53,7 +53,7 @@ export default function DashboardPage() {
           </button>
           <button
             onClick={() => navigate("/project")}
-            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[linear-gradient(110deg,#0ea5e9,#38bdf8)] px-3.5 text-xs font-medium text-white hover:opacity-90 shadow-[0_6px_18px_-8px_rgba(14,165,233,0.7)] transition-opacity"
+            className="inline-flex h-9 items-center gap-2 rounded-lg bg-[linear-gradient(110deg,#4f46e5,#7c3aed)] dark:bg-[linear-gradient(110deg,#6366f1,#8b5cf6)] px-3.5 text-xs font-medium text-white hover:opacity-90 shadow-[0_6px_18px_-8px_rgba(79,70,229,0.5)] transition-opacity"
           >
             <Plus size={14} />
             New project

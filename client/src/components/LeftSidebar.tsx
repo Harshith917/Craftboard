@@ -59,7 +59,7 @@ export default function LeftSidebar({
       className="relative flex flex-col mt-14 z-10 transition-all duration-300 ease-in-out"
       style={{ width: collapsed ? "48px" : "260px" }}
     >
-      <div className="h-full bg-white/80 backdrop-blur-xl border-r border-border shadow-[2px_0_16px_rgba(0,0,0,0.05)] flex flex-col overflow-hidden transition-all duration-300 ease-in-out">
+      <div className="h-full bg-card/80 backdrop-blur-xl border-r border-border shadow-[2px_0_16px_rgba(0,0,0,0.05)] flex flex-col overflow-hidden transition-all duration-300 ease-in-out">
         <div className="flex items-center justify-between px-3 py-3 border-b border-border shrink-0">
           {!collapsed && (
             <>
@@ -68,7 +68,7 @@ export default function LeftSidebar({
                   onClick={() => setTab("insert")}
                   className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-all ${
                     tab === "insert"
-                      ? "bg-white text-primary shadow-sm"
+                      ? "bg-card text-primary shadow-sm"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -79,7 +79,7 @@ export default function LeftSidebar({
                   onClick={() => setTab("layers")}
                   className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-all ${
                     tab === "layers"
-                      ? "bg-white text-primary shadow-sm"
+                      ? "bg-card text-primary shadow-sm"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -90,7 +90,7 @@ export default function LeftSidebar({
                   onClick={() => setTab("ai")}
                   className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-[11px] font-medium transition-all ${
                     tab === "ai"
-                      ? "bg-white text-primary shadow-sm"
+                      ? "bg-card text-primary shadow-sm"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
@@ -142,7 +142,7 @@ export default function LeftSidebar({
                 className="sr-only peer"
               />
               <div className="w-8 h-4 rounded-full bg-border peer-checked:bg-primary transition-colors duration-200" />
-              <div className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-200 peer-checked:translate-x-4" />
+              <div className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-card shadow-sm transition-transform duration-200 peer-checked:translate-x-4" />
             </div>
           </label>
 
@@ -164,7 +164,7 @@ export default function LeftSidebar({
                 className="sr-only peer"
               />
               <div className="w-8 h-4 rounded-full bg-border peer-checked:bg-primary transition-colors duration-200" />
-              <div className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-200 peer-checked:translate-x-4" />
+              <div className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-card shadow-sm transition-transform duration-200 peer-checked:translate-x-4" />
             </div>
           </label>
 
@@ -186,7 +186,7 @@ export default function LeftSidebar({
                 className="sr-only peer"
               />
               <div className="w-8 h-4 rounded-full bg-border peer-checked:bg-primary transition-colors duration-200" />
-              <div className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-white shadow-sm transition-transform duration-200 peer-checked:translate-x-4" />
+              <div className="absolute top-0.5 left-0.5 w-3 h-3 rounded-full bg-card shadow-sm transition-transform duration-200 peer-checked:translate-x-4" />
             </div>
           </label>
         </div>

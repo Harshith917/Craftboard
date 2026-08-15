@@ -22,12 +22,12 @@ const STATUS_FILTERS = [
 ];
 
 interface AccessViewProps {
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   typeFilter?: "access_request" | "invitation";
 }
 
-export default function AccessPage({ title, subtitle, typeFilter }: AccessViewProps) {
+export default function AccessPage({ title = "Access", subtitle = "Manage access requests and invitations", typeFilter }: AccessViewProps) {
   const navigate = useNavigate();
   const [tab, setTab] = useState<"incoming" | "outgoing" | "history">("incoming");
   const [search, setSearch] = useState("");
@@ -239,7 +239,7 @@ export default function AccessPage({ title, subtitle, typeFilter }: AccessViewPr
             >
               {t.label}
               {t.value === "incoming" && badgeCount > 0 && (
-                <span className="bg-primary text-white text-[9px] px-1.5 py-0.5 rounded-full">
+                <span className="bg-primary text-primary-foreground text-[9px] px-1.5 py-0.5 rounded-full">
                   {badgeCount}
                 </span>
               )}

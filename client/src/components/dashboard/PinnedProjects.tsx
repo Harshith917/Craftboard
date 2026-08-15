@@ -8,10 +8,12 @@ interface PinnedProjectsProps {
 }
 
 const GRADIENTS = [
-  "from-sky-500 via-sky-400 to-cyan-400",
+  "from-indigo-500 via-indigo-400 to-cyan-400",
+  "from-violet-500 via-purple-500 to-fuchsia-500",
+  "from-emerald-500 via-teal-500 to-cyan-500",
+  "from-amber-500 via-orange-500 to-rose-500",
+  "from-indigo-600 via-violet-600 to-purple-600",
   "from-slate-800 via-slate-700 to-slate-600",
-  "from-sky-600 via-sky-500 to-cyan-500",
-  "from-cyan-500 via-sky-400 to-sky-300",
 ];
 
 function gradient(id: string) {
@@ -26,7 +28,7 @@ export function PinnedProjects({ projects }: PinnedProjectsProps) {
   return (
     <section className="rounded-2xl border border-border bg-card p-5">
       <div className="flex items-center gap-2.5 mb-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-300">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">
           <Pin size={15} />
         </div>
         <div className="flex-1">

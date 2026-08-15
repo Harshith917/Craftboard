@@ -15,10 +15,12 @@ function timeAgo(date: string) {
 }
 
 const GRADIENTS = [
-  "from-sky-500 via-sky-400 to-cyan-400",
+  "from-indigo-500 via-indigo-400 to-cyan-400",
+  "from-violet-500 via-purple-500 to-fuchsia-500",
+  "from-emerald-500 via-teal-500 to-cyan-500",
+  "from-amber-500 via-orange-500 to-rose-500",
+  "from-indigo-600 via-violet-600 to-purple-600",
   "from-slate-800 via-slate-700 to-slate-600",
-  "from-sky-600 via-sky-500 to-cyan-500",
-  "from-cyan-500 via-sky-400 to-sky-300",
 ];
 
 function gradient(id: string) {
@@ -52,7 +54,7 @@ export function RecentPages({ pages }: RecentPagesProps) {
           <button
             key={p.pageId}
             onClick={() => navigate(`/editor/${p.projectId}/page/${p.pageId}`)}
-            className="group flex items-center gap-4 rounded-xl border border-border bg-app p-4 text-left transition-all hover:border-sky-300 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_-14px_rgba(14,165,233,0.4)] dark:hover:border-sky-500/40"
+            className="group flex items-center gap-4 rounded-xl border border-border bg-app p-4 text-left transition-all hover:border-neutral-300 hover:-translate-y-0.5 hover:shadow-[0_10px_28px_-14px_rgba(0,0,0,0.3)] dark:hover:border-neutral-600"
           >
             <div
               className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br ${gradient(p.projectId)} text-white shadow-[0_8px_20px_-10px_rgba(0,0,0,0.5)]`}

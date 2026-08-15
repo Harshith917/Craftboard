@@ -34,10 +34,10 @@ interface InspectorPanelProps {
 }
 
 const inputCls =
-  "w-full px-2 py-1.5 text-[12px] font-mono border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-100 transition-colors disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed";
+  "w-full px-2 py-1.5 text-[12px] font-mono border border-border rounded-lg outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-100 transition-colors disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed";
 
 const selectCls =
-  "w-full px-2 py-1.5 text-[12px] border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-100 transition-colors bg-white disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed";
+  "w-full px-2 py-1.5 text-[12px] border border-border rounded-lg outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-100 transition-colors bg-card disabled:bg-muted disabled:text-muted-foreground disabled:cursor-not-allowed";
 
 function Section({
   label,
@@ -50,10 +50,10 @@ function Section({
 }) {
   const [open, setOpen] = useState(defaultOpen);
   return (
-    <div className="border-b border-gray-100 last:border-b-0">
+    <div className="border-b border-border last:border-b-0">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 w-full px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-gray-400 hover:text-gray-600 transition-colors"
+        className="flex items-center gap-1.5 w-full px-3 py-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-colors"
       >
         {open ? <ChevronDown size={12} /> : <ChevronRight size={12} />}
         {label}
@@ -80,13 +80,13 @@ export default function InspectorPanel({
 
   if (!selectedNode) {
     return (
-      <div className="w-72 bg-white border-l border-gray-200 shadow-sm mt-14 overflow-y-auto flex flex-col">
+      <div className="w-72 bg-card border-l border-border shadow-sm mt-14 overflow-y-auto flex flex-col">
         <div className="flex flex-col items-center justify-center flex-1 px-6 py-16 text-center">
-          <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center mb-4 ring-1 ring-gray-100">
-            <MousePointer size={20} className="text-gray-300" />
+          <div className="w-12 h-12 bg-muted rounded-xl flex items-center justify-center mb-4 ring-1 ring-border">
+            <MousePointer size={20} className="text-muted-foreground/70" />
           </div>
-          <p className="text-sm font-medium text-gray-400 mb-1">No selection</p>
-          <p className="text-xs text-gray-300 leading-relaxed">
+          <p className="text-sm font-medium text-muted-foreground mb-1">No selection</p>
+          <p className="text-xs text-muted-foreground/70 leading-relaxed">
             Select an element to view and edit its properties
           </p>
         </div>
@@ -97,15 +97,15 @@ export default function InspectorPanel({
   const disabled = !canEdit;
 
   return (
-    <div className="w-72 bg-white border-l border-gray-200 shadow-sm mt-14 overflow-y-auto">
+    <div className="w-72 bg-card border-l border-border shadow-sm mt-14 overflow-y-auto">
       {/* Name header */}
-      <div className="px-3 pt-3 pb-2 border-b border-gray-100">
+      <div className="px-3 pt-3 pb-2 border-b border-border">
         <div className="flex items-center gap-2 mb-1.5">
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
             {selectedNode.type}
           </span>
-          <span className="text-[10px] text-gray-300">/</span>
-          <span className="text-[10px] text-gray-400 font-mono">
+          <span className="text-[10px] text-muted-foreground/70">/</span>
+          <span className="text-[10px] text-muted-foreground font-mono">
             #{selectedNode.id.slice(-6)}
           </span>
         </div>
@@ -116,19 +116,19 @@ export default function InspectorPanel({
             onChange={(e) =>
               updateNodeProperty(selectedNode.id, "name", e.target.value)
             }
-            className="w-full text-sm font-medium text-gray-900 outline-none bg-transparent placeholder:text-gray-300"
+            className="w-full text-sm font-medium text-foreground outline-none bg-transparent placeholder:text-muted-foreground/60"
             placeholder="Layer name"
           />
         ) : (
-          <p className="text-sm font-medium text-gray-900">
+          <p className="text-sm font-medium text-foreground">
             {selectedNode.name || selectedNode.type}
           </p>
         )}
         {canEdit && (
-          <div className="flex items-center gap-1 mt-2 pt-2 border-t border-gray-50">
+          <div className="flex items-center gap-1 mt-2 pt-2 border-t border-border">
             <button
               onClick={duplicateShape}
-              className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg border border-gray-200 text-gray-600 hover:text-gray-900 hover:bg-gray-50 transition-colors text-[11px] font-medium"
+              className="flex-1 flex items-center justify-center gap-1.5 px-2 py-1.5 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-[11px] font-medium"
             >
               <Copy size={13} />
               Duplicate
@@ -147,7 +147,7 @@ export default function InspectorPanel({
       {/* Text content (text-based nodes only, at top) */}
       {isText && (
         <div className="px-3 pt-2 pb-1">
-          <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Content</label>
+          <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Content</label>
           <textarea
             value={selectedNode.text || ""}
             disabled={disabled}
@@ -165,7 +165,7 @@ export default function InspectorPanel({
       <Section label="Position">
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">X</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">X</label>
             <input
               type="number"
               value={Math.round(selectedNode.x)}
@@ -177,7 +177,7 @@ export default function InspectorPanel({
             />
           </div>
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Y</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Y</label>
             <input
               type="number"
               value={Math.round(selectedNode.y)}
@@ -195,7 +195,7 @@ export default function InspectorPanel({
       <Section label="Size">
         {selectedNode.type === "circle" ? (
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Radius</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Radius</label>
             <input
               type="number"
               min={MIN_SIZE / 2}
@@ -214,7 +214,7 @@ export default function InspectorPanel({
         ) : (
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">W</label>
+              <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">W</label>
               <input
                 type="number"
                 min={MIN_SIZE}
@@ -231,7 +231,7 @@ export default function InspectorPanel({
               />
             </div>
             <div>
-              <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">H</label>
+              <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">H</label>
               <input
                 type="number"
                 min={MIN_SIZE}
@@ -251,7 +251,7 @@ export default function InspectorPanel({
         )}
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Rotation</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Rotation</label>
             <input
               type="number"
               min={0}
@@ -266,7 +266,7 @@ export default function InspectorPanel({
           </div>
           {(selectedNode.type === "roundedRect" || selectedNode.type === "rect" || selectedNode.type === "image" || selectedNode.type === "stickyNote" || selectedNode.type === "codeBlock") && (
             <div>
-              <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Radius</label>
+              <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Radius</label>
               <input
                 type="number"
                 min={0}
@@ -300,7 +300,7 @@ export default function InspectorPanel({
         />
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Width</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Width</label>
             <input
               type="number"
               min={0}
@@ -315,7 +315,7 @@ export default function InspectorPanel({
             />
           </div>
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Style</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Style</label>
             <select
               value={selectedNode.strokeStyle || "solid"}
               disabled={disabled}
@@ -331,7 +331,7 @@ export default function InspectorPanel({
           </div>
         </div>
         <div>
-          <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Opacity</label>
+          <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Opacity</label>
           <div className="flex items-center gap-2">
             <input
               type="range"
@@ -343,9 +343,9 @@ export default function InspectorPanel({
               onChange={(e) =>
                 updateNodeProperty(selectedNode.id, "opacity", parseFloat(e.target.value))
               }
-              className="flex-1 h-1.5 accent-blue-500"
+              className="flex-1 h-1.5 accent-indigo-500"
             />
-            <span className="text-[11px] text-gray-400 font-mono w-8 text-right">
+            <span className="text-[11px] text-muted-foreground font-mono w-8 text-right">
               {Math.round(selectedNode.opacity * 100)}%
             </span>
           </div>
@@ -357,7 +357,7 @@ export default function InspectorPanel({
         <Section label="Typography">
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Font</label>
+              <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Font</label>
               <select
                 value={selectedNode.fontFamily || "Inter, system-ui, sans-serif"}
                 disabled={disabled}
@@ -376,7 +376,7 @@ export default function InspectorPanel({
               </select>
             </div>
             <div>
-              <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Size</label>
+              <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Size</label>
               <input
                 type="number"
                 min={8}
@@ -402,8 +402,8 @@ export default function InspectorPanel({
               disabled={disabled}
               className={`px-2.5 py-1.5 text-[11px] rounded-md border transition-colors ${
                 selectedNode.fontWeight === "bold"
-                  ? "bg-blue-50 border-blue-200 text-blue-700"
-                  : "border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                  ? "bg-indigo-50 border-indigo-200 text-indigo-700"
+                  : "border-border text-muted-foreground hover:text-foreground hover:bg-muted"
               } disabled:opacity-40 disabled:cursor-not-allowed`}
               title="Bold"
             >
@@ -420,8 +420,8 @@ export default function InspectorPanel({
               disabled={disabled}
               className={`px-2.5 py-1.5 text-[11px] rounded-md border transition-colors ${
                 selectedNode.fontStyle === "italic"
-                  ? "bg-blue-50 border-blue-200 text-blue-700"
-                  : "border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                  ? "bg-indigo-50 border-indigo-200 text-indigo-700"
+                  : "border-border text-muted-foreground hover:text-foreground hover:bg-muted"
               } disabled:opacity-40 disabled:cursor-not-allowed`}
               title="Italic"
             >
@@ -438,8 +438,8 @@ export default function InspectorPanel({
               disabled={disabled}
               className={`px-2.5 py-1.5 text-[11px] rounded-md border transition-colors ${
                 selectedNode.textDecoration === "underline"
-                  ? "bg-blue-50 border-blue-200 text-blue-700"
-                  : "border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                  ? "bg-indigo-50 border-indigo-200 text-indigo-700"
+                  : "border-border text-muted-foreground hover:text-foreground hover:bg-muted"
               } disabled:opacity-40 disabled:cursor-not-allowed`}
               title="Underline"
             >
@@ -452,7 +452,7 @@ export default function InspectorPanel({
               onChange={(e) =>
                 updateNodeProperty(selectedNode.id, "textAlign", e.target.value)
               }
-              className="px-1.5 py-1.5 text-[11px] border border-gray-200 rounded-md outline-none bg-white disabled:opacity-40"
+              className="px-1.5 py-1.5 text-[11px] border border-border rounded-md outline-none bg-card disabled:opacity-40"
             >
               <option value="left">L</option>
               <option value="center">C</option>
@@ -461,7 +461,7 @@ export default function InspectorPanel({
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Letter Spacing</label>
+              <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Letter Spacing</label>
               <input
                 type="number"
                 min={-5}
@@ -476,7 +476,7 @@ export default function InspectorPanel({
               />
             </div>
             <div>
-              <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Line Height</label>
+              <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Line Height</label>
               <input
                 type="number"
                 min={0.5}
@@ -505,7 +505,7 @@ export default function InspectorPanel({
         />
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Blur</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Blur</label>
             <input
               type="number"
               min={0}
@@ -520,7 +520,7 @@ export default function InspectorPanel({
             />
           </div>
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Opacity</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Opacity</label>
             <input
               type="number"
               min={0}
@@ -537,7 +537,7 @@ export default function InspectorPanel({
         </div>
         <div className="grid grid-cols-2 gap-2">
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Offset X</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Offset X</label>
             <input
               type="number"
               value={selectedNode.shadowOffsetX || 0}
@@ -549,7 +549,7 @@ export default function InspectorPanel({
             />
           </div>
           <div>
-            <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Offset Y</label>
+            <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Offset Y</label>
             <input
               type="number"
               value={selectedNode.shadowOffsetY || 0}
@@ -562,7 +562,7 @@ export default function InspectorPanel({
           </div>
         </div>
         <div>
-          <label className="block text-[10px] text-gray-400 mb-0.5 font-medium">Blur Filter</label>
+          <label className="block text-[10px] text-muted-foreground mb-0.5 font-medium">Blur Filter</label>
           <input
             type="range"
             min={0}
@@ -573,7 +573,7 @@ export default function InspectorPanel({
             onChange={(e) =>
               updateNodeProperty(selectedNode.id, "blurRadius", parseFloat(e.target.value))
             }
-            className="flex-1 h-1.5 accent-blue-500 w-full"
+            className="flex-1 h-1.5 accent-indigo-500 w-full"
           />
         </div>
       </Section>
@@ -585,7 +585,7 @@ export default function InspectorPanel({
             <div className="flex items-center gap-1">
               <button
                 onClick={bringToFront}
-                className="flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-lg border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors text-[10px]"
+                className="flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-[10px]"
                 title="Bring to Front"
               >
                 <BringToFront size={14} />
@@ -593,7 +593,7 @@ export default function InspectorPanel({
               </button>
               <button
                 onClick={sendToBack}
-                className="flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-lg border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors text-[10px]"
+                className="flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-[10px]"
                 title="Send to Back"
               >
                 <SendToBack size={14} />
@@ -601,7 +601,7 @@ export default function InspectorPanel({
               </button>
               <button
                 onClick={bringForward}
-                className="flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-lg border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors text-[10px]"
+                className="flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-[10px]"
                 title="Bring Forward"
               >
                 <ArrowUpToLine size={14} />
@@ -609,7 +609,7 @@ export default function InspectorPanel({
               </button>
               <button
                 onClick={sendBackward}
-                className="flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-lg border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors text-[10px]"
+                className="flex-1 flex flex-col items-center gap-1 px-2 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-[10px]"
                 title="Send Backward"
               >
                 <ArrowDownToLine size={14} />
@@ -619,7 +619,7 @@ export default function InspectorPanel({
             <div className="flex items-center gap-1">
               <button
                 onClick={toggleLock}
-                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors text-[11px]"
+                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-[11px]"
                 title="Toggle Lock"
               >
                 {selectedNode.locked ? <Unlock size={13} /> : <Lock size={13} />}
@@ -627,7 +627,7 @@ export default function InspectorPanel({
               </button>
               <button
                 onClick={toggleVisibility}
-                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors text-[11px]"
+                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-[11px]"
                 title="Toggle Visibility"
               >
                 <Eye size={13} />
@@ -637,7 +637,7 @@ export default function InspectorPanel({
             <div className="flex items-center gap-1">
               <button
                 onClick={duplicateShape}
-                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg border border-gray-200 text-gray-500 hover:text-gray-700 hover:bg-gray-50 transition-colors text-[11px]"
+                className="flex-1 flex items-center justify-center gap-1.5 px-2 py-2 rounded-lg border border-border text-muted-foreground hover:text-foreground hover:bg-muted transition-colors text-[11px]"
               >
                 <Copy size={13} />
                 Duplicate
@@ -653,7 +653,7 @@ export default function InspectorPanel({
           </>
         )}
         {!canEdit && (
-          <div className="flex items-center gap-1.5 px-2 py-2 text-[11px] text-gray-400 bg-gray-50 rounded-lg">
+          <div className="flex items-center gap-1.5 px-2 py-2 text-[11px] text-muted-foreground bg-muted rounded-lg">
             <Eye size={12} />
             View-only — no editing available
           </div>

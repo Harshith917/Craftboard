@@ -26,7 +26,7 @@ export default function Footer() {
           </div>
 
           <p className="text-xs text-muted-foreground">
-            Built with <span className="text-sky-400">&hearts;</span> using React and Express
+            Built with <span className="text-indigo-400">&hearts;</span> using React and Express
           </p>
         </div>
       </div>

@@ -29,10 +29,12 @@ function timeAgo(date: string) {
 }
 
 const THUMBNAIL_GRADIENTS = [
-  "from-sky-500 via-sky-400 to-cyan-400",
+  "from-indigo-500 via-indigo-400 to-cyan-400",
+  "from-violet-500 via-purple-500 to-fuchsia-500",
+  "from-emerald-500 via-teal-500 to-cyan-500",
+  "from-amber-500 via-orange-500 to-rose-500",
+  "from-indigo-600 via-violet-600 to-purple-600",
   "from-slate-800 via-slate-700 to-slate-600",
-  "from-sky-600 via-sky-500 to-cyan-500",
-  "from-cyan-500 via-sky-400 to-sky-300",
 ];
 
 function thumbnailGradient(id: string) {
@@ -43,7 +45,7 @@ function thumbnailGradient(id: string) {
 
 const ROLE_BADGE: Record<string, string> = {
   owner: "bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-500/10 dark:text-amber-400 dark:border-amber-500/20",
-  editor: "bg-sky-50 text-sky-700 border-sky-200 dark:bg-sky-500/10 dark:text-sky-400 dark:border-sky-500/20",
+  editor: "bg-indigo-50 text-indigo-700 border-indigo-200 dark:bg-indigo-500/10 dark:text-indigo-400 dark:border-indigo-500/20",
   viewer: "bg-muted text-muted-foreground border-border",
 };
 
@@ -132,8 +134,8 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
 
       {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-14 text-center">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-sky-50 to-cyan-100 flex items-center justify-center mb-3 ring-1 ring-black/5">
-            <FolderOpen size={20} className="text-sky-500" />
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-50 to-cyan-100 flex items-center justify-center mb-3 ring-1 ring-black/5">
+            <FolderOpen size={20} className="text-indigo-500" />
           </div>
           <p className="text-sm text-muted-foreground">
             {debouncedSearch

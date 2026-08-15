@@ -185,7 +185,7 @@ export default function AIPanel({
           placeholder="e.g. A dashboard card with a heading, stat number, and a progress bar"
           rows={4}
           disabled={loading}
-          className="w-full resize-none rounded-lg border border-border bg-white px-3 py-2 text-[12px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:opacity-60"
+          className="w-full resize-none rounded-lg border border-border bg-card px-3 py-2 text-[12px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/40 disabled:opacity-60"
         />
 
         <button
@@ -222,7 +222,7 @@ export default function AIPanel({
                 key={s}
                 onClick={() => setPrompt(s)}
                 disabled={loading}
-                className="text-left rounded-lg border border-border bg-white px-2.5 py-2 text-[11px] leading-snug text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground disabled:opacity-50"
+                className="text-left rounded-lg border border-border bg-card px-2.5 py-2 text-[11px] leading-snug text-muted-foreground transition-colors hover:border-primary/40 hover:text-foreground disabled:opacity-50"
               >
                 {s}
               </button>
@@ -238,7 +238,7 @@ export default function AIPanel({
         )}
 
         {result && !error && (
-          <div className="rounded-lg border border-border bg-white p-3">
+          <div className="rounded-lg border border-border bg-card p-3">
             <p className="text-[12px] font-semibold text-foreground">
               {result.title}
             </p>

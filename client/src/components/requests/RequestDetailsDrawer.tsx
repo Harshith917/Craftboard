@@ -20,8 +20,8 @@ import { AccessRequestItem } from "@/hooks/useAccessRequestsManagement";
 
 const ROLE_BADGES: Record<string, { label: string; className: string }> = {
   owner: { label: "Owner", className: "bg-amber-50 text-amber-700 border-amber-200" },
-  editor: { label: "Editor", className: "bg-blue-50 text-blue-700 border-blue-200" },
-  viewer: { label: "Viewer", className: "bg-gray-100 text-gray-500 border-gray-200" },
+  editor: { label: "Editor", className: "bg-indigo-50 text-indigo-700 border-indigo-200" },
+  viewer: { label: "Viewer", className: "bg-accent text-muted-foreground border-border" },
 };
 
 const EVENT_LABELS: Record<string, { label: string; icon: React.ReactNode; dotColor: string }> = {
@@ -71,7 +71,7 @@ export function RequestDetailsDrawer({
     pending: { icon: <Clock size={14} />, label: "Pending", className: "bg-yellow-50 text-yellow-700" },
     approved: { icon: <CheckCircle2 size={14} />, label: "Approved", className: "bg-green-50 text-green-700" },
     denied: { icon: <XCircle size={14} />, label: "Denied", className: "bg-red-50 text-red-700" },
-    cancelled: { icon: <Ban size={14} />, label: "Cancelled", className: "bg-gray-50 text-gray-500" },
+    cancelled: { icon: <Ban size={14} />, label: "Cancelled", className: "bg-muted text-muted-foreground" },
   }[request.status];
 
   const isPending = request.status === "pending";
@@ -121,10 +121,10 @@ export function RequestDetailsDrawer({
         onClick={onClose}
       />
 
-      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-white border-l border-gray-100 shadow-xl flex flex-col">
-        <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
+      <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-card border-l border-border shadow-xl flex flex-col">
+        <div className="flex items-center justify-between px-5 py-4 border-b border-border">
           <div className="flex items-center gap-2">
-            <h2 className="text-sm font-semibold text-gray-900">Request Details</h2>
+            <h2 className="text-sm font-semibold text-foreground">Request Details</h2>
             <span
               className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full capitalize ${statusConfig.className}`}
             >
@@ -134,7 +134,7 @@ export function RequestDetailsDrawer({
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-1.5 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors"
           >
             <X size={16} />
           </button>
@@ -142,8 +142,8 @@ export function RequestDetailsDrawer({
 
         <div className="flex-1 overflow-y-auto">
           <div className="p-5 space-y-6">
-            <div className="flex items-start gap-4 pb-5 border-b border-gray-50">
-              <div className="h-12 w-12 shrink-0 rounded-xl overflow-hidden border border-gray-100 bg-gray-50 flex items-center justify-center">
+            <div className="flex items-start gap-4 pb-5 border-b border-border">
+              <div className="h-12 w-12 shrink-0 rounded-xl overflow-hidden border border-border bg-muted flex items-center justify-center">
                 {request.user.imageUrl ? (
                   <img
                     src={request.user.imageUrl}
@@ -151,38 +151,38 @@ export function RequestDetailsDrawer({
                     className="h-full w-full object-cover"
                   />
                 ) : (
-                  <User size={20} className="text-gray-400" />
+                  <User size={20} className="text-muted-foreground" />
                 )}
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-semibold text-gray-900">
+                <p className="text-sm font-semibold text-foreground">
                   {displayName(request.user)}
                 </p>
-                <p className="text-xs text-gray-400 mt-0.5">{request.user.email}</p>
+                <p className="text-xs text-muted-foreground mt-0.5">{request.user.email}</p>
                 {request.user.createdAt && (
-                  <p className="text-xs text-gray-300 mt-1">
+                  <p className="text-xs text-muted-foreground/70 mt-1">
                     Joined {formatDate(request.user.createdAt).split(",")[0]}
                   </p>
                 )}
               </div>
             </div>
 
-            <div className="pb-5 border-b border-gray-50">
+            <div className="pb-5 border-b border-border">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-1">
+                  <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-1">
                     Project
                   </p>
-                  <p className="text-sm font-semibold text-gray-900">{request.project.name}</p>
+                  <p className="text-sm font-semibold text-foreground">{request.project.name}</p>
                   {request.project.description && (
-                    <p className="text-xs text-gray-400 mt-0.5 line-clamp-2">
+                    <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
                       {request.project.description}
                     </p>
                   )}
                 </div>
               </div>
               <div className="flex items-center gap-4 mt-2">
-                <span className="flex items-center gap-1 text-xs text-gray-400">
+                <span className="flex items-center gap-1 text-xs text-muted-foreground">
                   {request.project.visibility === "public" ? (
                     <Globe size={11} />
                   ) : (
@@ -192,12 +192,12 @@ export function RequestDetailsDrawer({
                 </span>
                 {request.project._count && (
                   <>
-                    <span className="flex items-center gap-1 text-xs text-gray-400">
+                    <span className="flex items-center gap-1 text-xs text-muted-foreground">
                       <Users size={11} />
                       {(request.project._count as any).members ?? 0} members
                     </span>
                     {(request.project._count as any).pages !== undefined && (
-                      <span className="flex items-center gap-1 text-xs text-gray-400">
+                      <span className="flex items-center gap-1 text-xs text-muted-foreground">
                         <FileText size={11} />
                         {(request.project as any)._count.pages} pages
                       </span>
@@ -207,8 +207,8 @@ export function RequestDetailsDrawer({
               </div>
               {request.project.User && (
                 <div className="flex items-center gap-2 mt-2">
-                  <span className="text-xs text-gray-400">Owned by</span>
-                  <span className="flex items-center gap-1 text-xs text-gray-600">
+                  <span className="text-xs text-muted-foreground">Owned by</span>
+                  <span className="flex items-center gap-1 text-xs text-muted-foreground">
                     {(request.project as any).User?.imageUrl && (
                       <img
                         src={(request.project as any).User.imageUrl}
@@ -223,25 +223,25 @@ export function RequestDetailsDrawer({
             </div>
 
             {request.message && (
-              <div className="pb-5 border-b border-gray-50">
-                <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">
+              <div className="pb-5 border-b border-border">
+                <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
                   Message
                 </p>
-                <div className="flex items-start gap-2 bg-gray-50 rounded-xl p-3">
-                  <MessageSquare size={14} className="text-gray-400 mt-0.5 shrink-0" />
-                  <p className="text-sm text-gray-700">{request.message}</p>
+                <div className="flex items-start gap-2 bg-muted rounded-xl p-3">
+                  <MessageSquare size={14} className="text-muted-foreground mt-0.5 shrink-0" />
+                  <p className="text-sm text-foreground">{request.message}</p>
                 </div>
               </div>
             )}
 
-            <div className="pb-5 border-b border-gray-50">
-              <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">
+            <div className="pb-5 border-b border-border">
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-2">
                 Requested Role
               </p>
               <span
                 className={`inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-md border capitalize ${
                   ROLE_BADGES[request.requestedRole]?.className ||
-                  "bg-gray-100 text-gray-500 border-gray-200"
+                  "bg-accent text-muted-foreground border-border"
                 }`}
               >
                 <Shield size={11} />
@@ -250,7 +250,7 @@ export function RequestDetailsDrawer({
             </div>
 
             <div>
-              <p className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-3">
+              <p className="text-xs font-medium text-muted-foreground uppercase tracking-wide mb-3">
                 History
               </p>
               <div className="space-y-0">
@@ -261,24 +261,24 @@ export function RequestDetailsDrawer({
                     <div key={event.id} className="flex items-start gap-3">
                       <div className="flex flex-col items-center">
                         <div className={`h-2.5 w-2.5 rounded-full mt-1.5 ${config.dotColor}`} />
-                        {!isLast && <div className="flex-1 w-px bg-gray-100 min-h-6" />}
+                        {!isLast && <div className="flex-1 w-px bg-accent min-h-6" />}
                       </div>
                       <div className={`pb-4 ${isLast ? "" : ""}`}>
                         <div className="flex items-center gap-1.5">
-                          <span className="text-xs font-semibold text-gray-900 capitalize">
+                          <span className="text-xs font-semibold text-foreground capitalize">
                             {config.label}
                           </span>
                           {event.changedBy && event.changedBy.id !== request.user.id && (
-                            <span className="text-xs text-gray-400">
+                            <span className="text-xs text-muted-foreground">
                               by {displayName(event.changedBy)}
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-gray-400 mt-0.5">
+                        <p className="text-xs text-muted-foreground mt-0.5">
                           {formatDate(event.createdAt)}
                         </p>
                         {event.reason && (
-                          <p className="text-xs text-gray-500 italic mt-1 bg-gray-50 rounded-lg px-2.5 py-1.5">
+                          <p className="text-xs text-muted-foreground italic mt-1 bg-muted rounded-lg px-2.5 py-1.5">
                             &ldquo;{event.reason}&rdquo;
                           </p>
                         )}
@@ -292,7 +292,7 @@ export function RequestDetailsDrawer({
         </div>
 
         {isPending && (
-          <div className="border-t border-gray-100 px-5 py-4 space-y-3">
+          <div className="border-t border-border px-5 py-4 space-y-3">
             {showReason && (
               <div className="flex items-center gap-2">
                 <input
@@ -301,7 +301,7 @@ export function RequestDetailsDrawer({
                   value={rejectReason}
                   onChange={(e) => setRejectReason(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && handleReject()}
-                  className="flex-1 text-xs px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent bg-gray-50"
+                  className="flex-1 text-xs px-3 py-2 border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring focus:border-transparent bg-muted"
                   autoFocus
                 />
                 <button
@@ -309,7 +309,7 @@ export function RequestDetailsDrawer({
                     setShowReason(false);
                     setRejectReason("");
                   }}
-                  className="text-xs text-gray-400 hover:text-gray-600"
+                  className="text-xs text-muted-foreground hover:text-foreground"
                 >
                   <X size={14} />
                 </button>

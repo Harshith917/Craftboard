@@ -89,7 +89,7 @@ export default function InvitationPage() {
             You have declined the invitation to join <span className="font-medium text-foreground">{invitation?.project?.name}</span>.
             The project owner has been notified.
           </p>
-          <Button variant="default" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate("/dashboard")}>
+          <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => navigate("/dashboard")}>
             Go to Dashboard
           </Button>
         </div>
@@ -112,7 +112,7 @@ export default function InvitationPage() {
               ? `You have joined ${successProject}`
               : "You are already a member of this project."}
           </p>
-          <Button variant="default" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate("/dashboard")}>
+          <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => navigate("/dashboard")}>
             Go to Dashboard
           </Button>
         </div>
@@ -129,7 +129,7 @@ export default function InvitationPage() {
           </div>
           <h1 className="text-lg font-semibold text-foreground mb-1">Invitation invalid</h1>
           <p className="text-sm text-muted-foreground mb-6">{error}</p>
-          <Button variant="default" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate("/dashboard")}>
+          <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => navigate("/dashboard")}>
             Go to Dashboard
           </Button>
         </div>
@@ -148,7 +148,7 @@ export default function InvitationPage() {
           <p className="text-sm text-muted-foreground mb-6">
             You need to sign in before accepting this invitation.
           </p>
-          <Button variant="default" className="bg-primary text-white hover:bg-primary/90" onClick={() => navigate(`/sign-in?redirect_url=${encodeURIComponent(`/invitations/${token}`)}`)}>
+          <Button variant="default" className="bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => navigate(`/sign-in?redirect_url=${encodeURIComponent(`/invitations/${token}`)}`)}>
             Sign in
           </Button>
         </div>
@@ -163,11 +163,11 @@ export default function InvitationPage() {
     <div className="min-h-screen bg-app flex items-center justify-center p-4">
       <div className="bg-card rounded-2xl border border-border shadow-xl max-w-md w-full overflow-hidden">
         {/* Project header */}
-        <div className="relative h-32 bg-gradient-to-br from-slate-900 via-sky-950 to-sky-800 flex items-end p-6 overflow-hidden">
-          <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full bg-sky-500/20 blur-2xl" />
-          <div className="absolute -bottom-16 left-1/4 w-40 h-40 rounded-full bg-sky-400/10 blur-3xl" />
+        <div className="relative h-32 bg-gradient-to-br from-slate-900 via-indigo-950 to-indigo-800 flex items-end p-6 overflow-hidden">
+          <div className="absolute -top-10 -right-10 w-44 h-44 rounded-full bg-indigo-500/20 blur-2xl" />
+          <div className="absolute -bottom-16 left-1/4 w-40 h-40 rounded-full bg-indigo-400/10 blur-3xl" />
           <div className="relative">
-            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-sky-300 mb-1">Invitation</p>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-indigo-300 mb-1">Invitation</p>
             <h1 className="text-xl font-bold text-white relative">{invitation?.project?.name}</h1>
           </div>
         </div>
@@ -266,7 +266,7 @@ export default function InvitationPage() {
             </Button>
             <Button
               variant="default"
-              className="flex-1 bg-primary text-white hover:bg-primary/90"
+              className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90"
               onClick={handleAccept}
               disabled={accepting || declining || !!isExpired || !!isCancelled}
             >

@@ -311,12 +311,12 @@ export default function LayersPanel({
             }
             className={`group flex items-center h-7 px-1 cursor-pointer text-[12px] transition-colors select-none
               ${isSelected
-                ? "bg-blue-50 text-blue-700"
-                : "text-gray-600 hover:bg-gray-50"
+                ? "bg-indigo-50 text-indigo-700"
+                : "text-muted-foreground hover:bg-muted"
               }
               ${!canEdit ? "cursor-default" : ""}
               ${dropTarget && isDropTarget && dropTarget.position === "inside"
-                ? "ring-1 ring-blue-400 ring-inset rounded"
+                ? "ring-1 ring-indigo-400 ring-inset rounded"
                 : ""
               }
             `}
@@ -329,7 +329,7 @@ export default function LayersPanel({
                     e.stopPropagation();
                     toggleCollapse(node.id);
                   }}
-                  className="p-0.5 rounded text-gray-400 hover:text-gray-600"
+                  className="p-0.5 rounded text-muted-foreground hover:text-foreground"
                 >
                   {isCollapsed ? (
                     <ChevronRight size={12} />
@@ -350,8 +350,8 @@ export default function LayersPanel({
               }}
               className={`p-0.5 rounded shrink-0 transition-colors
                 ${node.visible === false
-                  ? "text-gray-300 hover:text-gray-400"
-                  : "text-gray-400 hover:text-gray-600"
+                  ? "text-muted-foreground/70 hover:text-foreground/60"
+                  : "text-muted-foreground hover:text-foreground"
                 }
                 ${!canEdit ? "cursor-default" : ""}
               `}
@@ -361,7 +361,7 @@ export default function LayersPanel({
             </button>
 
             <div className="flex items-center gap-1.5 min-w-0 flex-1 ml-1">
-              <span className="shrink-0 text-gray-400">{icon}</span>
+              <span className="shrink-0 text-muted-foreground">{icon}</span>
 
               {editingId === node.id ? (
                 <input
@@ -374,7 +374,7 @@ export default function LayersPanel({
                     if (e.key === "Escape") setEditingId(null);
                   }}
                   onClick={(e) => e.stopPropagation()}
-                  className="flex-1 min-w-0 px-1 py-0 text-[12px] border border-blue-400 rounded outline-none bg-white"
+                  className="flex-1 min-w-0 px-1 py-0 text-[12px] border border-indigo-400 rounded outline-none bg-card"
                 />
               ) : (
                 <span className="truncate text-[12px]">
@@ -392,7 +392,7 @@ export default function LayersPanel({
               className={`p-0.5 rounded shrink-0 transition-colors mr-1
                 ${node.locked
                   ? "text-amber-500 hover:text-amber-600"
-                  : "text-gray-300 hover:text-gray-400"
+                  : "text-muted-foreground/70 hover:text-foreground/60"
                 }
                 ${!canEdit ? "cursor-default" : ""}
               `}
@@ -403,7 +403,7 @@ export default function LayersPanel({
 
             {isDropTarget && dropTarget.position !== "inside" && (
               <div
-                className={`absolute left-0 right-0 h-0.5 bg-blue-500 z-10 pointer-events-none
+                className={`absolute left-0 right-0 h-0.5 bg-indigo-500 z-10 pointer-events-none
                   ${dropTarget.position === "before" ? "-top-0.5" : "-bottom-0.5"}
                 `}
               />
@@ -442,32 +442,32 @@ export default function LayersPanel({
 
   const content = (
     <>
-      <div className="shrink-0 px-3 py-3 border-b border-gray-100">
+      <div className="shrink-0 px-3 py-3 border-b border-border">
         <div className="flex items-center gap-2 mb-2.5">
-          <Layers size={13} className="text-gray-400" />
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-gray-400">
+          <Layers size={13} className="text-muted-foreground" />
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
             Layers
           </span>
-          <span className="text-[11px] text-gray-300 ml-auto">
+          <span className="text-[11px] text-muted-foreground/70 ml-auto">
             {nodes.length}
           </span>
         </div>
         <div className="relative">
           <Search
             size={12}
-            className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none"
+            className="absolute left-2 top-1/2 -translate-y-1/2 text-muted-foreground/70 pointer-events-none"
           />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search layers..."
-            className="w-full pl-7 pr-2 py-1.5 text-[12px] border border-gray-200 rounded-lg outline-none focus:border-blue-400 focus:ring-1 focus:ring-blue-100 transition-colors placeholder:text-gray-300"
+            className="w-full pl-7 pr-2 py-1.5 text-[12px] border border-border rounded-lg outline-none focus:border-indigo-400 focus:ring-1 focus:ring-indigo-100 transition-colors placeholder:text-muted-foreground/60"
           />
           {searchQuery && (
             <button
               onClick={() => setSearchQuery("")}
-              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-300 hover:text-gray-500"
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground/70 hover:text-foreground"
             >
               &times;
             </button>
@@ -478,17 +478,17 @@ export default function LayersPanel({
       <div className="flex-1 overflow-y-auto overflow-x-hidden py-1">
         {nodes.length === 0 ? (
           <div className="flex flex-col items-center gap-2 px-4 py-8 text-center">
-            <Layers size={20} className="text-gray-200" />
-            <p className="text-[12px] text-gray-300">
+            <Layers size={20} className="text-muted-foreground/40" />
+            <p className="text-[12px] text-muted-foreground/70">
               No layers yet
             </p>
-            <p className="text-[11px] text-gray-200">
+            <p className="text-[11px] text-muted-foreground/40">
               Add a shape to get started
             </p>
           </div>
         ) : searchQuery && topLevelNodes.every((n) => !isVisible(n.id)) ? (
           <div className="px-4 py-8 text-center">
-            <p className="text-[12px] text-gray-300">
+            <p className="text-[12px] text-muted-foreground/70">
               No layers match &quot;{searchQuery}&quot;
             </p>
           </div>
@@ -505,7 +505,7 @@ export default function LayersPanel({
 
   return (
     <div
-      className="flex flex-col h-full bg-white border-r border-gray-100 shadow-[2px_0_12px_rgba(0,0,0,0.04)] mt-14"
+      className="flex flex-col h-full bg-card border-r border-border shadow-[2px_0_12px_rgba(0,0,0,0.04)] mt-14"
       style={{ width: 260 }}
     >
       {content}

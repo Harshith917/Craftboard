@@ -18,9 +18,9 @@ export default function AppLoader({ message, fullscreen = false, className }: Ap
       )}
     >
       <div className="relative h-12 w-12">
-        <div className="absolute inset-0 rounded-full border-[3px] border-sky-200/70" />
-        <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-sky-500 animate-spin" />
-        <div className="absolute inset-[16px] rounded-full bg-sky-500/25 animate-pulse" />
+        <div className="absolute inset-0 rounded-full border-[3px] border-indigo-200/70" />
+        <div className="absolute inset-0 rounded-full border-[3px] border-transparent border-t-indigo-500 animate-spin" />
+        <div className="absolute inset-[16px] rounded-full bg-indigo-500/25 animate-pulse" />
       </div>
       {message && <p className="text-sm font-medium text-muted-foreground">{message}</p>}
     </div>

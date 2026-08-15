@@ -65,7 +65,7 @@ export function PendingRequests({ requests, onRespond }: PendingRequestsProps) {
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
       <div className="flex items-center gap-2.5 mb-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-300">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">
           <Inbox size={15} />
         </div>
         <div className="flex-1">
@@ -73,7 +73,7 @@ export function PendingRequests({ requests, onRespond }: PendingRequestsProps) {
           <p className="text-[11px] text-muted-foreground mt-0.5">Awaiting your review</p>
         </div>
         {local.length > 0 && (
-          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-sky-100 text-sky-700 dark:bg-sky-500/15 dark:text-sky-300">
+          <span className="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-700 dark:bg-indigo-500/15 dark:text-indigo-300">
             {local.length}
           </span>
         )}
@@ -108,7 +108,7 @@ export function PendingRequests({ requests, onRespond }: PendingRequestsProps) {
                   <button
                     onClick={() => handleApprove(req.id)}
                     disabled={loading}
-                    className="p-1.5 rounded-md bg-[linear-gradient(110deg,#0ea5e9,#38bdf8)] text-white hover:opacity-90 transition-opacity disabled:opacity-50 shadow-[0_6px_14px_-6px_rgba(14,165,233,0.55)]"
+                    className="p-1.5 rounded-md bg-[linear-gradient(110deg,#4f46e5,#7c3aed)] dark:bg-[linear-gradient(110deg,#6366f1,#8b5cf6)] text-white hover:opacity-90 transition-opacity disabled:opacity-50 shadow-[0_6px_14px_-6px_rgba(79,70,229,0.4)]"
                   >
                     {loading ? (
                       <Loader2 size={12} className="animate-spin" />

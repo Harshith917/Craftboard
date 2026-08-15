@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "@/components/common/Logo";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
 import { useState, useEffect } from "react";
 import { UniversalSearch } from "@/components/search/UniversalSearch";
 import { useNotificationContext } from "@/components/notifications/notification-context";
@@ -76,7 +77,7 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
     <>
       <aside
         className={cn(
-          "relative flex flex-col h-screen bg-white border-r border-border/80 transition-all duration-300 shrink-0",
+          "relative flex flex-col h-screen bg-card border-r border-border/80 transition-all duration-300 shrink-0",
           collapsed ? "w-[4.5rem]" : "w-64",
         )}
       >
@@ -89,7 +90,7 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
             {!collapsed && (
               <span className="min-w-0 leading-tight">
                 <span className="block text-[15px] font-semibold text-foreground truncate">
-                  Craft<span className="text-sky-500">board</span>
+                  Craft<span className="text-indigo-500">board</span>
                 </span>
                 <span className="block text-[10px] text-muted-foreground font-medium uppercase tracking-widest">
                   Design Studio
@@ -98,13 +99,16 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
             )}
           </Link>
           {!collapsed && (
-            <button
-              onClick={onToggle}
-              className="ml-auto p-1.5 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-              title="Collapse sidebar"
-            >
-              <ChevronLeft size={16} />
-            </button>
+            <>
+              <button
+                onClick={onToggle}
+                className="ml-auto p-1.5 rounded-lg text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+                title="Collapse sidebar"
+              >
+                <ChevronLeft size={16} />
+              </button>
+              <ThemeToggle />
+            </>
           )}
         </div>
 
@@ -152,18 +156,18 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
                       className={cn(
                         "relative flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm transition-all",
                         isActive
-                          ? "bg-sky-500/10 text-sky-600 font-medium"
+                          ? "bg-indigo-500/10 text-indigo-600 font-medium"
                           : "text-muted-foreground hover:bg-muted hover:text-foreground",
                         collapsed && "justify-center px-0",
                       )}
                     >
                       {isActive && (
-                        <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 rounded-full bg-sky-500" />
+                        <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-1 rounded-full bg-indigo-500" />
                       )}
                       <Icon size={17} className="shrink-0" />
                       {!collapsed && <span className="flex-1 text-left truncate">{label}</span>}
                       {badge > 0 && (
-                        <span className="text-[10px] font-semibold bg-sky-500 text-white px-1.5 py-0.5 rounded-full leading-none">
+                        <span className="text-[10px] font-semibold bg-indigo-500 text-white px-1.5 py-0.5 rounded-full leading-none">
                           {badge > 99 ? "99+" : badge}
                         </span>
                       )}
@@ -177,6 +181,11 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
 
         {/* Footer */}
         <div className="px-3 pb-4 border-t border-border/80 pt-3">
+          {collapsed && (
+            <div className="flex justify-center mb-1.5">
+              <ThemeToggle />
+            </div>
+          )}
           <Link
             to="/profile"
             className={cn(
@@ -185,11 +194,11 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
             )}
             title={collapsed ? name : undefined}
           >
-            <div className="w-8 h-8 rounded-full ring-2 ring-sky-400/40 overflow-hidden flex items-center justify-center shrink-0 bg-sky-500/10">
+            <div className="w-8 h-8 rounded-full ring-2 ring-indigo-400/40 overflow-hidden flex items-center justify-center shrink-0 bg-indigo-500/10">
               {user?.imageUrl ? (
                 <img src={user.imageUrl} alt="" className="w-full h-full object-cover" />
               ) : (
-                <span className="text-xs font-semibold text-sky-600">{initials}</span>
+                <span className="text-xs font-semibold text-indigo-600">{initials}</span>
               )}
             </div>
             {!collapsed && (
@@ -216,10 +225,10 @@ function Sidebar({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => 
         {collapsed && (
           <button
             onClick={onToggle}
-            className="absolute -right-3 top-16 w-6 h-6 bg-white border border-sky-200 rounded-full flex items-center justify-center shadow-md hover:bg-sky-50 transition-colors z-10"
+            className="absolute -right-3 top-16 w-6 h-6 bg-card border border-indigo-200 rounded-full flex items-center justify-center shadow-md hover:bg-indigo-50 transition-colors z-10"
             title="Expand sidebar"
           >
-            <ChevronRight size={12} className="text-sky-500" />
+            <ChevronRight size={12} className="text-indigo-500" />
           </button>
         )}
       </aside>

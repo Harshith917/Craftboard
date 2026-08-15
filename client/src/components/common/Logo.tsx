@@ -17,7 +17,13 @@ export default function Logo({ size = 32, showWordmark = false, className }: Log
         aria-label="Craftboard logo"
         className="shrink-0 drop-shadow-[0_2px_6px_-2px_rgba(0,0,0,0.35)]"
       >
-        <rect x="2" y="2" width="36" height="36" rx="10" fill="#0a0a0a" />
+        <defs>
+          <linearGradient id="logo-grad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#4f46e5" />
+            <stop offset="100%" stopColor="#7c3aed" />
+          </linearGradient>
+        </defs>
+        <rect x="2" y="2" width="36" height="36" rx="10" fill="url(#logo-grad)" />
 
         {/* board with folded corner */}
         <path
@@ -27,10 +33,10 @@ export default function Logo({ size = 32, showWordmark = false, className }: Log
         <path d="M24 11v5a0 0 0 0 0 0 0h5" fill="none" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" />
 
         {/* craft sparkle */}
-        <circle cx="17" cy="21" r="2.2" fill="#0a0a0a" />
+        <circle cx="17" cy="21" r="2.2" fill="#4f46e5" />
         <path
           d="M17 15.4v1.8M17 24.8v1.8M11.4 21h1.8M20.8 21h1.8"
-          stroke="#0a0a0a"
+          stroke="#4f46e5"
           strokeWidth="1.8"
           strokeLinecap="round"
         />

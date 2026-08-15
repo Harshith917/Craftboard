@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { useClerk, useUser } from "@clerk/clerk-react";
 import { Button } from "@/components/ui/button";
 import Logo from "@/components/common/Logo";
+import { ThemeToggle } from "@/components/common/ThemeToggle";
 
 const NAV_LINKS = [
   { label: "Features", href: "#features" },
@@ -45,6 +46,7 @@ export default function NavBar() {
         </nav>
 
         <div className="hidden md:flex items-center gap-3">
+          <ThemeToggle />
           {isLoaded && isSignedIn ? (
             <Button
               variant="ghost"
@@ -52,7 +54,7 @@ export default function NavBar() {
               onClick={() => signOut()}
               className="text-sm text-muted-foreground hover:text-foreground"
             >
-              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-sky-500/10 text-[10px] font-semibold text-sky-600">
+              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-indigo-500/10 text-[10px] font-semibold text-indigo-600">
                 {initials}
               </span>
               <span className="ml-1.5">{name} · Sign out</span>
@@ -70,7 +72,7 @@ export default function NavBar() {
               <Button
                 asChild
                 size="sm"
-                className="text-sm text-white bg-[linear-gradient(110deg,#0ea5e9,#38bdf8)] hover:opacity-90 shadow-[0_4px_16px_-6px_rgba(14,165,233,0.6)]"
+                className="text-sm text-white bg-[linear-gradient(110deg,#4f46e5,#7c3aed)] dark:bg-[linear-gradient(110deg,#6366f1,#8b5cf6)] hover:opacity-90 shadow-[0_4px_16px_-6px_rgba(79,70,229,0.4)]"
               >
                 <Link to="/sign-up">Get Started Free</Link>
               </Button>
@@ -121,7 +123,7 @@ export default function NavBar() {
                 <Button
                   asChild
                   size="sm"
-                  className="w-full text-white bg-[linear-gradient(110deg,#0ea5e9,#38bdf8)] hover:opacity-90"
+                  className="w-full text-white bg-[linear-gradient(110deg,#4f46e5,#7c3aed)] dark:bg-[linear-gradient(110deg,#6366f1,#8b5cf6)] hover:opacity-90"
                   onClick={() => setOpen(false)}
                 >
                   <Link to="/sign-up">Get Started Free</Link>

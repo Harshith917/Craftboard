@@ -78,7 +78,7 @@ export function DropdownMenu({ trigger, items, align = "end" }: DropdownMenuProp
       {open && createPortal(
         <div
           ref={panelRef}
-          className="fixed z-[200] min-w-[140px] bg-white rounded-lg shadow-lg border border-gray-200 py-1"
+          className="fixed z-[200] min-w-[140px] bg-card rounded-lg shadow-lg border border-border py-1"
           style={{ top: pos.top, left: pos.left }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -95,7 +95,7 @@ export function DropdownMenu({ trigger, items, align = "end" }: DropdownMenuProp
               className={`w-full flex items-center gap-2 px-3 py-1.5 text-xs text-left transition-colors ${
                 item.danger
                   ? "text-red-600 hover:bg-red-50"
-                  : "text-gray-700 hover:bg-gray-50"
+                  : "text-muted-foreground hover:bg-muted"
               } ${item.disabled ? "opacity-40 cursor-not-allowed" : ""}`}
             >
               {item.icon && <span className="w-3.5 h-3.5 shrink-0">{item.icon}</span>}

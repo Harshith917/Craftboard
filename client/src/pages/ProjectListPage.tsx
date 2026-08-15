@@ -204,7 +204,7 @@ export default function ProjectsPage() {
 
         <button
           onClick={() => setModalOpen(true)}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary/90 shadow-[0_8px_20px_-8px_rgba(14,165,233,0.6)] transition-all"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary/90 shadow-[0_8px_20px_-8px_rgba(0,0,0,0.4)] transition-all"
         >
           <Plus className="w-4 h-4" />
           New Project

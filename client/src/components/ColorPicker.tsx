@@ -123,7 +123,7 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
   return (
     <div className="space-y-3">
       {label && (
-        <label className="block text-[11px] font-medium text-gray-500 uppercase tracking-wider">
+        <label className="block text-[11px] font-medium text-muted-foreground uppercase tracking-wider">
           {label}
         </label>
       )}
@@ -138,19 +138,19 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
           />
           <div
-            className="w-10 h-10 rounded-lg border border-gray-200 shadow-sm"
+            className="w-10 h-10 rounded-lg border border-border shadow-sm"
             style={{ backgroundColor: value }}
           />
         </div>
         <div className="flex-1">
           {mode === "hex" && (
             <div className="flex items-center gap-1">
-              <span className="text-[11px] text-gray-400 font-mono">#</span>
+              <span className="text-[11px] text-muted-foreground font-mono">#</span>
               <input
                 type="text"
                 value={hexInput.replace("#", "")}
                 onChange={(e) => handleHexChange("#" + e.target.value)}
-                className="flex-1 px-2 py-1.5 text-[12px] font-mono border border-gray-200 rounded-lg outline-none focus:border-blue-400"
+                className="flex-1 px-2 py-1.5 text-[12px] font-mono border border-border rounded-lg outline-none focus:border-indigo-400"
                 maxLength={6}
                 placeholder="000000"
               />
@@ -160,14 +160,14 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
             <div className="flex gap-1">
               {(["r", "g", "b"] as const).map((ch) => (
                 <div key={ch} className="flex-1 flex items-center gap-0.5">
-                  <span className="text-[10px] text-gray-400 uppercase">{ch}</span>
+                  <span className="text-[10px] text-muted-foreground uppercase">{ch}</span>
                   <input
                     type="number"
                     min={0}
                     max={255}
                     value={rgb[ch]}
                     onChange={(e) => handleRgbChange(ch, parseInt(e.target.value))}
-                    className="w-full px-1 py-1.5 text-[11px] font-mono border border-gray-200 rounded outline-none focus:border-blue-400"
+                    className="w-full px-1 py-1.5 text-[11px] font-mono border border-border rounded outline-none focus:border-indigo-400"
                   />
                 </div>
               ))}
@@ -178,14 +178,14 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
               {([{ key: "h", label: "H" }, { key: "s", label: "S" }, { key: "l", label: "L" }] as const).map(
                 ({ key, label: lbl }) => (
                   <div key={key} className="flex-1 flex items-center gap-0.5">
-                    <span className="text-[10px] text-gray-400">{lbl}</span>
+                    <span className="text-[10px] text-muted-foreground">{lbl}</span>
                     <input
                       type="number"
                       min={key === "h" ? 0 : 0}
                       max={key === "h" ? 360 : 100}
                       value={Math.round(key === "h" ? hsl.h : key === "s" ? hsl.s : hsl.l)}
                       onChange={(e) => handleHslChange(key, parseFloat(e.target.value))}
-                      className="w-full px-1 py-1.5 text-[11px] font-mono border border-gray-200 rounded outline-none focus:border-blue-400"
+                      className="w-full px-1 py-1.5 text-[11px] font-mono border border-border rounded outline-none focus:border-indigo-400"
                     />
                   </div>
                 ),
@@ -195,7 +195,7 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
         </div>
         <button
           onClick={() => setMode(mode === "hex" ? "rgb" : mode === "rgb" ? "hsl" : "hex")}
-          className="text-[10px] text-gray-400 hover:text-gray-600 uppercase shrink-0"
+          className="text-[10px] text-muted-foreground hover:text-foreground uppercase shrink-0"
         >
           {mode}
         </button>
@@ -203,7 +203,7 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
 
       {/* Opacity */}
       <div className="flex items-center gap-2">
-        <span className="text-[11px] text-gray-400 w-12">Opacity</span>
+        <span className="text-[11px] text-muted-foreground w-12">Opacity</span>
         <input
           type="range"
           min={0}
@@ -211,22 +211,22 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
           step={0.05}
           value={opacity}
           onChange={(e) => setOpacity(parseFloat(e.target.value))}
-          className="flex-1 h-1.5 accent-blue-500"
+          className="flex-1 h-1.5 accent-indigo-500"
         />
-        <span className="text-[11px] text-gray-400 w-8 text-right font-mono">
+        <span className="text-[11px] text-muted-foreground w-8 text-right font-mono">
           {Math.round(opacity * 100)}%
         </span>
       </div>
 
       {/* Common colors */}
       <div>
-        <span className="text-[10px] text-gray-400 uppercase tracking-wider">Common</span>
+        <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Common</span>
         <div className="flex flex-wrap gap-1 mt-1.5">
           {COMMON_COLORS.map((c) => (
             <button
               key={c}
               onClick={() => handleHexChange(c)}
-              className={`w-5 h-5 rounded-full border transition-transform hover:scale-110 ${c === value ? "ring-2 ring-blue-500 ring-offset-1" : "border-gray-200"}`}
+              className={`w-5 h-5 rounded-full border transition-transform hover:scale-110 ${c === value ? "ring-2 ring-indigo-500 ring-offset-1" : "border-border"}`}
               style={{ backgroundColor: c }}
               title={c}
             />
@@ -237,13 +237,13 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
       {/* Recent colors */}
       {recentColors.length > 0 && (
         <div>
-          <span className="text-[10px] text-gray-400 uppercase tracking-wider">Recent</span>
+          <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Recent</span>
           <div className="flex flex-wrap gap-1 mt-1.5">
             {recentColors.map((c) => (
               <button
                 key={c}
                 onClick={() => handleHexChange(c)}
-                className={`w-5 h-5 rounded-full border transition-transform hover:scale-110 ${c === value ? "ring-2 ring-blue-500 ring-offset-1" : "border-gray-200"}`}
+                className={`w-5 h-5 rounded-full border transition-transform hover:scale-110 ${c === value ? "ring-2 ring-indigo-500 ring-offset-1" : "border-border"}`}
                 style={{ backgroundColor: c }}
                 title={c}
               />
@@ -254,13 +254,13 @@ export default function ColorPicker({ value, onChange, label }: ColorPickerProps
 
       {/* Presets */}
       <div>
-        <span className="text-[10px] text-gray-400 uppercase tracking-wider">All Colors</span>
+        <span className="text-[10px] text-muted-foreground uppercase tracking-wider">All Colors</span>
         <div className="flex flex-wrap gap-0.5 mt-1.5">
           {PRESET_COLORS.map((c) => (
             <button
               key={c}
               onClick={() => handleHexChange(c)}
-              className={`w-4 h-4 rounded-sm border transition-transform hover:scale-110 ${c === value ? "ring-1 ring-blue-500" : "border-gray-100"}`}
+              className={`w-4 h-4 rounded-sm border transition-transform hover:scale-110 ${c === value ? "ring-1 ring-indigo-500" : "border-border"}`}
               style={{ backgroundColor: c }}
             />
           ))}

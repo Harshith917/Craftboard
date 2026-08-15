@@ -104,7 +104,8 @@ export default function EditorPage() {
         return prev;
       });
     } catch (err) {
-      if (err?.status === 403) {
+      const e = err as { status?: number };
+      if (e?.status === 403) {
         setAccessState("denied");
       }
     }
@@ -143,7 +144,7 @@ export default function EditorPage() {
 
   if (accessState === "error") {
     return (
-      <div className="flex h-screen items-center justify-center text-sm text-gray-400">
+      <div className="flex h-screen items-center justify-center text-sm text-muted-foreground">
         Failed to load canvas.
       </div>
     );
@@ -194,12 +195,12 @@ function NoAccessScreen({
   const navigate = useNavigate();
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-4 bg-gray-50">
+    <div className="flex h-screen flex-col items-center justify-center gap-4 bg-muted">
       <div className="flex flex-col items-center gap-2 text-center">
-        <p className="text-sm font-medium text-gray-900">
+        <p className="text-sm font-medium text-foreground">
           You don&apos;t have access to this canvas
         </p>
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-muted-foreground">
           Ask the owner to invite you, or request access below.
         </p>
       </div>
@@ -212,7 +213,7 @@ function NoAccessScreen({
 
       <button
         onClick={() => navigate("/dashboard")}
-        className="rounded-lg bg-gray-900 px-4 py-2 text-xs text-white hover:bg-gray-700 transition-colors"
+        className="rounded-lg bg-primary px-4 py-2 text-xs text-primary-foreground hover:opacity-90 transition-opacity"
       >
         Go to dashboard
       </button>
@@ -743,7 +744,7 @@ function Editor({ projectId, pageId, role, canEdit, projectName, userId }: Edito
 
   if (status !== "connected") {
     return (
-      <div className="flex h-screen w-screen overflow-hidden bg-gray-50 font-sans items-center justify-center">
+      <div className="flex h-screen w-screen overflow-hidden bg-muted font-sans items-center justify-center">
         <LoadingOverlay isLoading />
       </div>
     );
@@ -754,7 +755,7 @@ function Editor({ projectId, pageId, role, canEdit, projectName, userId }: Edito
     : null;
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-gray-50 font-sans">
+    <div className="flex h-screen w-screen overflow-hidden bg-muted font-sans">
       <TopToolbar
         tool={tool}
         setTool={setTool}

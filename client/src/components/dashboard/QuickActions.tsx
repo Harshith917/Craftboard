@@ -67,7 +67,7 @@ export function QuickActions() {
   return (
     <div className="rounded-2xl border border-border bg-card p-5">
       <div className="flex items-center gap-2.5 mb-4">
-        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-300">
+        <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-300">
           <Zap size={15} />
         </div>
         <div>
@@ -87,9 +87,9 @@ export function QuickActions() {
               transition={{ delay: i * 0.05, duration: 0.3 }}
               onClick={() => handleAction(action)}
               disabled={creating}
-              className="group flex flex-col items-start gap-2 rounded-xl border border-border bg-app p-3 text-left hover:border-sky-300 dark:hover:border-sky-500/40 hover:shadow-[0_6px_20px_-10px_rgba(14,165,233,0.35)] transition-all disabled:opacity-50"
+              className="group flex flex-col items-start gap-2 rounded-xl border border-border bg-app p-3 text-left hover:border-neutral-300 dark:hover:border-neutral-600 hover:shadow-[0_6px_20px_-10px_rgba(0,0,0,0.25)] transition-all disabled:opacity-50"
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-sky-500/10 text-sky-600 dark:text-sky-300 transition-colors group-hover:bg-[linear-gradient(135deg,#0ea5e9,#38bdf8)] group-hover:text-white">
+              <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-indigo-500/10 text-indigo-600 dark:text-indigo-300 transition-colors group-hover:bg-[linear-gradient(135deg,#4f46e5,#7c3aed)] group-hover:text-white">
                 <Icon size={14} />
               </div>
               <div className="min-w-0">

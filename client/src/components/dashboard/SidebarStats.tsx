@@ -2,7 +2,7 @@ import { FolderOpen, FileText, Users, Bell } from "lucide-react";
 import type { DashboardStats } from "@/hooks/useDashboard";
 
 const items = [
-  { label: "Projects", key: "totalProjects" as const, icon: FolderOpen, chip: "bg-sky-500/10 text-sky-500" },
+  { label: "Projects", key: "totalProjects" as const, icon: FolderOpen, chip: "bg-indigo-500/10 text-indigo-500" },
   { label: "Pages", key: "totalPages" as const, icon: FileText, chip: "bg-violet-500/10 text-violet-500" },
   { label: "Collaborators", key: "totalMembers" as const, icon: Users, chip: "bg-emerald-500/10 text-emerald-500" },
   { label: "Pending", key: "pendingRequests" as const, icon: Bell, chip: "bg-amber-500/10 text-amber-500" },

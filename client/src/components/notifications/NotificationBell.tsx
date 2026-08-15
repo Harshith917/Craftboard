@@ -26,7 +26,7 @@ export default function NotificationBell() {
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen((v) => !v)}
-        className="relative p-1.5 rounded-lg text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+        className="relative p-1.5 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
         title="Notifications"
       >
         <Bell size={16} />
@@ -38,15 +38,15 @@ export default function NotificationBell() {
       </button>
 
       {open && (
-        <div className="absolute left-0 top-full mt-1 w-80 bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-            <span className="text-xs font-semibold text-gray-900">
+        <div className="absolute left-0 top-full mt-1 w-80 bg-card border border-border rounded-xl shadow-lg z-50 overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+            <span className="text-xs font-semibold text-foreground">
               Notifications
             </span>
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="text-[11px] text-blue-600 hover:text-blue-700 font-medium"
+                className="text-[11px] text-indigo-600 hover:text-indigo-700 font-medium"
               >
                 Mark all read
               </button>
@@ -55,7 +55,7 @@ export default function NotificationBell() {
 
           <div className="max-h-96 overflow-y-auto">
             {recentNotifications.length === 0 ? (
-              <div className="px-4 py-8 text-center text-xs text-gray-400">
+              <div className="px-4 py-8 text-center text-xs text-muted-foreground">
                 No notifications yet
               </div>
             ) : (
@@ -66,27 +66,27 @@ export default function NotificationBell() {
                     if (!n.read) markAsRead(n.id);
                     setOpen(false);
                   }}
-                  className={`w-full flex items-start gap-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-0 ${
-                    !n.read ? "bg-blue-50/30" : ""
+                  className={`w-full flex items-start gap-3 px-4 py-3 text-left hover:bg-muted transition-colors border-b border-border last:border-0 ${
+                    !n.read ? "bg-indigo-50/30" : ""
                   }`}
                 >
                   <div className="shrink-0 mt-0.5">
                     <div
                       className={`w-2 h-2 rounded-full ${
-                        !n.read ? "bg-blue-500" : "bg-transparent"
+                        !n.read ? "bg-indigo-500" : "bg-transparent"
                       }`}
                     />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-medium text-gray-900 truncate">
+                    <p className="text-xs font-medium text-foreground truncate">
                       {n.title}
                     </p>
                     {n.message && (
-                      <p className="text-[11px] text-gray-500 mt-0.5 line-clamp-2">
+                      <p className="text-[11px] text-muted-foreground mt-0.5 line-clamp-2">
                         {n.message}
                       </p>
                     )}
-                    <p className="text-[10px] text-gray-400 mt-1">
+                    <p className="text-[10px] text-muted-foreground mt-1">
                       {timeAgo(n.createdAt)}
                     </p>
                   </div>
@@ -100,7 +100,7 @@ export default function NotificationBell() {
               setOpen(false);
               navigate("/notifications");
             }}
-            className="w-full px-4 py-2.5 text-center text-xs font-medium text-gray-500 hover:text-gray-900 bg-gray-50 hover:bg-gray-100 border-t border-gray-100 transition-colors"
+            className="w-full px-4 py-2.5 text-center text-xs font-medium text-muted-foreground hover:text-foreground bg-muted hover:bg-accent border-t border-border transition-colors"
           >
             View all notifications
           </button>

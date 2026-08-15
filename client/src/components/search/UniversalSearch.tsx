@@ -29,7 +29,7 @@ function Highlighted({ text, query }: { text: string; query: string }) {
   return (
     <>
       {parts.before}
-      <mark className="bg-yellow-200/70 text-gray-900 rounded-sm px-0.5">{parts.match}</mark>
+      <mark className="bg-yellow-200/70 text-foreground rounded-sm px-0.5">{parts.match}</mark>
       {parts.after}
     </>
   );
@@ -117,14 +117,14 @@ function getInitials(firstName?: string | null, lastName?: string | null): strin
 
 function getGradient(name: string): string {
   const colors = [
-    "from-sky-400 to-sky-500",
-    "from-slate-400 to-slate-500",
+    "from-indigo-400 to-indigo-500",
+    "from-violet-400 to-purple-500",
     "from-cyan-400 to-cyan-500",
-    "from-sky-500 to-cyan-500",
+    "from-emerald-400 to-teal-500",
+    "from-indigo-500 to-violet-500",
+    "from-rose-400 to-orange-500",
+    "from-blue-400 to-indigo-500",
     "from-slate-500 to-slate-600",
-    "from-cyan-500 to-sky-500",
-    "from-sky-400 to-cyan-400",
-    "from-slate-400 to-sky-400",
   ];
   let hash = 0;
   for (let i = 0; i < name.length; i++) {
@@ -173,7 +173,7 @@ function ProjectResult({
     <button
       onClick={() => onSelect(idx)}
       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors ${
-        active ? "bg-gray-100" : "hover:bg-gray-50"
+        active ? "bg-accent" : "hover:bg-muted"
       }`}
     >
       {/* Project thumbnail */}
@@ -184,22 +184,22 @@ function ProjectResult({
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="text-sm font-medium text-gray-900 truncate">
+        <div className="text-sm font-medium text-foreground truncate">
           <Highlighted text={project.name} query={query} />
         </div>
         <div className="flex items-center gap-2 mt-0.5">
-          <span className="text-[11px] text-gray-400 flex items-center gap-1">
-            <span className="w-3.5 h-3.5 rounded-full bg-gray-100 inline-flex items-center justify-center overflow-hidden shrink-0">
+          <span className="text-[11px] text-muted-foreground flex items-center gap-1">
+            <span className="w-3.5 h-3.5 rounded-full bg-accent inline-flex items-center justify-center overflow-hidden shrink-0">
               {project.owner.imageUrl ? (
                 <img src={project.owner.imageUrl} alt="" className="w-full h-full object-cover" />
               ) : (
-                <span className="text-[8px] font-medium text-gray-500">{getInitials(project.owner.firstName, project.owner.lastName)}</span>
+                <span className="text-[8px] font-medium text-muted-foreground">{getInitials(project.owner.firstName, project.owner.lastName)}</span>
               )}
             </span>
             {ownerName}
           </span>
-          <span className="text-[11px] text-gray-300">·</span>
-          <span className="text-[11px] text-gray-400 flex items-center gap-1">
+          <span className="text-[11px] text-muted-foreground/70">·</span>
+          <span className="text-[11px] text-muted-foreground flex items-center gap-1">
             <Users size={10} />
             {project.memberCount}
           </span>
@@ -209,17 +209,17 @@ function ProjectResult({
       <div className="flex flex-col items-end gap-1 shrink-0">
         <div className="flex items-center gap-1.5">
           {project.myRole && (
-            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded capitalize bg-blue-50 text-blue-600">
+            <span className="text-[10px] font-medium px-1.5 py-0.5 rounded capitalize bg-indigo-50 text-indigo-600">
               {project.myRole}
             </span>
           )}
           {project.visibility === "public" ? (
-            <Globe size={11} className="text-gray-300" />
+            <Globe size={11} className="text-muted-foreground/70" />
           ) : (
-            <Lock size={11} className="text-gray-300" />
+            <Lock size={11} className="text-muted-foreground/70" />
           )}
         </div>
-        <span className="text-[10px] text-gray-300">{timeAgo(project.updatedAt)}</span>
+        <span className="text-[10px] text-muted-foreground/70">{timeAgo(project.updatedAt)}</span>
       </div>
     </button>
   );
@@ -244,24 +244,24 @@ function UserResult({
     <button
       onClick={() => onSelect(idx)}
       className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left transition-colors ${
-        active ? "bg-gray-100" : "hover:bg-gray-50"
+        active ? "bg-accent" : "hover:bg-muted"
       }`}
     >
       {/* Avatar */}
-      <div className="w-9 h-9 rounded-full shrink-0 bg-gray-100 overflow-hidden flex items-center justify-center">
+      <div className="w-9 h-9 rounded-full shrink-0 bg-accent overflow-hidden flex items-center justify-center">
         {user.imageUrl ? (
           <img src={user.imageUrl} alt="" className="w-full h-full object-cover" />
         ) : (
-          <span className="text-xs font-semibold text-gray-500">{initials}</span>
+          <span className="text-xs font-semibold text-muted-foreground">{initials}</span>
         )}
       </div>
 
       <div className="min-w-0 flex-1">
-        <div className="text-sm font-medium text-gray-900 truncate">
+        <div className="text-sm font-medium text-foreground truncate">
           <Highlighted text={name} query={query} />
         </div>
         <div className="flex items-center gap-2 mt-0.5">
-          <span className="text-[11px] text-gray-400">
+          <span className="text-[11px] text-muted-foreground">
             <Highlighted text={user.email} query={query} />
           </span>
         </div>
@@ -269,7 +269,7 @@ function UserResult({
 
       <div className="flex items-center gap-2 shrink-0">
         {user.mutualProjectsCount > 0 && (
-          <span className="text-[11px] text-gray-400 flex items-center gap-1">
+          <span className="text-[11px] text-muted-foreground flex items-center gap-1">
             <Hash size={10} />
             {user.mutualProjectsCount} mutual
           </span>
@@ -341,25 +341,25 @@ export function UniversalSearch({ open, onClose, onSelectUser }: UniversalSearch
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-[12vh]">
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose} />
 
-      <div className="relative w-full max-w-xl bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden">
+      <div className="relative w-full max-w-xl bg-card rounded-2xl shadow-2xl border border-border overflow-hidden">
         {/* Search input */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-gray-100">
-          <Search size={16} className="text-gray-400 shrink-0" />
+        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border">
+          <Search size={16} className="text-muted-foreground shrink-0" />
           <input
             ref={inputRef}
             type="text"
             placeholder="Search projects and users..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="flex-1 text-sm bg-transparent border-none outline-none text-gray-900 placeholder:text-gray-400"
+            className="flex-1 text-sm bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground"
           />
-          {loading && <Loader2 size={14} className="animate-spin text-gray-400 shrink-0" />}
+          {loading && <Loader2 size={14} className="animate-spin text-muted-foreground shrink-0" />}
           {query && (
-            <button onClick={() => setQuery("")} className="p-0.5 text-gray-300 hover:text-gray-500 transition-colors">
+            <button onClick={() => setQuery("")} className="p-0.5 text-muted-foreground/70 hover:text-foreground transition-colors">
               <X size={14} />
             </button>
           )}
-          <kbd className="hidden sm:inline-flex text-xs text-gray-400 bg-gray-100 px-1.5 py-0.5 rounded">
+          <kbd className="hidden sm:inline-flex text-xs text-muted-foreground bg-accent px-1.5 py-0.5 rounded">
             ESC
           </kbd>
         </div>
@@ -368,13 +368,13 @@ export function UniversalSearch({ open, onClose, onSelectUser }: UniversalSearch
         {!query.trim() && recent.length > 0 && (
           <div className="max-h-80 overflow-y-auto p-2">
             <div className="flex items-center justify-between px-2 py-1.5">
-              <span className="text-xs font-medium text-gray-400 uppercase tracking-wide flex items-center gap-1.5">
+              <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide flex items-center gap-1.5">
                 <Clock size={12} />
                 Recent searches
               </span>
               <button
                 onClick={clearRecent}
-                className="text-xs text-gray-400 hover:text-gray-600 flex items-center gap-1 transition-colors"
+                className="text-xs text-muted-foreground hover:text-foreground flex items-center gap-1 transition-colors"
               >
                 <Trash2 size={11} />
                 Clear
@@ -384,9 +384,9 @@ export function UniversalSearch({ open, onClose, onSelectUser }: UniversalSearch
               <button
                 key={`${r}-${i}`}
                 onClick={() => setQuery(r)}
-                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-50 hover:text-gray-900 transition-colors"
+                className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
               >
-                <Clock size={13} className="text-gray-300 shrink-0" />
+                <Clock size={13} className="text-muted-foreground/70 shrink-0" />
                 <span className="truncate">{r}</span>
               </button>
             ))}
@@ -411,13 +411,13 @@ export function UniversalSearch({ open, onClose, onSelectUser }: UniversalSearch
             {hasProjects && (
               <div>
                 <div className="flex items-center gap-2 px-3 py-1.5">
-                  <span className="text-gray-300">
+                  <span className="text-muted-foreground/70">
                     {CATEGORY_ICONS.project}
                   </span>
-                  <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                     {CATEGORY_LABELS.project}
                   </span>
-                  <span className="text-[10px] text-gray-300 font-medium">
+                  <span className="text-[10px] text-muted-foreground/70 font-medium">
                     {results.projects.length}
                   </span>
                 </div>
@@ -440,13 +440,13 @@ export function UniversalSearch({ open, onClose, onSelectUser }: UniversalSearch
             {hasUsers && (
               <div className={hasProjects ? "mt-2" : ""}>
                 <div className="flex items-center gap-2 px-3 py-1.5">
-                  <span className="text-gray-300">
+                  <span className="text-muted-foreground/70">
                     {CATEGORY_ICONS.user}
                   </span>
-                  <span className="text-xs font-medium text-gray-400 uppercase tracking-wide">
+                  <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
                     {CATEGORY_LABELS.user}
                   </span>
-                  <span className="text-[10px] text-gray-300 font-medium">
+                  <span className="text-[10px] text-muted-foreground/70 font-medium">
                     {results.users.length}
                   </span>
                 </div>
@@ -472,12 +472,12 @@ export function UniversalSearch({ open, onClose, onSelectUser }: UniversalSearch
           <div className="p-3 space-y-2">
             {Array.from({ length: 3 }).map((_, i) => (
               <div key={i} className="flex items-center gap-3 px-3 py-2.5 animate-pulse">
-                <div className="w-9 h-9 rounded-lg bg-gray-100 shrink-0" />
+                <div className="w-9 h-9 rounded-lg bg-accent shrink-0" />
                 <div className="flex-1 space-y-2">
-                  <div className="h-3.5 bg-gray-100 rounded w-2/3" />
-                  <div className="h-3 bg-gray-100 rounded w-1/3" />
+                  <div className="h-3.5 bg-accent rounded w-2/3" />
+                  <div className="h-3 bg-accent rounded w-1/3" />
                 </div>
-                <div className="h-3 bg-gray-100 rounded w-16" />
+                <div className="h-3 bg-accent rounded w-16" />
               </div>
             ))}
           </div>

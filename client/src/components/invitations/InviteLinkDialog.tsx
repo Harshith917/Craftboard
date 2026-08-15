@@ -57,22 +57,22 @@ export function InviteLinkDialog({ open, onOpenChange, projectId }: InviteLinkDi
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-1.5 block">Role</label>
+              <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Role</label>
               <select
                 value={role}
                 onChange={(e) => setRole(e.target.value)}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
+                className="w-full px-3 py-2 text-sm border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-ring bg-card"
               >
                 <option value="editor">Editor</option>
                 <option value="viewer">Viewer</option>
               </select>
             </div>
             <div>
-              <label className="text-xs font-medium text-gray-500 mb-1.5 block">Expires in</label>
+              <label className="text-xs font-medium text-muted-foreground mb-1.5 block">Expires in</label>
               <select
                 value={expiresIn}
                 onChange={(e) => setExpiresIn(Number(e.target.value))}
-                className="w-full px-3 py-2 text-sm border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-gray-900 bg-white"
+                className="w-full px-3 py-2 text-sm border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-ring bg-card"
               >
                 <option value={1}>1 hour</option>
                 <option value={24}>24 hours</option>
@@ -88,26 +88,26 @@ export function InviteLinkDialog({ open, onOpenChange, projectId }: InviteLinkDi
               type="checkbox"
               checked={oneTime}
               onChange={(e) => setOneTime(e.target.checked)}
-              className="h-4 w-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900"
+              className="h-4 w-4 rounded border-border text-foreground focus:ring-ring"
             />
             <div>
-              <span className="text-sm font-medium text-gray-900">One-time use</span>
-              <p className="text-xs text-gray-400">Link expires after the first person accepts</p>
+              <span className="text-sm font-medium text-foreground">One-time use</span>
+              <p className="text-xs text-muted-foreground">Link expires after the first person accepts</p>
             </div>
           </label>
 
           {link && (
-            <div className="flex items-center gap-2 bg-gray-50 rounded-xl px-3 py-2.5 border border-gray-100">
-              <Link2 size={14} className="text-gray-400 shrink-0" />
+            <div className="flex items-center gap-2 bg-muted rounded-xl px-3 py-2.5 border border-border">
+              <Link2 size={14} className="text-muted-foreground shrink-0" />
               <input
                 type="text"
                 readOnly
                 value={link}
-                className="flex-1 text-xs bg-transparent border-none focus:outline-none text-gray-700 truncate"
+                className="flex-1 text-xs bg-transparent border-none focus:outline-none text-foreground truncate"
               />
               <button
                 onClick={handleCopy}
-                className="p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-200 rounded-lg transition-colors shrink-0"
+                className="p-1 text-muted-foreground hover:text-foreground hover:bg-accent rounded-lg transition-colors shrink-0"
               >
                 {copied ? <Check size={14} className="text-green-500" /> : <Copy size={14} />}
               </button>

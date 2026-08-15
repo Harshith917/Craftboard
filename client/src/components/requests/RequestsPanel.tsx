@@ -61,12 +61,12 @@ export function RequestsPanel({
     <div
       ref={panelRef}
       style={{ left: collapsed ? 60 : 220 }}
-      className="fixed top-16 z-50 w-80 bg-white border border-gray-200 rounded-xl shadow-xl overflow-hidden animate-in slide-in-from-left-2 duration-150"
+      className="fixed top-16 z-50 w-80 bg-card border border-border rounded-xl shadow-xl overflow-hidden animate-in slide-in-from-left-2 duration-150"
     >
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-border">
         <div className="flex items-center gap-2">
-          <Users size={14} className="text-gray-400" />
-          <span className="text-sm font-medium text-gray-900">
+          <Users size={14} className="text-muted-foreground" />
+          <span className="text-sm font-medium text-foreground">
             Access requests
           </span>
           {requests.length > 0 && (
@@ -77,7 +77,7 @@ export function RequestsPanel({
         </div>
         <button
           onClick={onClose}
-          className="text-gray-400 hover:text-gray-600 transition-colors"
+          className="text-muted-foreground hover:text-foreground transition-colors"
         >
           <X size={14} />
         </button>
@@ -92,8 +92,8 @@ export function RequestsPanel({
       <div className="max-h-96 overflow-y-auto">
         {requests.length === 0 ? (
           <div className="px-4 py-10 text-center">
-            <Users size={20} className="text-gray-200 mx-auto mb-2" />
-            <p className="text-xs text-gray-400">No pending requests</p>
+            <Users size={20} className="text-muted-foreground/40 mx-auto mb-2" />
+            <p className="text-xs text-muted-foreground">No pending requests</p>
           </div>
         ) : (
           requests.map((req) => {
@@ -101,7 +101,7 @@ export function RequestsPanel({
             return (
               <div
                 key={req.id}
-                className="px-4 py-3 border-b border-gray-50 last:border-0"
+                className="px-4 py-3 border-b border-border last:border-0"
               >
                 <div className="flex items-start gap-2.5 mb-2.5">
                   {req.user.imageUrl ? (
@@ -111,8 +111,8 @@ export function RequestsPanel({
                       className="w-7 h-7 rounded-full shrink-0 object-cover"
                     />
                   ) : (
-                    <div className="w-7 h-7 rounded-full bg-gray-100 flex items-center justify-center shrink-0">
-                      <span className="text-xs font-medium text-gray-500">
+                    <div className="w-7 h-7 rounded-full bg-accent flex items-center justify-center shrink-0">
+                      <span className="text-xs font-medium text-muted-foreground">
                         {(
                           req.user.firstName?.[0] ?? req.user.email[0]
                         ).toUpperCase()}
@@ -120,28 +120,28 @@ export function RequestsPanel({
                     </div>
                   )}
                   <div className="min-w-0 flex-1">
-                    <p className="text-xs font-medium text-gray-900 truncate">
+                    <p className="text-xs font-medium text-foreground truncate">
                       {userName(req.user)}
                     </p>
-                    <p className="text-xs text-gray-400 truncate">
+                    <p className="text-xs text-muted-foreground truncate">
                       {req.user.email}
                     </p>
                   </div>
-                  <div className="flex items-center gap-1 text-gray-300 shrink-0">
+                  <div className="flex items-center gap-1 text-muted-foreground/70 shrink-0">
                     <Clock size={10} />
                     <span className="text-xs">{formatTime(req.createdAt)}</span>
                   </div>
                 </div>
 
-                <p className="text-xs text-gray-500 mb-1">
+                <p className="text-xs text-muted-foreground mb-1">
                   wants to join{" "}
-                  <span className="font-medium text-gray-700">
+                  <span className="font-medium text-foreground">
                     {req.project.name}
                   </span>
                 </p>
 
                 {req.message && (
-                  <p className="text-xs text-gray-400 italic mb-2.5 line-clamp-2">
+                  <p className="text-xs text-muted-foreground italic mb-2.5 line-clamp-2">
                     "{req.message}"
                   </p>
                 )}
@@ -150,7 +150,7 @@ export function RequestsPanel({
                   <button
                     onClick={() => onApprove(req.id)}
                     disabled={isActioning}
-                    className="flex-1 flex items-center justify-center gap-1.5 bg-gray-900 text-white text-xs py-1.5 rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50"
+                    className="flex-1 flex items-center justify-center gap-1.5 bg-primary text-primary-foreground text-xs py-1.5 rounded-lg hover:opacity-90 transition-opacity disabled:opacity-50"
                   >
                     {isActioning ? (
                       <Loader2 size={11} className="animate-spin" />
@@ -162,7 +162,7 @@ export function RequestsPanel({
                   <button
                     onClick={() => onDeny(req.id)}
                     disabled={isActioning}
-                    className="flex-1 flex items-center justify-center gap-1.5 border border-gray-200 text-gray-500 text-xs py-1.5 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50"
+                    className="flex-1 flex items-center justify-center gap-1.5 border border-border text-muted-foreground text-xs py-1.5 rounded-lg hover:bg-muted transition-colors disabled:opacity-50"
                   >
                     {isActioning ? (
                       <Loader2 size={11} className="animate-spin" />

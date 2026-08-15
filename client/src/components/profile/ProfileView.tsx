@@ -24,7 +24,7 @@ function timeAgo(date: string): string {
 
 function StatCard({ icon: Icon, label, value }: { icon: any; label: string; value: number }) {
   return (
-    <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 hover:border-primary/25 hover:shadow-[0_6px_24px_-10px_rgba(14,165,233,0.25)] transition-all">
+    <div className="bg-card border border-border rounded-2xl p-4 flex items-center gap-3 hover:border-primary/25 hover:shadow-[0_6px_24px_-10px_rgba(0,0,0,0.2)] transition-all">
       <div className="w-10 h-10 rounded-xl bg-primary/5 flex items-center justify-center">
         <Icon size={18} className="text-primary" />
       </div>
@@ -40,17 +40,17 @@ function ProjectCardView({ project }: { project: ProjectCard }) {
   return (
     <Link
       to={`/project/${project.id}/pages`}
-      className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(14,165,233,0.25)] transition-all group cursor-pointer"
+      className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.2)] transition-all group cursor-pointer"
     >
-        <div className="h-24 bg-gradient-to-br from-sky-100 via-slate-50 to-cyan-100 flex items-center justify-center relative">
+        <div className="h-24 bg-gradient-to-br from-indigo-100 via-slate-50 to-cyan-100 flex items-center justify-center relative">
         {project.thumbnail ? (
           <img src={project.thumbnail} alt="" className="w-full h-full object-cover" />
         ) : (
-            <FolderOpen size={28} className="text-sky-300" />
+            <FolderOpen size={28} className="text-indigo-300" />
         )}
         <div className="absolute top-2 right-2">
           <span className={`text-[10px] font-medium px-1.5 py-0.5 rounded capitalize cursor-default ${
-            project.visibility === "public" ? "bg-emerald-50 text-emerald-600" : "bg-white/80 text-muted-foreground"
+            project.visibility === "public" ? "bg-emerald-50 text-emerald-600" : "bg-card/80 text-muted-foreground"
           }`}>
             {project.visibility}
           </span>
@@ -91,17 +91,17 @@ function PublicProjectCard({
   const isOwn = project.owner?.id === currentUserId;
 
   return (
-    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(14,165,233,0.25)] transition-all group">
+    <div className="bg-card border border-border rounded-2xl overflow-hidden hover:border-primary/20 hover:shadow-[0_8px_30px_-12px_rgba(0,0,0,0.2)] transition-all group">
       <Link
         to={isMember ? `/project/${project.id}/pages` : "#"}
         className="block cursor-pointer"
         onClick={(e) => { if (!isMember) e.preventDefault(); }}
       >
-      <div className="h-24 bg-gradient-to-br from-sky-100 via-slate-50 to-cyan-100 flex items-center justify-center relative">
+      <div className="h-24 bg-gradient-to-br from-indigo-100 via-slate-50 to-cyan-100 flex items-center justify-center relative">
           {project.thumbnail ? (
             <img src={project.thumbnail} alt="" className="w-full h-full object-cover" />
           ) : (
-          <FolderOpen size={28} className="text-sky-300" />
+          <FolderOpen size={28} className="text-indigo-300" />
           )}
           <div className="absolute top-2 right-2 flex items-center gap-1">
             {project.visibility && (
@@ -133,7 +133,7 @@ function PublicProjectCard({
         <div className="px-3 pb-3">
           <button
             onClick={() => onRequestAccess(project)}
-            className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-white bg-primary hover:bg-primary/90 rounded-xl transition-colors cursor-pointer"
+            className="w-full flex items-center justify-center gap-1.5 px-3 py-1.5 text-[11px] font-medium text-primary-foreground bg-primary hover:bg-primary/90 rounded-xl transition-colors cursor-pointer"
           >
             <UserPlus size={12} />
             Request Access
@@ -161,9 +161,9 @@ function ProfileHeader({ profile, isOwnProfile }: { profile: Profile; isOwnProfi
   return (
     <div className="surface rounded-2xl overflow-hidden">
       {/* Cover */}
-      <div className="h-32 bg-gradient-to-br from-slate-900 via-sky-950 to-sky-800 relative overflow-hidden">
-        <div className="absolute -top-12 -right-10 w-56 h-56 bg-sky-400/20 rounded-full blur-3xl" />
-        <div className="absolute -bottom-20 left-1/3 w-48 h-48 bg-sky-500/10 rounded-full blur-3xl" />
+      <div className="h-32 bg-gradient-to-br from-slate-900 via-indigo-950 to-indigo-800 relative overflow-hidden">
+        <div className="absolute -top-12 -right-10 w-56 h-56 bg-indigo-400/20 rounded-full blur-3xl" />
+        <div className="absolute -bottom-20 left-1/3 w-48 h-48 bg-indigo-500/10 rounded-full blur-3xl" />
         <div className="absolute top-4 right-6 hidden sm:flex items-center gap-1.5 text-[11px] text-white/70 bg-white/10 backdrop-blur px-2.5 py-1 rounded-full">
           <Clock size={11} />
           Joined {joinedDate}

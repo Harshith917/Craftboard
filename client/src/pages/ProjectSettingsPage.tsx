@@ -242,7 +242,7 @@ export default function SettingsPage() {
                 <div>
                   <label className="block text-sm font-medium text-muted-foreground mb-1.5">Project Icon</label>
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-xl nav-active text-white flex items-center justify-center text-base font-bold shadow-[0_8px_24px_-8px_rgba(14,165,233,0.5)]">
+                    <div className="w-12 h-12 rounded-xl nav-active text-white flex items-center justify-center text-base font-bold shadow-[0_8px_24px_-8px_rgba(0,0,0,0.35)]">
                       {name.slice(0, 2).toUpperCase()}
                     </div>
                     <p className="text-xs text-muted-foreground">Auto-generated from project name</p>
@@ -301,7 +301,7 @@ export default function SettingsPage() {
                     <button
                       onClick={handleSaveGeneral}
                       disabled={saving}
-                      className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary/90 disabled:opacity-50 shadow-[0_4px_16px_-6px_rgba(14,165,233,0.55)] transition-all"
+                      className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary/90 disabled:opacity-50 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.4)] transition-all"
                     >
                       {saving ? "Saving..." : "Save Changes"}
                     </button>
@@ -321,7 +321,7 @@ export default function SettingsPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => setInviteOpen(true)}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-primary rounded-lg hover:bg-primary/90 shadow-[0_4px_16px_-6px_rgba(14,165,233,0.55)] transition-all"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-primary rounded-lg hover:bg-primary/90 shadow-[0_4px_16px_-6px_rgba(0,0,0,0.4)] transition-all"
                   >
                     <UserPlus size={13} />
                     Invite
@@ -373,7 +373,7 @@ export default function SettingsPage() {
                         ) : (
                           <span className={`text-xs font-medium px-2 py-1 rounded-lg capitalize ${
                             member.role === "owner" ? "bg-amber-50 text-amber-700" :
-                            member.role === "editor" ? "bg-sky-50 text-sky-700" :
+                            member.role === "editor" ? "bg-indigo-50 text-indigo-700" :
                             "bg-muted text-muted-foreground"
                           }`}>
                             {member.role}

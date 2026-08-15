@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import CollaboratorAvatars from "./CollaboratorAvatars";
 import NotificationBell from "./NotificationBell";
+import { ThemeToggle } from "./common/ThemeToggle";
 import { useSocket } from "@/hooks/useSocket";
 import { useApi } from "@/lib/api";
 import { toast } from "sonner";
@@ -30,7 +31,7 @@ type Role = "owner" | "editor" | "viewer";
 
 const ROLE_STYLES: Record<Role, string> = {
   owner: "bg-amber-50  text-amber-700  border-amber-200",
-  editor: "bg-sky-50  text-sky-700  border-sky-200",
+  editor: "bg-indigo-50  text-indigo-700  border-indigo-200",
   viewer: "bg-muted  text-muted-foreground  border-border",
 };
 
@@ -219,7 +220,7 @@ export default function TopToolbar({
   }, [accessRequests]);
 
   return (
-    <div className="absolute top-0 left-0 right-0 bg-white/85 backdrop-blur-xl border-b border-border shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] px-3 z-20 flex items-center justify-between h-14">
+    <div className="absolute top-0 left-0 right-0 bg-card/85 dark:bg-card/85 backdrop-blur-xl border-b border-border shadow-[0_4px_20px_-8px_rgba(0,0,0,0.08)] px-3 z-20 flex items-center justify-between h-14">
       <div className="flex items-center gap-3">
         <button
           onClick={onBack}
@@ -244,7 +245,7 @@ export default function TopToolbar({
             onClick={() => setTool("select")}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
               tool === "select"
-                ? "bg-white text-primary shadow-sm"
+                ? "bg-card text-primary shadow-sm"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
             }`}
           >
@@ -255,7 +256,7 @@ export default function TopToolbar({
             onClick={() => setTool("pan")}
             className={`flex items-center gap-2 px-3 py-1.5 rounded-lg transition-all ${
               tool === "pan"
-                ? "bg-white text-primary shadow-sm"
+                ? "bg-card text-primary shadow-sm"
                 : "text-muted-foreground hover:text-foreground hover:bg-muted"
             }`}
           >
@@ -476,6 +477,10 @@ export default function TopToolbar({
             </div>
           </>
         )}
+
+        <div className="w-px h-5 bg-border" />
+
+        <ThemeToggle />
 
         <div className="w-px h-5 bg-border" />
 

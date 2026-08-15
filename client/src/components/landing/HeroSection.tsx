@@ -17,9 +17,9 @@ const STATS = [
 ];
 
 const COLLABORATORS = [
-  { name: "Aria", color: "#0ea5e9", initials: "AR" },
-  { name: "Noah", color: "#111827", initials: "NO" },
-  { name: "Ivy", color: "#38bdf8", initials: "IV" },
+  { name: "Aria", color: "#6366f1", initials: "AR" },
+  { name: "Noah", color: "#7c3aed", initials: "NO" },
+  { name: "Ivy", color: "#0ea5e9", initials: "IV" },
 ];
 
 export default function HeroSection() {
@@ -27,15 +27,15 @@ export default function HeroSection() {
     <section className="relative overflow-hidden bg-app pt-32 pb-20 sm:pt-40 sm:pb-28">
       {/* Ambient glows */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div className="absolute -top-40 left-1/2 h-[28rem] w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(14,165,233,0.18),transparent_70%)]" />
-        <div className="absolute top-48 -left-40 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.12),transparent_70%)]" />
-        <div className="absolute top-24 -right-32 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(125,211,252,0.14),transparent_70%)]" />
+        <div className="absolute -top-40 left-1/2 h-[28rem] w-[36rem] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.22),transparent_70%)]" />
+        <div className="absolute top-48 -left-40 h-96 w-96 rounded-full bg-[radial-gradient(circle_at_center,rgba(124,58,237,0.18),transparent_70%)]" />
+        <div className="absolute top-24 -right-32 h-80 w-80 rounded-full bg-[radial-gradient(circle_at_center,rgba(56,189,248,0.14),transparent_70%)]" />
       </div>
 
       {/* Centered copy */}
       <div className="relative mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
-        <div className="inline-flex items-center gap-2 rounded-full border border-sky-200 bg-sky-500/5 px-3.5 py-1.5 text-xs font-medium text-sky-600 dark:border-sky-400/30 dark:text-sky-300">
-          <span className="h-1.5 w-1.5 rounded-full bg-sky-500 animate-pulse" />
+        <div className="inline-flex items-center gap-2 rounded-full border border-indigo-200 bg-indigo-500/5 px-3.5 py-1.5 text-xs font-medium text-indigo-600 dark:border-indigo-400/30 dark:text-indigo-300">
+          <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
           Real-time collaboration
         </div>
 
@@ -54,7 +54,7 @@ export default function HeroSection() {
           <Button
             asChild
             size="lg"
-            className="h-12 px-8 text-sm text-white bg-[linear-gradient(110deg,#0ea5e9,#38bdf8)] hover:opacity-90 shadow-[0_8px_24px_-8px_rgba(14,165,233,0.6)] hover:shadow-[0_10px_30px_-8px_rgba(14,165,233,0.75)] transition-all"
+            className="h-12 px-8 text-sm text-white bg-[linear-gradient(110deg,#4f46e5,#7c3aed)] dark:bg-[linear-gradient(110deg,#6366f1,#8b5cf6)] hover:opacity-90 shadow-[0_8px_24px_-8px_rgba(79,70,229,0.5)] hover:shadow-[0_10px_30px_-8px_rgba(124,58,237,0.5)] transition-all"
           >
             <Link to="/sign-up">
               Launch App
@@ -83,18 +83,18 @@ export default function HeroSection() {
       {/* Full-width editor mockup */}
       <div className="relative mx-auto mt-16 sm:mt-20 max-w-5xl px-4 sm:px-6 lg:px-8">
         <div
-          className="absolute -inset-8 bg-[conic-gradient(from_140deg_at_50%_50%,rgba(14,165,233,0.28),rgba(56,189,248,0.22),rgba(125,211,252,0.18),rgba(2,132,199,0.22),rgba(14,165,233,0.28))] rounded-[2rem] blur-3xl opacity-50"
+          className="absolute -inset-8 bg-[conic-gradient(from_140deg_at_50%_50%,rgba(99,102,241,0.25),rgba(124,58,237,0.22),rgba(56,189,248,0.20),rgba(79,70,229,0.22),rgba(99,102,241,0.25))] dark:bg-[conic-gradient(from_140deg_at_50%_50%,rgba(99,102,241,0.30),rgba(139,92,246,0.26),rgba(56,189,248,0.22),rgba(99,102,241,0.28),rgba(99,102,241,0.30))] rounded-[2rem] blur-3xl opacity-60"
           aria-hidden="true"
         />
 
-        <div className="relative rounded-2xl border border-border bg-white shadow-[0_30px_80px_-30px_rgba(14,165,233,0.45)] overflow-hidden">
+        <div className="relative rounded-2xl border border-border bg-white dark:bg-neutral-900 shadow-[0_30px_80px_-30px_rgba(0,0,0,0.35)] overflow-hidden">
           {/* Window chrome */}
           <div className="flex items-center gap-2 border-b border-border/70 bg-muted/40 px-4 py-2.5">
             <span className="h-2.5 w-2.5 rounded-full bg-neutral-300" />
             <span className="h-2.5 w-2.5 rounded-full bg-neutral-300" />
             <span className="h-2.5 w-2.5 rounded-full bg-neutral-300" />
             <div className="ml-3 flex items-center gap-1.5 rounded-md bg-background border border-border px-2.5 py-1 text-[10px] text-muted-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-sky-500" />
+              <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
               craftboard.app/editor/mobile-wireframe
             </div>
             <div className="ml-auto flex items-center gap-2 text-muted-foreground">
@@ -111,7 +111,7 @@ export default function HeroSection() {
               <span
                 key={t}
                 className={`flex h-6 w-6 items-center justify-center rounded ${
-                  i === 0 ? "bg-sky-500/10 text-sky-600" : "text-muted-foreground"
+                  i === 0 ? "bg-indigo-500/10 text-indigo-600" : "text-muted-foreground"
                 }`}
               >
                 {i === 0 ? <MousePointer2 size={12} /> : i === 1 ? <Square size={12} /> : i === 2 ? <Circle size={12} /> : <Type size={12} />}
@@ -132,49 +132,49 @@ export default function HeroSection() {
           </div>
 
           {/* Canvas */}
-          <div className="relative h-80 sm:h-96 bg-[linear-gradient(to_right,rgba(14,165,233,0.07)_1px,transparent_1px),linear-gradient(to_bottom,rgba(14,165,233,0.07)_1px,transparent_1px)] bg-[size:26px_26px] overflow-hidden">
+          <div className="relative h-80 sm:h-96 bg-[linear-gradient(to_right,rgba(0,0,0,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.05)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:26px_26px] overflow-hidden">
             {/* mobile frame */}
-            <div className="absolute left-[12%] top-[16%] h-44 w-28 rounded-xl border-2 border-sky-400 bg-white shadow-xl">
-              <div className="mx-auto mt-2.5 h-1.5 w-9 rounded-full bg-sky-300/60" />
-              <div className="m-2.5 h-14 rounded bg-sky-100" />
+            <div className="absolute left-[12%] top-[16%] h-44 w-28 rounded-xl border-2 border-indigo-400 bg-white shadow-xl">
+              <div className="mx-auto mt-2.5 h-1.5 w-9 rounded-full bg-indigo-300/60" />
+              <div className="m-2.5 h-14 rounded bg-indigo-100" />
               <div className="m-2.5 flex gap-2">
                 <div className="h-8 flex-1 rounded bg-neutral-200" />
-                <div className="h-8 flex-1 rounded bg-sky-100" />
+                <div className="h-8 flex-1 rounded bg-indigo-100" />
               </div>
-              <span className="absolute -top-1.5 -left-1.5 h-3 w-3 rounded-full border-2 border-white bg-sky-500 shadow" />
-              <span className="absolute -bottom-1.5 -right-1.5 h-3 w-3 rounded-full border-2 border-white bg-sky-500 shadow" />
+              <span className="absolute -top-1.5 -left-1.5 h-3 w-3 rounded-full border-2 border-white bg-indigo-500 shadow" />
+              <span className="absolute -bottom-1.5 -right-1.5 h-3 w-3 rounded-full border-2 border-white bg-indigo-500 shadow" />
             </div>
 
             {/* circle */}
-            <div className="absolute right-[18%] top-[20%] h-20 w-20 rounded-full bg-[radial-gradient(circle_at_35%_35%,#38bdf8,#0ea5e9)] shadow-xl" />
+            <div className="absolute right-[18%] top-[20%] h-20 w-20 rounded-full bg-[radial-gradient(circle_at_35%_35%,#737373,#262626)] shadow-xl" />
 
             {/* text block */}
             <div className="absolute right-[28%] top-[62%] space-y-2">
               <div className="h-2 w-36 rounded-full bg-neutral-300" />
               <div className="h-2 w-24 rounded-full bg-neutral-300" />
-              <div className="h-2 w-32 rounded-full bg-sky-400/50" />
+              <div className="h-2 w-32 rounded-full bg-indigo-400/50" />
             </div>
 
             {/* sticky note */}
-            <div className="absolute left-[44%] bottom-[14%] h-16 w-20 rounded-md border border-sky-200 bg-sky-50 p-2 rotate-2">
-              <div className="h-1.5 w-8 rounded-full bg-sky-300/70" />
+            <div className="absolute left-[44%] bottom-[14%] h-16 w-20 rounded-md border border-indigo-200 bg-indigo-50 p-2 rotate-2">
+              <div className="h-1.5 w-8 rounded-full bg-indigo-300/70" />
               <div className="mt-1.5 h-1.5 w-12 rounded-full bg-neutral-300" />
             </div>
 
             {/* cursors */}
             <div className="absolute left-[48%] top-[30%] animate-pulse">
-              <MousePointer2 size={16} className="text-[#0ea5e9] fill-[#0ea5e9]" />
-              <span className="ml-0.5 rounded bg-[#0ea5e9] px-1.5 py-0.5 text-[9px] font-semibold text-white">Aria</span>
+              <MousePointer2 size={16} className="text-[#6366f1] fill-[#6366f1]" />
+              <span className="ml-0.5 rounded bg-[#6366f1] px-1.5 py-0.5 text-[9px] font-semibold text-white">Aria</span>
             </div>
             <div className="absolute left-[24%] top-[64%] animate-pulse" style={{ animationDelay: "0.6s" }}>
-              <MousePointer2 size={16} className="text-[#111827] fill-[#111827]" />
-              <span className="ml-0.5 rounded bg-[#111827] px-1.5 py-0.5 text-[9px] font-semibold text-white">Noah</span>
+              <MousePointer2 size={16} className="text-[#7c3aed] fill-[#7c3aed]" />
+              <span className="ml-0.5 rounded bg-[#7c3aed] px-1.5 py-0.5 text-[9px] font-semibold text-white">Noah</span>
             </div>
 
             {/* status bar */}
             <div className="absolute bottom-0 left-0 right-0 flex items-center justify-between border-t border-border/70 bg-muted/40 px-4 py-2 text-[10px] text-muted-foreground">
               <span className="flex items-center gap-1.5">
-                <span className="h-1.5 w-1.5 rounded-full bg-sky-500 animate-pulse" />
+                <span className="h-1.5 w-1.5 rounded-full bg-indigo-500 animate-pulse" />
                 Live
               </span>
               <span>3 editing · saved to cloud</span>

@@ -21,7 +21,7 @@ const STATUS_CONFIG = {
   cancelled: {
     label: "Cancelled",
     icon: <XCircle size={11} />,
-    className: "bg-gray-50 text-gray-500 border-gray-200",
+    className: "bg-muted text-muted-foreground border-border",
   },
 };
 
@@ -55,8 +55,8 @@ export function RequestCard({ request, selected, onSelect, onClick }: RequestCar
     <div
       className={`group relative flex items-start gap-3 rounded-xl border px-4 py-3.5 transition-all cursor-pointer ${
         selected
-          ? "border-gray-900 bg-gray-50"
-          : "border-gray-100 bg-white hover:border-gray-200 hover:shadow-sm"
+          ? "border-primary bg-muted"
+          : "border-border bg-card hover:border-neutral-300 hover:shadow-sm"
       }`}
       onClick={() => onClick?.(request)}
     >
@@ -66,12 +66,12 @@ export function RequestCard({ request, selected, onSelect, onClick }: RequestCar
             type="checkbox"
             checked={!!selected}
             onChange={() => onSelect(request.id)}
-            className="h-4 w-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900"
+            className="h-4 w-4 rounded border-border text-foreground focus:ring-ring"
           />
         </div>
       )}
 
-      <div className="h-9 w-9 shrink-0 rounded-lg overflow-hidden border border-gray-100 bg-gray-50 flex items-center justify-center">
+      <div className="h-9 w-9 shrink-0 rounded-lg overflow-hidden border border-border bg-muted flex items-center justify-center">
         {request.user.imageUrl ? (
           <img
             src={request.user.imageUrl}
@@ -79,7 +79,7 @@ export function RequestCard({ request, selected, onSelect, onClick }: RequestCar
             className="h-full w-full object-cover"
           />
         ) : (
-          <span className="text-xs font-medium text-gray-500">
+          <span className="text-xs font-medium text-muted-foreground">
             {displayName(request.user).charAt(0).toUpperCase()}
           </span>
         )}
@@ -87,20 +87,20 @@ export function RequestCard({ request, selected, onSelect, onClick }: RequestCar
 
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-sm font-medium text-gray-900 truncate">
+          <span className="text-sm font-medium text-foreground truncate">
             {displayName(request.user)}
           </span>
-          <span className="text-xs text-gray-400">{request.user.email}</span>
+          <span className="text-xs text-muted-foreground">{request.user.email}</span>
         </div>
         <div className="flex items-center gap-2 mt-0.5">
-          <span className="text-xs text-gray-400">{request.project.name}</span>
-          <span className="text-gray-300">·</span>
-          <span className="text-xs text-gray-400">{timeAgo(request.createdAt)}</span>
+          <span className="text-xs text-muted-foreground">{request.project.name}</span>
+          <span className="text-muted-foreground/50">·</span>
+          <span className="text-xs text-muted-foreground">{timeAgo(request.createdAt)}</span>
         </div>
         {request.message && (
           <div className="flex items-center gap-1.5 mt-1.5">
-            <MessageSquare size={10} className="text-gray-300 shrink-0" />
-            <span className="text-xs text-gray-400 italic truncate">
+            <MessageSquare size={10} className="text-muted-foreground/60 shrink-0" />
+            <span className="text-xs text-muted-foreground italic truncate">
               &ldquo;{request.message}&rdquo;
             </span>
           </div>
@@ -114,7 +114,7 @@ export function RequestCard({ request, selected, onSelect, onClick }: RequestCar
           {statusConfig.icon}
           {statusConfig.label}
         </span>
-        <ArrowUpRight size={14} className="text-gray-300 group-hover:text-gray-500 transition-colors" />
+        <ArrowUpRight size={14} className="text-muted-foreground/60 group-hover:text-foreground transition-colors" />
       </div>
     </div>
   );

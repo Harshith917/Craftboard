@@ -34,7 +34,7 @@ export default function EngineeringSection() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-12">
           <div className="max-w-xl">
-            <span className="text-xs font-semibold uppercase tracking-widest text-sky-500">Engineering</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-indigo-500">Engineering</span>
             <h2 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-foreground">
               Built with modern engineering
             </h2>
@@ -50,7 +50,7 @@ export default function EngineeringSection() {
               key={b.label}
               className="flex items-center gap-2.5 rounded-full border border-border bg-background px-4 py-2.5 surface-hover"
             >
-              <b.icon size={14} className="text-sky-500" />
+              <b.icon size={14} className="text-indigo-500" />
               <span className="text-xs font-medium text-foreground">{b.label}</span>
             </div>
           ))}

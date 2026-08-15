@@ -63,16 +63,16 @@ export function RequestAccessModal({
   }, [projectId, message]);
 
   return (
-    <div className="w-full max-w-sm bg-white border border-gray-200 rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
+    <div className="w-full max-w-sm bg-card border border-border rounded-2xl p-6 flex flex-col gap-4 shadow-sm">
       <div>
-        <p className="text-sm font-medium text-gray-900">
+        <p className="text-sm font-medium text-foreground">
           {state === "denied"
             ? "Request denied"
             : state === "pending"
               ? "Waiting for approval"
               : `Request access to ${projectName}`}
         </p>
-        <p className="text-xs text-gray-400 mt-1">
+        <p className="text-xs text-muted-foreground mt-1">
           {state === "denied"
             ? "The owner declined your request."
             : state === "pending"
@@ -88,22 +88,22 @@ export function RequestAccessModal({
             onChange={(e) => setMessage(e.target.value)}
             placeholder="Add a message (optional)"
             rows={3}
-            className="w-full resize-none px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900"
+            className="w-full resize-none px-3 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-ring"
           />
           <button
             onClick={sendRequest}
-            className="w-full py-2 text-sm font-medium text-white bg-gray-900 rounded-lg hover:bg-gray-700 transition-colors"
+            className="w-full py-2 text-sm font-medium text-primary-foreground bg-primary rounded-lg hover:opacity-90 transition-opacity"
           >
             Send request
           </button>
         </>
       )}
 
-      {state === "sending" && <p className="text-xs text-gray-400">Sending…</p>}
+      {state === "sending" && <p className="text-xs text-muted-foreground">Sending…</p>}
 
       {state === "pending" && (
-        <div className="flex items-center gap-2 text-xs text-gray-400">
-          <span className="w-3 h-3 rounded-full border-2 border-gray-300 border-t-gray-600 animate-spin" />
+        <div className="flex items-center gap-2 text-xs text-muted-foreground">
+          <span className="w-3 h-3 rounded-full border-2 border-border border-t-foreground animate-spin" />
           Waiting for the owner…
         </div>
       )}
@@ -111,7 +111,7 @@ export function RequestAccessModal({
       {state === "denied" && (
         <button
           onClick={() => setState("idle")}
-          className="w-full py-2 text-sm text-gray-500 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          className="w-full py-2 text-sm text-muted-foreground border border-border rounded-lg hover:bg-muted transition-colors"
         >
           Send another request
         </button>

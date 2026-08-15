@@ -13,7 +13,7 @@ function NotificationItem({
   onMarkRead: (id: string) => void;
 }) {
   const typeStyles: Record<string, string> = {
-    access_request: "border-l-sky-400",
+    access_request: "border-l-indigo-400",
     access_request_approved: "border-l-emerald-400",
     access_request_denied: "border-l-red-400",
     role_changed: "border-l-amber-400",
@@ -21,28 +21,28 @@ function NotificationItem({
     project_renamed: "border-l-cyan-400",
   };
 
-  const style = typeStyles[n.type] || "border-l-gray-300";
+  const style = typeStyles[n.type] || "border-l-border";
 
   return (
     <div
       className={`flex items-start gap-3 px-4 py-3 border-l-4 ${style} ${
         n.read ? "opacity-60" : ""
-      } hover:bg-gray-50 transition-colors cursor-pointer`}
+      } hover:bg-muted transition-colors cursor-pointer`}
       onClick={() => !n.read && onMarkRead(n.id)}
     >
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-gray-900 truncate">{n.title}</p>
+        <p className="text-sm font-medium text-foreground truncate">{n.title}</p>
         {n.message && (
-          <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">
+          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-2">
             {n.message}
           </p>
         )}
-        <p className="text-xs text-gray-400 mt-1">
+        <p className="text-xs text-muted-foreground mt-1">
           {timeAgo(n.createdAt)}
         </p>
       </div>
       {!n.read && (
-        <span className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+        <span className="w-2 h-2 rounded-full bg-indigo-500 mt-1.5 shrink-0" />
       )}
     </div>
   );
@@ -72,7 +72,7 @@ export default function NotificationBell({ projectId: _projectId }: Notification
     <div ref={ref} className="relative">
       <button
         onClick={() => setOpen(!open)}
-        className="relative p-2 rounded-lg text-gray-600 hover:text-gray-900 hover:bg-gray-100 transition-colors"
+        className="relative p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent transition-colors"
         title="Notifications"
       >
         <Bell size={16} />
@@ -84,15 +84,15 @@ export default function NotificationBell({ projectId: _projectId }: Notification
       </button>
 
       {open && (
-        <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 max-h-96 flex flex-col">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100 shrink-0">
-            <h3 className="text-sm font-semibold text-gray-900">
+        <div className="absolute right-0 top-full mt-2 w-80 bg-card rounded-lg shadow-lg border border-border z-50 max-h-96 flex flex-col">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border shrink-0">
+            <h3 className="text-sm font-semibold text-foreground">
               Notifications
             </h3>
             {unreadCount > 0 && (
               <button
                 onClick={markAllAsRead}
-                className="text-xs text-blue-600 hover:text-blue-700 font-medium"
+                className="text-xs text-indigo-600 hover:text-indigo-700 font-medium"
               >
                 Mark all as read
               </button>
