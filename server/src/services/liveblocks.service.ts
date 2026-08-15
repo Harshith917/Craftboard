@@ -7,12 +7,17 @@ export class LiveblocksService {
   private webhookHandler: WebhookHandler;
 
   constructor() {
+    const webhookSecret = process.env.LIVEBLOCKS_WEBHOOK_SECRET;
+    if (!webhookSecret) {
+      throw new Error(
+        'LIVEBLOCKS_WEBHOOK_SECRET is not set. Set it to the signing secret ' +
+          'from your Liveblocks webhooks settings before starting the server.',
+      );
+    }
     this.liveblocks = new Liveblocks({
       secret: process.env.LIVEBLOCKS_SECRET_KEY!,
     });
-    this.webhookHandler = new WebhookHandler(
-      process.env.LIVEBLOCKS_WEBHOOK_SECRET ?? 'dev-local-insecure-secret',
-    );
+    this.webhookHandler = new WebhookHandler(webhookSecret);
   }
 
   verifyWebhook(

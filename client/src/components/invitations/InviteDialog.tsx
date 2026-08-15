@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useRef } from "react";
-import { X, Mail, User, Loader2, Send, Search, Check, Ban, Clock } from "lucide-react";
+import { X, Mail, Loader2, Send, Search, Check, Ban, Clock } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useInvitations, FoundUser } from "@/hooks/useInvitations";

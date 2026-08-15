@@ -1,5 +1,5 @@
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import axios from "axios";
 import { useSocket } from "./useSocket";

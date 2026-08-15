@@ -17,7 +17,7 @@ type CursorState = Map<number, { x: number; y: number }>;
 
 export default function CollaboratorCursors({
   others,
-  nodes,
+  nodes: _nodes,
   stageScale,
   stagePosition,
 }: Props) {

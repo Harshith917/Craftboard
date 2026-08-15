@@ -31,10 +31,6 @@ function rgbToHex(r: number, g: number, b: number): string {
   return "#" + [r, g, b].map((c) => Math.round(c).toString(16).padStart(2, "0")).join("");
 }
 
-function hslToString(h: number, s: number, l: number): string {
-  return `hsl(${Math.round(h)}, ${Math.round(s)}%, ${Math.round(l)}%)`;
-}
-
 function hexToHsl(hex: string): { h: number; s: number; l: number } {
   const rgb = hexToRgb(hex);
   if (!rgb) return { h: 0, s: 0, l: 0 };

@@ -3,20 +3,20 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@clerk/clerk-react";
 import { io, Socket } from "socket.io-client";
 
-var SOCKET_URL = import.meta.env.VITE_API_URL || "http://localhost:4001";
+const SOCKET_URL = import.meta.env.VITE_API_URL || "http://localhost:4001";
 
 export function useSocket(projectId?: string) {
-  var { getToken } = useAuth();
-  var [socket, setSocket] = useState<Socket | null>(null);
+  const { getToken } = useAuth();
+  const [socket, setSocket] = useState<Socket | null>(null);
 
   useEffect(() => {
-    var cancelled = false;
+    let cancelled = false;
 
     async function connect() {
-      var token = await getToken();
+      const token = await getToken();
       if (cancelled || !token) return;
 
-      var s = io(SOCKET_URL, {
+      const s = io(SOCKET_URL, {
         auth: { token },
         transports: ["websocket", "polling"],
       });

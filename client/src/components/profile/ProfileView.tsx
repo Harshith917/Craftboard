@@ -1,5 +1,5 @@
 
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Edit3, FolderOpen, Clock, Users, FileText, Activity, ExternalLink, Shield, UserPlus, Check, Globe } from "lucide-react";
 import { useProfile, Profile, ProjectCard, Activity as ActivityType } from "@/hooks/useProfile";

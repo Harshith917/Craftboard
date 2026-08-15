@@ -130,7 +130,7 @@ export class ProjectMembersService {
       throw new BadRequestException('Owner cannot leave the project');
     }
 
-    const removed = await prisma.projectMember.delete({
+    const _removed = await prisma.projectMember.delete({
       where: { projectId_userId: { projectId, userId: targetUserId } },
       include: { user: true },
     });

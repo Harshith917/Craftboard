@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import rateLimit from 'express-rate-limit';
 import { requireAuth } from '../middleware/auth';
 import { InvitationsService } from '../services/invitations.service';
 import { asyncHandler } from '../lib/errors';
@@ -7,9 +8,18 @@ export const invitationsRouter = Router();
 
 const svc = new InvitationsService();
 
+// Public and unauthenticated: prevent token enumeration / brute force.
+const tokenLookupLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 30,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { statusCode: 429, message: 'Too many requests, try again later.' },
+});
+
 // Public: look up an invitation by token so signed-out users can preview
 // the invitation before signing in.
-invitationsRouter.get('/invitations/:token', asyncHandler(async (req, res) => {
+invitationsRouter.get('/invitations/:token', tokenLookupLimiter, asyncHandler(async (req, res) => {
   res.json(await svc.getByToken(req.params.token, (req as any).userId));
 }));
 

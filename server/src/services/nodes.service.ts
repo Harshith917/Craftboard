@@ -86,7 +86,7 @@ export class NodesService {
 
   private serializeRow(row: any) {
     if (row.data) return row.data;
-    const { data, pageId, createdAt, updatedAt, ...rest } = row;
+    const { data: _data, pageId: _pageId, createdAt: _createdAt, updatedAt: _updatedAt, ...rest } = row;
     return { ...LEGACY_DEFAULTS, ...rest };
   }
 

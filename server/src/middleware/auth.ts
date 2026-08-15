@@ -15,7 +15,7 @@ export async function requireAuth(req: any, res: any, next: any) {
       });
       req.userId = payload.sub;
       next();
-    } catch (err) {
+    } catch {
       throw new UnauthorizedException('Invalid or expired token');
     }
   } catch (err) {

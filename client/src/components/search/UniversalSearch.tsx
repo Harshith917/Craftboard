@@ -304,7 +304,6 @@ export function UniversalSearch({ open, onClose, onSelectUser }: UniversalSearch
   const userHeaderIdx = hasProjects ? results.projects.length : 0;
 
   const flatItems = flattenResults(results);
-  const selectableIndices = flatItems.map((item, idx) => idx);
 
   const handleSelect = useCallback(
     (idx: number) => {

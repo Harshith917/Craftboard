@@ -152,7 +152,7 @@ export default function TopToolbar({
   members,
   onRoleChange,
   onRemoveMember,
-  currentUserId,
+  currentUserId: _currentUserId,
   onLeaveProject,
 }: TopToolbarProps) {
   const isLive = saveIndicator === "Live";

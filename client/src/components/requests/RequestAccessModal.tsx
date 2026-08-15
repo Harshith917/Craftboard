@@ -1,6 +1,5 @@
 
 import { useState, useEffect, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
 import { useSocket } from "@/hooks/useSocket";
 import { useApi } from "@/lib/api";
 import { toast } from "sonner";
@@ -17,10 +16,9 @@ interface Props {
 export function RequestAccessModal({
   projectId,
   projectName,
-  currentUserId,
+  currentUserId: _currentUserId,
   onApproved,
 }: Props) {
-  const navigate = useNavigate();
   const socket = useSocket();
   const [state, setState] = useState<State>("idle");
   const [message, setMessage] = useState("");
@@ -49,7 +47,7 @@ export function RequestAccessModal({
     setState("sending");
 
     try {
-      const res = await api.post("access-requests", {
+      const _res = await api.post("access-requests", {
         projectId,
         message: message.trim() || undefined,
       });

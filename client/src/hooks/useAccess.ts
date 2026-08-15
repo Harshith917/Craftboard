@@ -1,7 +1,6 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { useApi } from "@/lib/api";
-import { useSocket } from "./useSocket";
 
 export interface AccessItem {
   id: string;
@@ -26,7 +25,6 @@ type Tab = "incoming" | "outgoing" | "history";
 
 export function useAccess(activeTab?: Tab) {
   const api = useApi();
-  const socket = useSocket();
   const [incoming, setIncoming] = useState<AccessItem[]>([]);
   const [outgoing, setOutgoing] = useState<AccessItem[]>([]);
   const [history, setHistory] = useState<AccessItem[]>([]);

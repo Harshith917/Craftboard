@@ -52,12 +52,7 @@ export const useCanvasInteractions = (
     [stageRef],
   );
 
-  const getStagePointer = useCallback(() => {
-    return stageRef.current?.getPointerPosition() ?? { x: 0, y: 0 };
-  }, [stageRef]);
-
-  const handleSelect = useCallback(
-    (id: string | null, metaKey?: boolean, shiftKey?: boolean) => {
+  const handleSelect = useCallback(    (id: string | null, metaKey?: boolean, shiftKey?: boolean) => {
       const mod = metaKey || shiftKey;
       if (id && canEdit) {
         const maxZIndex =

@@ -47,7 +47,7 @@ export class ProjectsService {
       search = '',
       sort = 'recentlyEdited',
       filter = 'all',
-      favoriteIds = [],
+      favoriteIds: _favoriteIds = [],
       page = 1,
       limit = 12,
     } = params;

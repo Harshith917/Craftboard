@@ -1,5 +1,7 @@
 import express from 'express';
 import cors from 'cors';
+import helmet from 'helmet';
+import rateLimit from 'express-rate-limit';
 import cookieParser from 'cookie-parser';
 import swaggerUi from 'swagger-ui-express';
 import { HttpError } from './lib/errors';
@@ -23,14 +25,28 @@ import { captureMountParams } from './middleware/mount-params';
 export function createApp() {
   const app = express();
 
+  app.use(express.json({
+    verify: (req: any, _res, buf) => {
+      req.rawBody = buf;
+    },
+  }));
+  app.use(cookieParser());
+  app.use(helmet());
+
+  // Global guardrail: 300 req / 15 min per IP. The real protection for
+  // sensitive routes comes from the stricter limiters applied per-router.
   app.use(
-    express.json({
-      verify: (req: any, _res, buf) => {
-        req.rawBody = buf;
-      },
+    rateLimit({
+      windowMs: 15 * 60 * 1000,
+      limit: 300,
+      standardHeaders: true,
+      legacyHeaders: false,
+      message: { statusCode: 429, message: 'Too many requests, try again later.' },
+      // Liveblocks storage webhooks can burst during active collaboration;
+      // they are already authenticated by signature, so skip them here.
+      skip: (req) => req.path === '/webhooks/liveblocks',
     }),
   );
-  app.use(cookieParser());
 
   const allowedOrigins = (
     process.env.FRONTEND_URLS ?? process.env.FRONTEND_URL ?? ''

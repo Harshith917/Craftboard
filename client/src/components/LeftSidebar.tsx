@@ -6,7 +6,6 @@ import {
   Ruler,
   AlertCircle,
   ChevronLeft,
-  Settings2,
   Plus,
   Layers,
   Sparkles,

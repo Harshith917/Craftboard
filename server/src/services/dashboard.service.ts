@@ -39,7 +39,7 @@ export class DashboardService {
       }),
     ]);
 
-    const now = new Date();
+    const _now = new Date();
     const projects = memberships.map((m) => ({
       id: m.project.id,
       name: m.project.name,

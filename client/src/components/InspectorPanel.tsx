@@ -1,5 +1,5 @@
 
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import {
   MousePointer,
   Copy,
@@ -13,7 +13,6 @@ import {
   SendToBack,
   ArrowUpToLine,
   ArrowDownToLine,
-  Type,
 } from "lucide-react";
 import { Node } from "@/types/CanvasTypes";
 import { MIN_SIZE } from "@/constants/CanvasConstants";

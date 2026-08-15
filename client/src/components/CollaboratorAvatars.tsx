@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from "react";
-import { Users, MoreHorizontal } from "lucide-react";
+import { Users } from "lucide-react";
 import { getInitials, formatLastActive } from "@/lib/presence";
 
 interface Collaborator {

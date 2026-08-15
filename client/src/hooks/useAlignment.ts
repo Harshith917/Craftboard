@@ -9,19 +9,6 @@ function effH(n: Node) {
   return n.type === "circle" ? n.radius * 2 : n.height;
 }
 
-function getBounds(n: Node) {
-  const w = effW(n);
-  const h = effH(n);
-  return {
-    left: n.x,
-    right: n.x + w,
-    centerX: n.x + w / 2,
-    top: n.y,
-    bottom: n.y + h,
-    centerY: n.y + h / 2,
-  };
-}
-
 export function useAlignment(
   nodes: Node[],
   setNodes: (nodes: Node[]) => void,

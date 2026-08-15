@@ -25,6 +25,9 @@ Multiple people edit the same board at once: live cursors, presence avatars, sha
 - [Architecture](#architecture)
 - [Getting started](#getting-started)
 - [Testing with two users](#testing-with-two-users)
+- [Automated tests](#automated-tests)
+- [Continuous integration](#continuous-integration)
+- [Docker deployment](#docker-deployment)
 - [AI assistant](#ai-assistant)
 - [API overview](#api-overview)
 - [Database schema](#database-schema)
@@ -161,6 +164,7 @@ flowchart LR
 | Authentication | Clerk (JWT) |
 | Canvas sync | Liveblocks 3.23 (CRDT rooms + presence) |
 | Real-time events | Socket.IO 4.8 |
+| Security hardening | helmet (HTTP headers), express-rate-limit (rate limiting) |
 | AI | Ollama (local LLM → validated shape JSON) |
 
 ---
@@ -289,6 +293,8 @@ POST http://localhost:4001/webhooks/liveblocks
 
 Use the **Storage: `storageUpdated`** event. The signing secret must match `LIVEBLOCKS_WEBHOOK_SECRET`. This webhook is what persists canvas edits to PostgreSQL.
 
+> **Required:** `LIVEBLOCKS_WEBHOOK_SECRET` must be set — the API refuses to start without it (it is the signing secret that authenticates webhook payloads).
+
 ### 5. Run it
 
 ```bash
@@ -304,6 +310,23 @@ npm run dev
 Open `http://localhost:5173` — you'll land on the marketing page. Sign in via Clerk to reach the dashboard.
 
 > Signing in uses dedicated `/sign-in` and `/sign-up` pages. Clerk modal routing is not supported by the react-router v7 integration used here, so buttons navigate to the full-page routes instead.
+
+### 6. Production build
+
+```bash
+cd server
+npm run build     # prisma generate + migrations + tsc
+npm run start:prod
+```
+
+Verify the API is up:
+
+```bash
+curl http://localhost:4001/health
+# {"status":"ok","database":"up"}
+```
+
+Returns HTTP 503 with `{"status":"degraded","database":"down"}` when PostgreSQL is unreachable.
 
 ---
 
@@ -328,6 +351,75 @@ Typical flows to exercise:
 - **Request access** — B opens a project they're not a member of → **Request access** → A approves it from the dashboard or `/access` → B can edit.
 - **Live editing** — both open the same page in the editor → cursors and presence are visible, edits sync both ways in real time.
 - **Ownership & roles** — A changes B's role, transfers ownership, or removes B from the Members settings and watches B's access update live.
+
+---
+
+## Automated tests
+
+Both workspaces have lint, typecheck, build, and test scripts wired into a shared CI pipeline.
+
+```bash
+# Client (Vitest — unit tests for pure utils)
+cd client
+npm run lint
+npm run build
+npm test
+
+# Server (Node test runner via tsx — HTTP/security smoke tests)
+cd server
+npm run lint
+npm run build
+npm test
+```
+
+The server tests boot the Express app and assert real behavior: `/health` returns 200, disallowed CORS origins are rejected with 403, `helmet` security headers are present, and unsigned Liveblocks webhooks are rejected with 401. They need a reachable PostgreSQL at `DATABASE_URL` (CI provides one as a service).
+
+---
+
+## Continuous integration
+
+`.github/workflows/ci.yml` runs on every push to `main` and on pull requests. Two jobs run in parallel:
+
+- **Client** — `npm ci`, lint, typecheck + build, test.
+- **Server** — `npm ci`, lint, build (`prisma generate` + migrate + `tsc`), test against a `postgres:16` service container.
+
+---
+
+## Docker deployment
+
+The repo ships Docker images for both services plus a `docker-compose.yml` for a full self-hosted stack.
+
+**1. Copy and fill the environment template:**
+
+```bash
+cp .env.example .env
+# edit .env with your Clerk / Liveblocks keys and database password
+```
+
+**2. Build and start the stack:**
+
+```bash
+docker compose up -d --build
+```
+
+This starts three containers:
+
+| Service | Container | Port (host) |
+|---------|-----------|-------------|
+| PostgreSQL 16 | `db` | — (internal only) |
+| Express API | `api` | `4001` |
+| Vite SPA (nginx) | `client` | `8080` |
+
+Migrations run automatically when the API container starts (`migrate.js`), and the API waits for the DB health check before booting.
+
+**3. Verify:**
+
+```bash
+curl http://localhost:4001/health   # {"status":"ok","database":"up"}
+open http://localhost:8080
+```
+
+> The client image bakes `VITE_CLERK_PUBLISHABLE_KEY` and `VITE_API_URL` in at build time (Vite inlines them), so changing them requires `docker compose up -d --build client`.
 
 ---
 
@@ -370,6 +462,7 @@ Endpoint groups (mounted in `server/src/app.ts`):
 
 | Prefix | Purpose |
 |--------|---------|
+| `/health` | Health check — reports API + PostgreSQL status |
 | `/project` | Project CRUD, settings, pages, ownership, favorites, pins, archive |
 | `/project/:projectId/pages` | Page CRUD within a project |
 | `/pages/:pageId/nodes` | Canvas node read / save |
@@ -385,7 +478,7 @@ Endpoint groups (mounted in `server/src/app.ts`):
 | `/search` | Global search |
 | `/ai` | AI status + generate |
 
-All routes except webhooks and health require a `Bearer` JWT from Clerk (`Authorization: Bearer <token>`).
+All routes except webhooks and health require a `Bearer` JWT from Clerk (`Authorization: Bearer <token>`). The API enforces a global rate limit (300 req / 15 min per IP) with stricter per-router limits on the AI and public invitation endpoints.
 
 ---
 
@@ -452,20 +545,24 @@ craftboard/
 
 - All API routes (except webhooks and health) verify a Clerk JWT.
 - Project resources are scoped by role (`viewer`/`editor`/`owner`); pages and nodes are additionally validated to belong to the project in the URL.
-- Liveblocks webhook payloads are verified against `LIVEBLOCKS_WEBHOOK_SECRET` before processing.
+- Liveblocks webhook payloads are verified against `LIVEBLOCKS_WEBHOOK_SECRET` (required — the server refuses to boot without it) before processing.
+- Rate limiting: a global limiter (300 req / 15 min per IP) plus stricter per-router limits on the AI and public invitation endpoints. The Liveblocks webhook route is exempt.
 - Ownership can only be changed through the dedicated transfer-ownership flow — the generic role endpoint rejects `owner`.
 - CORS is restricted to the origins listed in `FRONTEND_URLS`.
+- HTTP security headers are set via `helmet`.
 
 ---
 
 ## Troubleshooting
+
+- **Health check** — `GET /health` returns `{"status":"ok","database":"up"}` when the API and PostgreSQL are healthy, or HTTP 503 with `"database":"down"` when the DB is unreachable.
 
 - **API returns 403 "Missing auth or project context"** — this was the Express 5 mount-param bug; make sure you're running current code (fixed in `middleware/mount-params.ts`).
 - **Canvas edits don't persist across reloads** — confirm the Liveblocks webhook points at `POST /webhooks/liveblocks` with the `storageUpdated` event, and that `LIVEBLOCKS_WEBHOOK_SECRET` matches the value in your Liveblocks dashboard.
 - **Live cursors / sync not working** — check that `LIVEBLOCKS_SECRET_KEY` (server) belongs to the same project as the client's Liveblocks keys, and that your Liveblocks project is configured to allow your origins.
 - **AI errors** — ensure Ollama is running (`ollama serve`) and the configured model is pulled (`ollama pull llama3.2:latest`). `GET /ai/status` shows what the server sees.
 - **Port already in use** — run the client on another port with `npm run dev -- --port 5174` and add it to `FRONTEND_URLS`.
-- **"Failed to load pages" / "Failed to create page"** — confirm the API is up (`http://localhost:4001/api`) and the mount-params fix is present.
+- **"Failed to load pages" / "Failed to create page"** — confirm the API is up (`curl http://localhost:4001/health`) and the mount-params fix is present.
 
 ---
 

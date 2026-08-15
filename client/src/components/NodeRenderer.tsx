@@ -7,7 +7,7 @@ import { Node } from "@/types/CanvasTypes";
 export function renderNode(
   node: Node,
   commonProps: Record<string, any>,
-  isSelected: boolean,
+  _isSelected: boolean,
 ) {
   const nodeProps = {
     ...commonProps,
@@ -323,7 +323,7 @@ function ArrowHead({
       closed
       fill={stroke}
       stroke={stroke}
-      strokeWidth={1}
+      strokeWidth={Math.max(1, strokeWidth)}
     />
   );
 }
